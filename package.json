@@ -1,0 +1,29 @@
+{
+  "name": "phigl.js",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/daishihmr/phigl.git"
+  },
+  "author": "daishihmr <daishi.hmr@gmail.com> (http://github.dev7.jp/)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/daishihmr/phigl/issues"
+  },
+  "homepage": "https://github.com/daishihmr/phigl#readme",
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-concat": "^2.6.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-sourcemaps": "^1.6.0",
+    "gulp-uglify": "^1.5.3",
+    "gulp-watch": "^4.3.5",
+    "high": "0.0.4",
+    "node-fs-extra": "^0.8.1"
+  }
+}
