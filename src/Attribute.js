@@ -42,16 +42,6 @@ phina.namespace(function() {
       return this;
     },
 
-    _accessor: {
-      value: {
-        get: function() {
-          return null;
-        },
-        set: function(v) {
-          this.setValue(v);
-        },
-      },
-    },
   });
 
 });

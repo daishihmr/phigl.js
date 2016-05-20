@@ -15,7 +15,7 @@ phina.namespace(function() {
       }
     },
 
-    setImage: function(image, unitIndex) {
+    setImage: function(image) {
       var gl = this.gl;
 
       if (typeof image === "string") {

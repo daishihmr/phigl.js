@@ -63,7 +63,7 @@ phina.namespace(function() {
         return this;
       } else {
         this.linked = false;
-        throw (gl.getProgramInfoLog(this._program));
+        throw gl.getProgramInfoLog(this._program);
       }
     },
     

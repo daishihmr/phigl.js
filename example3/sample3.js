@@ -53,7 +53,7 @@ phina.namespace(function() {
           +0.5, -0.5, 0,
         ],
       }, ])
-      .setInstanceAttributes("instancePosition")
+      .setInstanceAttributes("instancePosition", "rotY")
       .setUniforms("mMatrix", "vMatrix", "pMatrix")
       .on("predraw", function() {
         gl.disable(GL.DEPTH_TEST);
@@ -62,21 +62,21 @@ phina.namespace(function() {
         gl.enable(GL.DEPTH_TEST);
       });
 
-    var iv = Array.range(0, 20000).map(function() {
-      return [Math.randfloat(-600, 600), Math.randfloat(-600, 600), Math.randfloat(-600, 600)];
+    var range = 1000;
+    var iv = Array.range(0, 40000).map(function() {
+      return [Math.randfloat(-range, range), Math.randfloat(-range, range), Math.randfloat(-range, range), Math.randfloat(0, Math.PI * 2)];
     }).flatten();
     drawable.setInstanceAttributeData(iv);
-    var instanceCount = iv.length / 3;
+    var instanceCount = iv.length / 4;
     console.log("instanceCount = " + instanceCount);
 
     var dirs = [];
     var a = 0;
-    for (var i = 0; i < iv.length; i += 3) {
-      var s = Math.randfloat(0, 3);
-      a += 0.01;
-      dirs[i + 0] = Math.cos(a) * s;
-      dirs[i + 1] = Math.sin(a) * s;
-      dirs[i + 2] = 0;
+    for (var i = 0; i < iv.length; i += 4) {
+      dirs[i + 0] = Math.randfloat(-6, 6);
+      dirs[i + 1] = Math.randfloat(-6, 6);
+      dirs[i + 2] = Math.randfloat(-6, 6);
+      dirs[i + 3] = Math.randfloat(-0.02, 0.02);
     }
 
     var vMat = mat4.lookAt(mat4.create(), [0, 0, 2000], [0, 0, 0], [0, 1, 0]);
@@ -92,16 +92,18 @@ phina.namespace(function() {
     phina.app.BaseApp()
       .enableStats()
       .on("enterframe", function() {
-        mat4.rotateZ(mat, mat, 0.04);
-        mat4.lookAt(vMat, [Math.sin(this.frame * 0.002) * 2000, 0, Math.cos(this.frame * 0.002) * 2000], [0, 0, 0], [0, 1, 0]);
+        mat4.lookAt(vMat, [Math.sin(this.frame * 0.004) * 1000, 0, Math.cos(this.frame * 0.004) * 3000], [0, 0, 0], [0, 1, 0]);
 
         gl.clear(GL.COLOR_BUFFER_BIT | GL.DEPTH_BUFFER_BIT);
 
-        for (var i = 0; i < iv.length; i += 3) {
+        for (var i = 0; i < iv.length; i += 4) {
           iv[i + 0] += dirs[i + 0];
           iv[i + 1] += dirs[i + 1];
-          if (iv[i + 0] < -600 || 600 < iv[i + 0]) dirs[i + 0] *= -1;
-          if (iv[i + 1] < -600 || 600 < iv[i + 1]) dirs[i + 1] *= -1;
+          iv[i + 2] += dirs[i + 2];
+          if (iv[i + 0] < -range || range < iv[i + 0]) dirs[i + 0] *= -1;
+          if (iv[i + 1] < -range || range < iv[i + 1]) dirs[i + 1] *= -1;
+          if (iv[i + 2] < -range || range < iv[i + 2]) dirs[i + 2] *= -1;
+          iv[i + 3] += dirs[i + 3];
         }
         drawable.setInstanceAttributeData(iv);
 
