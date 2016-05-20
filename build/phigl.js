@@ -42,16 +42,6 @@ phina.namespace(function() {
       return this;
     },
 
-    _accessor: {
-      value: {
-        get: function() {
-          return null;
-        },
-        set: function(v) {
-          this.setValue(v);
-        },
-      },
-    },
   });
 
 });
@@ -521,7 +511,7 @@ phina.namespace(function() {
         return this;
       } else {
         this.linked = false;
-        throw (gl.getProgramInfoLog(this._program));
+        throw gl.getProgramInfoLog(this._program);
       }
     },
     
@@ -630,7 +620,7 @@ phina.namespace(function() {
       }
     },
 
-    setImage: function(image, unitIndex) {
+    setImage: function(image) {
       var gl = this.gl;
 
       if (typeof image === "string") {
