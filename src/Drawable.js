@@ -1,5 +1,4 @@
 phina.namespace(function() {
-  var GL = WebGLRenderingContext;
 
   phina.define("phigl.Drawable", {
     superClass: "phina.util.EventDispatcher",
@@ -14,15 +13,17 @@ phina.namespace(function() {
     offsets: null,
     uniforms: null,
     vbo: null,
-    drawMode: GL.TRIANGLES,
+    drawMode: 0,
     vao: null,
 
-    init: function(gl) {
+    init: function(gl, extVao) {
       this.superInit();
       this.gl = gl;
+      this.extVao = extVao;
       this.attributes = [];
       this.offsets = [];
       this.uniforms = {};
+      this.drawMode = gl.TRIANGLES;
     },
 
     setDrawMode: function(mode) {
@@ -32,6 +33,7 @@ phina.namespace(function() {
 
     setProgram: function(program) {
       this.program = program;
+      program.use();
       return this;
     },
 
@@ -56,14 +58,16 @@ phina.namespace(function() {
       return this;
     },
 
-    setAttributeData: function(data) {
-      if (!this.vbo) this.vbo = phigl.Vbo(this.gl);
+    setAttributeData: function(data, usage) {
+      // this.program.use();
+      if (!this.vbo) this.vbo = phigl.Vbo(this.gl, usage);
       this.vbo.set(data);
       return this;
     },
 
-    setAttributeDataArray: function(dataArray) {
-      if (!this.vbo) this.vbo = phigl.Vbo(this.gl);
+    setAttributeDataArray: function(dataArray, usage) {
+      // this.program.use();
+      if (!this.vbo) this.vbo = phigl.Vbo(this.gl, usage);
       this.vbo.setAsInterleavedArray(dataArray);
       return this;
     },
@@ -124,7 +128,7 @@ phina.namespace(function() {
       this.uniforms.forIn(function(k, v) { v.assign() });
 
       this.flare("predraw");
-      this.gl.drawElements(this.drawMode, this.indices.length, GL.UNSIGNED_SHORT, 0);
+      this.gl.drawElements(this.drawMode, this.indices.length, gl.UNSIGNED_SHORT, 0);
       this.flare("postdraw");
 
       if (this.vao) {

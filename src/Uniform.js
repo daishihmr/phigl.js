@@ -1,5 +1,4 @@
 phina.namespace(function() {
-  var GL = WebGLRenderingContext;
 
   phina.define("phigl.Uniform", {
 
@@ -21,28 +20,28 @@ phina.namespace(function() {
       this._type = type;
 
       switch (type) {
-        case GL.FLOAT:
+        case gl.FLOAT:
           this._uniformMethod = "uniform1f";
           break;
-        case GL.FLOAT_VEC2:
+        case gl.FLOAT_VEC2:
           this._uniformMethod = "uniform2fv";
           break;
-        case GL.FLOAT_VEC3:
+        case gl.FLOAT_VEC3:
           this._uniformMethod = "uniform3fv";
           break;
-        case GL.FLOAT_VEC4:
+        case gl.FLOAT_VEC4:
           this._uniformMethod = "uniform4fv";
           break;
-        case GL.FLOAT_MAT2:
+        case gl.FLOAT_MAT2:
           this._uniformMethod = "uniformMatrix2fv";
           break;
-        case GL.FLOAT_MAT3:
+        case gl.FLOAT_MAT3:
           this._uniformMethod = "uniformMatrix3fv";
           break;
-        case GL.FLOAT_MAT4:
+        case gl.FLOAT_MAT4:
           this._uniformMethod = "uniformMatrix4fv";
           break;
-        case GL.SAMPLER_2D:
+        case gl.SAMPLER_2D:
           this._uniformMethod = "uniform1i";
           break;
       }
@@ -62,18 +61,18 @@ phina.namespace(function() {
       var gl = this.gl;
 
       switch (this._type) {
-        case GL.FLOAT:
-        case GL.FLOAT_VEC2:
-        case GL.FLOAT_VEC3:
-        case GL.FLOAT_VEC4:
+        case gl.FLOAT:
+        case gl.FLOAT_VEC2:
+        case gl.FLOAT_VEC3:
+        case gl.FLOAT_VEC4:
           gl[this._uniformMethod](this._location, this._value);
           break;
-        case GL.FLOAT_MAT2:
-        case GL.FLOAT_MAT3:
-        case GL.FLOAT_MAT4:
+        case gl.FLOAT_MAT2:
+        case gl.FLOAT_MAT3:
+        case gl.FLOAT_MAT4:
           gl[this._uniformMethod](this._location, false, this._value);
           break;
-        case GL.SAMPLER_2D:
+        case gl.SAMPLER_2D:
           if (this.texture) this.texture.bind(this._value);
           gl[this._uniformMethod](this._location, this._value);
           break;

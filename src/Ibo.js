@@ -1,5 +1,4 @@
 phina.namespace(function() {
-  var GL = WebGLRenderingContext;
 
   phina.define("phigl.Ibo", {
 
@@ -15,21 +14,21 @@ phina.namespace(function() {
 
     setValue: function(data) {
       var gl = this.gl;
-      gl.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, this._buffer);
-      gl.bufferData(GL.ELEMENT_ARRAY_BUFFER, new Int16Array(data), GL.STATIC_DRAW);
-      gl.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, null);
+      gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, this._buffer);
+      gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Int16Array(data), gl.STATIC_DRAW);
+      gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, null);
       this.length = data.length;
       return this;
     },
 
     bind: function() {
-      this.gl.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, this._buffer);
+      this.gl.bindBuffer(this.gl.ELEMENT_ARRAY_BUFFER, this._buffer);
       return this;
     },
 
     _static: {
       unbind: function(gl) {
-        gl.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, null);
+        gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, null);
         return this;
       },
     },

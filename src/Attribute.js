@@ -1,5 +1,4 @@
 phina.namespace(function() {
-  var GL = WebGLRenderingContext;
 
   phina.define("phigl.Attribute", {
 
@@ -18,21 +17,21 @@ phina.namespace(function() {
       var info = gl.getActiveAttrib(program, this._location);
       this._type = info.type;
       switch (info.type) {
-        case GL.FLOAT:
+        case gl.FLOAT:
           this.size = 1;
-          this._ptype = GL.FLOAT;
+          this._ptype = gl.FLOAT;
           break;
-        case GL.FLOAT_VEC2:
+        case gl.FLOAT_VEC2:
           this.size = 2;
-          this._ptype = GL.FLOAT;
+          this._ptype = gl.FLOAT;
           break;
-        case GL.FLOAT_VEC3:
+        case gl.FLOAT_VEC3:
           this.size = 3;
-          this._ptype = GL.FLOAT;
+          this._ptype = gl.FLOAT;
           break;
-        case GL.FLOAT_VEC4:
+        case gl.FLOAT_VEC4:
           this.size = 4;
-          this._ptype = GL.FLOAT;
+          this._ptype = gl.FLOAT;
           break;
       }
     },

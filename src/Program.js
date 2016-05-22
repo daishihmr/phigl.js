@@ -1,5 +1,4 @@
 phina.namespace(function() {
-  var GL = WebGLRenderingContext;
   var id = 0;
 
   phina.define("phigl.Program", {
@@ -46,14 +45,15 @@ phina.namespace(function() {
 
       gl.linkProgram(this._program);
 
-      if (gl.getProgramParameter(this._program, GL.LINK_STATUS)) {
-        var attrCount = gl.getProgramParameter(this._program, GL.ACTIVE_ATTRIBUTES);
+      if (gl.getProgramParameter(this._program, gl.LINK_STATUS)) {
+
+        var attrCount = gl.getProgramParameter(this._program, gl.ACTIVE_ATTRIBUTES);
         for (var i = 0; i < attrCount; i++) {
           var attr = gl.getActiveAttrib(this._program, i);
           this.getAttribute(attr.name, attr.type);
         }
 
-        var uniCount = gl.getProgramParameter(this._program, GL.ACTIVE_UNIFORMS);
+        var uniCount = gl.getProgramParameter(this._program, gl.ACTIVE_UNIFORMS);
         for (var i = 0; i < uniCount; i++) {
           var uni = gl.getActiveUniform(this._program, i);
           this.getUniform(uni.name, uni.type);

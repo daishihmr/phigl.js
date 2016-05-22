@@ -1,5 +1,4 @@
 phina.namespace(function() {
-  var GL = WebGLRenderingContext;
 
   phina.define("phigl.Shader", {
     superClass: "phina.asset.File",
@@ -17,7 +16,9 @@ phina.namespace(function() {
 
     compile: function(gl) {
       this.gl = gl;
-      
+
+      this.type = this._type(gl);
+
       this._shader = gl.createShader(this.type);
       gl.shaderSource(this._shader, this.data);
       gl.compileShader(this._shader);
@@ -30,6 +31,10 @@ phina.namespace(function() {
         throw gl.getShaderInfoLog(this._shader);
       }
     },
+
+    _type: function(gl) {
+      return 0;
+    },
   });
 
   phina.define("phigl.VertexShader", {
@@ -37,7 +42,10 @@ phina.namespace(function() {
 
     init: function() {
       this.superInit();
-      this.type = GL.VERTEX_SHADER;
+    },
+
+    _type: function(gl) {
+      return gl.VERTEX_SHADER;
     },
   });
   phina.asset.AssetLoader.assetLoadFunctions["vertexShader"] = function(key, path) {
@@ -52,7 +60,10 @@ phina.namespace(function() {
 
     init: function() {
       this.superInit();
-      this.type = GL.FRAGMENT_SHADER;
+    },
+
+    _type: function(gl) {
+      return gl.FRAGMENT_SHADER;
     },
   });
   phina.asset.AssetLoader.assetLoadFunctions["fragmentShader"] = function(key, path) {

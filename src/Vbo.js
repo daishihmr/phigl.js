@@ -1,5 +1,4 @@
 phina.namespace(function() {
-  var GL = WebGLRenderingContext;
 
   phina.define("phigl.Vbo", {
 
@@ -9,15 +8,15 @@ phina.namespace(function() {
 
     init: function(gl, usage) {
       this.gl = gl;
-      this.usage = usage || GL.STATIC_DRAW;
+      this.usage = usage || gl.STATIC_DRAW;
       this._vbo = gl.createBuffer();
     },
 
     set: function(data) {
       var gl = this.gl;
-      gl.bindBuffer(GL.ARRAY_BUFFER, this._vbo);
-      gl.bufferData(GL.ARRAY_BUFFER, new Float32Array(data), this.usage);
-      gl.bindBuffer(GL.ARRAY_BUFFER, null);
+      gl.bindBuffer(gl.ARRAY_BUFFER, this._vbo);
+      gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(data), this.usage);
+      gl.bindBuffer(gl.ARRAY_BUFFER, null);
       return this;
     },
 
@@ -38,13 +37,13 @@ phina.namespace(function() {
     },
 
     bind: function() {
-      this.gl.bindBuffer(GL.ARRAY_BUFFER, this._vbo);
+      this.gl.bindBuffer(this.gl.ARRAY_BUFFER, this._vbo);
       return this;
     },
 
     _static: {
       unbind: function(gl) {
-        gl.bindBuffer(GL.ARRAY_BUFFER, null);
+        gl.bindBuffer(gl.ARRAY_BUFFER, null);
       },
     },
 

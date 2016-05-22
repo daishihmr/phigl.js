@@ -22,6 +22,7 @@ phina.namespace(function() {
     canvas.height = 512;
 
     var gl = canvas.getContext("webgl");
+    var ext = phigl.Extensions.getInstancedArrays(gl);
 
     gl.clearColor(0.0, 0.0, 0.0, 1.0);
     gl.clearDepth(1.0);
@@ -36,7 +37,7 @@ phina.namespace(function() {
       .attach("sample.fs")
       .link();
 
-    var drawable = phigl.InstancedDrawable(gl)
+    var drawable = phigl.InstancedDrawable(gl, ext)
       .setProgram(program)
       .setIndexValues([0, 1, 2, 1, 3, 2])
       .setAttributes("position")
@@ -63,7 +64,7 @@ phina.namespace(function() {
       });
 
     var range = 1000;
-    var iv = Array.range(0, 40000).map(function() {
+    var iv = Array.range(0, 2000).map(function() {
       return [Math.randfloat(-range, range), Math.randfloat(-range, range), Math.randfloat(-range, range), Math.randfloat(0, Math.PI * 2)];
     }).flatten();
     drawable.setInstanceAttributeData(iv);
