@@ -9,6 +9,7 @@ phina.namespace(function() {
         image: {
           "sample1.png": "./sample1.png",
           "sample2.png": "./sample2.png",
+          "p64.png": "./p64.png",
         },
         vertexShader: {
           "sample.vs": "./sample.vs",
@@ -77,7 +78,7 @@ phina.namespace(function() {
     drawable.uniforms.vMatrix.value = mat4.lookAt(mat4.create(), [0, 0, 500], [0, 0, 0], [0, 1, 0]);
     drawable.uniforms.pMatrix.value = mat4.ortho(mat4.create(), -512, 512, -512, 512, 0.1, 1000);
 
-    drawable.uniforms.textureA.setValue(0).setTexture(phigl.Texture(gl, "sample1.png"));
+    drawable.uniforms.textureA.setValue(0).setTexture(phigl.Texture(gl, "p64.png"));
     drawable.uniforms.textureB.setValue(1).setTexture(phigl.Texture(gl, "sample2.png"));
 
     var matA = mat4.create();

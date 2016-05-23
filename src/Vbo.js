@@ -5,6 +5,8 @@ phina.namespace(function() {
     gl: null,
     usage: null,
     _vbo: null,
+    
+    array: null,
 
     init: function(gl, usage) {
       this.gl = gl;
@@ -14,8 +16,13 @@ phina.namespace(function() {
 
     set: function(data) {
       var gl = this.gl;
+      if (this.array) {
+        this.array.set(data);
+      } else {
+        this.array = new Float32Array(data);
+      }
       gl.bindBuffer(gl.ARRAY_BUFFER, this._vbo);
-      gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(data), this.usage);
+      gl.bufferData(gl.ARRAY_BUFFER, this.array, this.usage);
       gl.bindBuffer(gl.ARRAY_BUFFER, null);
       return this;
     },

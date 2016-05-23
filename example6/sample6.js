@@ -10,6 +10,7 @@ phina.namespace(function() {
           "obj": "./p64.obj",
         },
         image: {
+          "p64.png": "./p64.png",
           "sample.png": "./sample.png",
         },
         vertexShader: {
@@ -23,7 +24,7 @@ phina.namespace(function() {
 
   var start = function() {
     var data = phina.asset.AssetManager.get("text", "obj").data;
-    var obj = globj.ObjParser.parse(data);
+    var obj = globj.ObjParser.parse(data).defaultObject.groups.defaultGroup;
     console.log(obj);
 
     var canvas = document.getElementById("app");
@@ -33,71 +34,86 @@ phina.namespace(function() {
     var gl = canvas.getContext("webgl");
 
     gl.enable(gl.DEPTH_TEST);
-    gl.enable(gl.BLEND);
+    gl.enable(gl.CULL_FACE);
 
     gl.clearColor(0.0, 0.0, 0.0, 1.0);
     gl.clearDepth(1.0);
+    gl.cullFace(gl.BACK);
     gl.depthFunc(gl.LEQUAL);
-    gl.blendFunc(gl.ONE, gl.ONE_MINUS_SRC_ALPHA);
 
-    var program = phigl.Program(gl)
-      .attach("sample.vs")
-      .attach("sample.fs")
-      .link();
+    var trigons = [];
+    obj.faces.forEach(function(face) {
+      for (var i = 1; i < face.length - 1; i++) {
+        trigons.push(face[0]);
+        trigons.push(face[i + 0]);
+        trigons.push(face[i + 1]);
+      }
+    });
 
     var drawable = phigl.Drawable(gl)
-      .setProgram(program)
-      .setIndexValues([0, 1, 2, 1, 3, 2])
-      .setAttributes("position", "uv")
-      .setAttributeDataArray([{
-        unitSize: 3,
-        data: [
-          //
-          -0.5, +0.5, 0,
-          //
-          +0.5, +0.5, 0,
-          //
-          -0.5, -0.5, 0,
-          //
-          +0.5, -0.5, 0,
-        ]
-      }, {
-        unitSize: 2,
-        data: [
-          //
-          0, 0,
-          //
-          1, 0,
-          //
-          0, 1,
-          //
-          1, 1,
-        ],
-      }, ])
+      .setDrawMode(gl.TRIANGLES)
+      .setProgram(phigl.Program(gl).attach("sample.vs").attach("sample.fs").link())
+      .setIndexValues(Array.range(trigons.length))
+      .setAttributes("position", "uv", "normal")
+      .setAttributeData(trigons.map(function(vertex, i) {
+        var p = obj.positions[vertex.position - 1];
+        var t = obj.texCoords[vertex.texCoord - 1];
+        var n = obj.normals[vertex.normal - 1];
+        return [
+          // position
+          p.x, p.y, p.z,
+          // texCoord
+          t.u, t.v,
+          // normal
+          n.x, n.y, n.z
+        ];
+      }).flatten())
       .createVao()
-      .setUniforms("mMatrix", "vMatrix", "pMatrix", "texture");
+      .setUniforms(
+        "mvpMatrix",
+        "invMatrix",
+        "lightDirection",
+        "diffuseColor",
+        "ambientColor",
+        "texture"
+      );
 
-    drawable.uniforms.vMatrix.value = mat4.lookAt(mat4.create(), [0, 100, 500], [0, 0, 0], [0, 1, 0]);
-    drawable.uniforms.pMatrix.value = mat4.perspective(mat4.create(), 45, 1, 0.1, 1000);
+    drawable.uniforms.texture.setValue(0).setTexture(phigl.Texture(gl, "p64.png"));
 
-    drawable.uniforms.texture.setValue(0).setTexture(phigl.Texture(gl, "sample.png"));
+    var cameraPos = [0, 15, 30];
+    var cameraTarget = [0, 10, 0];
+
+    var vMatrix = mat4.lookAt(mat4.create(), cameraPos, cameraTarget, [0, 1, 0]);
+    var pMatrix = mat4.perspective(mat4.create(), 45, 1, 0.1, 100);
+    var vpMatrix = mat4.multiply(mat4.create(), pMatrix, vMatrix);
+    var mvpMatrix = mat4.create();
+    var invMatrix = mat4.create();
+    var lightDirection = vec3.normalize(vec3.create(), [1, 1, -1]);
 
     var mMatrix = mat4.create();
     mat4.translate(mMatrix, mMatrix, [0, 0, 0]);
-    mat4.scale(mMatrix, mMatrix, [300, 300, 300]);
+    mat4.scale(mMatrix, mMatrix, [1, 1, 1]);
 
     phina.util.Ticker()
       .on("tick", function() {
-        mat4.rotateY(mMatrix, mMatrix, 0.04);
+        mat4.rotateY(mMatrix, mMatrix, 0.01);
+
+        mat4.multiply(mvpMatrix, vpMatrix, mMatrix);
+        mat4.invert(invMatrix, mvpMatrix);
+
+        drawable.uniforms.mvpMatrix.value = mvpMatrix;
+        drawable.uniforms.invMatrix.value = invMatrix;
+        drawable.uniforms.lightDirection.value = lightDirection;
+        drawable.uniforms.diffuseColor.value = [1.0, 1.0, 1.0, 1.0];
+        drawable.uniforms.ambientColor.value = [0.1, 0.1, 0.1, 1.0];
 
         gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
-        drawable.uniforms.mMatrix.value = mMatrix;
         drawable.draw();
 
         gl.flush();
       })
-      .start();;
+      .start();
   };
 
 });

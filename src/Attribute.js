@@ -12,6 +12,9 @@ phina.namespace(function() {
       this.name = name;
 
       this._location = gl.getAttribLocation(program, name);
+      if (this._location == -1) {
+        throw "attribute " + name + " not found";
+      }
       gl.enableVertexAttribArray(this._location);
       
       var info = gl.getActiveAttrib(program, this._location);
