@@ -1,5 +1,4 @@
 phina.namespace(function() {
-  var GL = WebGLRenderingContext;
 
   phina.main(function() {
     phina.asset.AssetLoader()
@@ -27,10 +26,10 @@ phina.namespace(function() {
     gl.clearColor(0.0, 0.0, 0.0, 1.0);
     gl.clearDepth(1.0);
 
-    gl.enable(GL.DEPTH_TEST);
-    gl.depthFunc(GL.LEQUAL);
-    gl.enable(GL.BLEND);
-    gl.blendFunc(GL.SRC_ALPHA, GL.ONE_MINUS_SRC_ALPHA);
+    gl.enable(gl.DEPTH_TEST);
+    gl.depthFunc(gl.LEQUAL);
+    gl.enable(gl.BLEND);
+    gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
 
     var program = phigl.Program(gl)
       .attach("sample.vs")
@@ -57,10 +56,10 @@ phina.namespace(function() {
       .setInstanceAttributes("instancePosition", "rotY")
       .setUniforms("mMatrix", "vMatrix", "pMatrix")
       .on("predraw", function() {
-        gl.disable(GL.DEPTH_TEST);
+        gl.disable(gl.DEPTH_TEST);
       })
       .on("postdraw", function() {
-        gl.enable(GL.DEPTH_TEST);
+        gl.enable(gl.DEPTH_TEST);
       });
 
     var range = 1000;
@@ -95,7 +94,7 @@ phina.namespace(function() {
       .on("enterframe", function() {
         mat4.lookAt(vMat, [Math.sin(this.frame * 0.004) * 1000, 0, Math.cos(this.frame * 0.004) * 3000], [0, 0, 0], [0, 1, 0]);
 
-        gl.clear(GL.COLOR_BUFFER_BIT | GL.DEPTH_BUFFER_BIT);
+        gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
         for (var i = 0; i < iv.length; i += 4) {
           iv[i + 0] += dirs[i + 0];

@@ -130,6 +130,7 @@ phina.namespace(function() {
       this.extVao.bindVertexArrayOES(this.vao);
 
       if (this.indices) this.indices.bind();
+
       if (this.vbo) this.vbo.bind();
       this.attributes.forEach(function(v, i) {
         v.specify(stride, offsets[i]);
@@ -166,6 +167,7 @@ phina.namespace(function() {
         ext.bindVertexArrayOES(this.vao);
       } else {
         if (this.indices) this.indices.bind();
+
         if (this.vbo) this.vbo.bind();
         var stride = this.stride;
         var offsets = this.offsets;
@@ -355,7 +357,7 @@ phina.namespace(function() {
         this.instanceOffsets.push(stride);
         stride += attr.size * 4;
 
-        ext.vertexAttribDivisorANGLE(attr._location, 1);
+        // ext.vertexAttribDivisorANGLE(attr._location, 1);
       }
       this.instanceStride = stride;
       return this;
@@ -421,13 +423,15 @@ phina.namespace(function() {
       //   ext.bindVertexArrayOES(this.vao);
       // } else {
       if (this.indices) this.indices.bind();
+
       if (this.vbo) this.vbo.bind();
       var stride = this.stride;
       var offsets = this.offsets;
       this.attributes.forEach(function(v, i) { v.specify(stride, offsets[i]) });
+
+      if (this.instanceVbo) this.instanceVbo.bind();
       var iStride = this.instanceStride;
       var iOffsets = this.instanceOffsets;
-      if (this.instanceVbo) this.instanceVbo.bind();
       this.instanceAttributes.forEach(function(v, i) {
         v.specify(iStride, iOffsets[i]);
         ext.vertexAttribDivisorANGLE(v._location, 1);
@@ -440,6 +444,7 @@ phina.namespace(function() {
       this.ext.drawElementsInstancedANGLE(this.drawMode, this.indices.length, gl.UNSIGNED_SHORT, 0, instanceCount);
       this.flare("postdraw");
 
+      this.instanceAttributes.forEach(function(v, i) { ext.vertexAttribDivisorANGLE(v._location, 0) });
       // if (this.vao) {
       //   ext.bindVertexArrayOES(null);
       // } else {

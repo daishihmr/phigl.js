@@ -83,6 +83,7 @@ phina.namespace(function() {
       this.extVao.bindVertexArrayOES(this.vao);
 
       if (this.indices) this.indices.bind();
+
       if (this.vbo) this.vbo.bind();
       this.attributes.forEach(function(v, i) {
         v.specify(stride, offsets[i]);
@@ -119,6 +120,7 @@ phina.namespace(function() {
         ext.bindVertexArrayOES(this.vao);
       } else {
         if (this.indices) this.indices.bind();
+
         if (this.vbo) this.vbo.bind();
         var stride = this.stride;
         var offsets = this.offsets;

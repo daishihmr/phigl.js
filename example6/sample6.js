@@ -6,9 +6,11 @@ phina.namespace(function() {
         start();
       })
       .load({
+        text: {
+          "obj": "./p64.obj",
+        },
         image: {
-          "sample1.png": "./sample1.png",
-          "sample2.png": "./sample2.png",
+          "sample.png": "./sample.png",
         },
         vertexShader: {
           "sample.vs": "./sample.vs",
@@ -17,10 +19,13 @@ phina.namespace(function() {
           "sample.fs": "./sample.fs",
         },
       });
-
   });
 
   var start = function() {
+    var data = phina.asset.AssetManager.get("text", "obj").data;
+    var obj = globj.ObjParser.parse(data);
+    console.log(obj);
+
     var canvas = document.getElementById("app");
     canvas.width = 512;
     canvas.height = 512;
@@ -28,13 +33,11 @@ phina.namespace(function() {
     var gl = canvas.getContext("webgl");
 
     gl.enable(gl.DEPTH_TEST);
-    gl.enable(gl.CULL_FACE);
     gl.enable(gl.BLEND);
 
     gl.clearColor(0.0, 0.0, 0.0, 1.0);
     gl.clearDepth(1.0);
     gl.depthFunc(gl.LEQUAL);
-    gl.cullFace(gl.FRONT);
     gl.blendFunc(gl.ONE, gl.ONE_MINUS_SRC_ALPHA);
 
     var program = phigl.Program(gl)
@@ -72,33 +75,24 @@ phina.namespace(function() {
         ],
       }, ])
       .createVao()
-      .setUniforms("mMatrix", "vMatrix", "pMatrix", "textureA", "textureB");
+      .setUniforms("mMatrix", "vMatrix", "pMatrix", "texture");
 
-    drawable.uniforms.vMatrix.value = mat4.lookAt(mat4.create(), [0, 0, 500], [0, 0, 0], [0, 1, 0]);
-    drawable.uniforms.pMatrix.value = mat4.ortho(mat4.create(), -512, 512, -512, 512, 0.1, 1000);
+    drawable.uniforms.vMatrix.value = mat4.lookAt(mat4.create(), [0, 100, 500], [0, 0, 0], [0, 1, 0]);
+    drawable.uniforms.pMatrix.value = mat4.perspective(mat4.create(), 45, 1, 0.1, 1000);
 
-    drawable.uniforms.textureA.setValue(0).setTexture(phigl.Texture(gl, "sample1.png"));
-    drawable.uniforms.textureB.setValue(1).setTexture(phigl.Texture(gl, "sample2.png"));
+    drawable.uniforms.texture.setValue(0).setTexture(phigl.Texture(gl, "sample.png"));
 
-    var matA = mat4.create();
-    mat4.translate(matA, matA, [0, -100, 0]);
-    mat4.scale(matA, matA, [100, 100, 100]);
-
-    var matB = mat4.create();
-    mat4.translate(matB, matB, [0, 100, 0]);
-    mat4.scale(matB, matB, [150, 150, 150]);
+    var mMatrix = mat4.create();
+    mat4.translate(mMatrix, mMatrix, [0, 0, 0]);
+    mat4.scale(mMatrix, mMatrix, [300, 300, 300]);
 
     phina.util.Ticker()
       .on("tick", function() {
-        mat4.rotateZ(matA, matA, 0.04);
-        mat4.rotateX(matB, matB, 0.04);
+        mat4.rotateY(mMatrix, mMatrix, 0.04);
 
         gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
-        drawable.uniforms.mMatrix.value = matA;
-        drawable.draw();
-
-        drawable.uniforms.mMatrix.value = matB;
+        drawable.uniforms.mMatrix.value = mMatrix;
         drawable.draw();
 
         gl.flush();

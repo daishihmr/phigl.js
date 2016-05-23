@@ -1,5 +1,4 @@
 phina.namespace(function() {
-  var GL = WebGLRenderingContext;
 
   phina.main(function() {
     phina.asset.AssetLoader()
@@ -31,14 +30,14 @@ phina.namespace(function() {
     var gl = canvas.getContext("webgl");
 
     gl.enable(gl.DEPTH_TEST);
-    gl.enable(GL.CULL_FACE);
-    gl.enable(GL.BLEND);
+    gl.enable(gl.CULL_FACE);
+    gl.enable(gl.BLEND);
 
     gl.clearColor(0.0, 0.0, 0.0, 1.0);
     gl.clearDepth(1.0);
-    gl.depthFunc(GL.LEQUAL);
-    gl.cullFace(GL.FRONT);
-    gl.blendFunc(GL.ONE, GL.ONE_MINUS_SRC_ALPHA);
+    gl.depthFunc(gl.LEQUAL);
+    gl.cullFace(gl.FRONT);
+    gl.blendFunc(gl.ONE, gl.ONE_MINUS_SRC_ALPHA);
 
     var programA = phigl.Program(gl)
       .attach("sample2a.vs")
@@ -149,7 +148,7 @@ phina.namespace(function() {
 
         framebuffer.bind();
 
-        gl.clear(GL.COLOR_BUFFER_BIT | GL.DEPTH_BUFFER_BIT);
+        gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
         obj.uniforms.vMatrix.value = matV;
         obj.uniforms.pMatrix.value = matP;
@@ -168,7 +167,7 @@ phina.namespace(function() {
 
         framebuffer.unbind();
 
-        gl.clear(GL.COLOR_BUFFER_BIT | GL.DEPTH_BUFFER_BIT);
+        gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
         screen.draw();
 
