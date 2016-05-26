@@ -59,16 +59,32 @@ phina.namespace(function() {
     },
 
     setAttributeData: function(data, usage) {
-      // this.program.use();
-      if (!this.vbo) this.vbo = phigl.Vbo(this.gl, usage);
+      if (!this.vbo) {
+        this.vbo = phigl.Vbo(this.gl, usage);
+      }
       this.vbo.set(data);
+
+      this.vbo.bind();
+      var stride = this.stride;
+      var offsets = this.offsets;
+      this.attributes.forEach(function(v, i) { v.specify(stride, offsets[i]) });
+      phigl.Vbo.unbind(this.gl);
+
       return this;
     },
 
     setAttributeDataArray: function(dataArray, usage) {
-      // this.program.use();
-      if (!this.vbo) this.vbo = phigl.Vbo(this.gl, usage);
+      if (!this.vbo) {
+        this.vbo = phigl.Vbo(this.gl, usage);
+      }
       this.vbo.setAsInterleavedArray(dataArray);
+
+      this.vbo.bind();
+      var stride = this.stride;
+      var offsets = this.offsets;
+      this.attributes.forEach(function(v, i) { v.specify(stride, offsets[i]) });
+      phigl.Vbo.unbind(this.gl);
+
       return this;
     },
 
@@ -111,6 +127,8 @@ phina.namespace(function() {
     },
 
     draw: function() {
+      // console.log("-- begin");
+
       var gl = this.gl;
       var ext = this.extVao;
 
@@ -120,7 +138,6 @@ phina.namespace(function() {
         ext.bindVertexArrayOES(this.vao);
       } else {
         if (this.indices) this.indices.bind();
-
         if (this.vbo) this.vbo.bind();
         var stride = this.stride;
         var offsets = this.offsets;
@@ -139,6 +156,10 @@ phina.namespace(function() {
         phigl.Ibo.unbind(gl);
         phigl.Vbo.unbind(gl);
       }
+
+      this.uniforms.forIn(function(k, v) { v.reassign() });
+
+      // console.log("-- end");
     },
   });
 

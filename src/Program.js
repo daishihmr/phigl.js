@@ -67,9 +67,9 @@ phina.namespace(function() {
       }
     },
     
-    getAttribute: function(name) {
+    getAttribute: function(name, type) {
       if (!this._attributes[name]) {
-        this._attributes[name] = phigl.Attribute(this.gl, this._program, name);
+        this._attributes[name] = phigl.Attribute(this.gl, this._program, name, type);
       }
       return this._attributes[name];
     },
@@ -83,6 +83,7 @@ phina.namespace(function() {
 
     use: function() {
       this.gl.useProgram(this._program);
+      // console.log("useProgram", this._program);
       return this;
     },
   });

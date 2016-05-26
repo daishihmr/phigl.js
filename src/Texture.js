@@ -30,7 +30,7 @@ phina.namespace(function() {
 
     bind: function(unitIndex) {
       var gl = this.gl;
-      gl.activeTexture(gl.TEXTURE0 + (unitIndex || 0));
+      gl.activeTexture(gl["TEXTURE" + (unitIndex || 0)]);
       gl.bindTexture(gl.TEXTURE_2D, this._texture);
       return this;
     },

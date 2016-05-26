@@ -45,6 +45,51 @@ phina.namespace(function() {
     gl.enable(gl.BLEND);
     gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
 
+    if (enable1) {
+      var drawable1 = phigl.InstancedDrawable(gl, ext)
+        .setProgram(phigl.Program(gl).attach("sample1.vs").attach("sample1.fs").link())
+        .setIndexValues([0, 1, 2, 1, 3, 2])
+        .setAttributes("position")
+        .setAttributeDataArray([{
+          unitSize: 3,
+          data: [
+            //
+            -0.5, +0.5, 0,
+            //
+            +0.5, +0.5, 0,
+            //
+            -0.5, -0.5, 0,
+            //
+            +0.5, -0.5, 0,
+          ],
+        }, ])
+        .setInstanceAttributes("instancePosition", "rotY")
+        .setUniforms("mMatrix", "vMatrix", "pMatrix")
+        .on("predraw", function() {
+          gl.disable(gl.DEPTH_TEST);
+        })
+        .on("postdraw", function() {
+          gl.enable(gl.DEPTH_TEST);
+        });
+
+      var instanceCount1 = 1200;
+      var instances1 = Array.range(0, instanceCount1).map(function() {
+        return [Math.randfloat(-range, range), Math.randfloat(-range, range), Math.randfloat(-range, range), Math.randfloat(0, Math.PI * 2)];
+      }).flatten();
+      drawable1.setInstanceAttributeData(instances1);
+      var dirs1 = [];
+      for (var i = 0; i < instances1.length; i += 4) {
+        dirs1[i + 0] = Math.randfloat(-6, 6);
+        dirs1[i + 1] = Math.randfloat(-6, 6);
+        dirs1[i + 2] = Math.randfloat(-6, 6);
+        dirs1[i + 3] = Math.randfloat(-0.02, 0.02);
+      }
+
+      drawable1.uniforms.vMatrix.value = vMat;
+      drawable1.uniforms.pMatrix.value = pMat;
+      drawable1.uniforms.mMatrix.value = mat;
+    }
+
     if (enable2) {
       var drawable2 = phigl.InstancedDrawable(gl, ext)
         .setProgram(phigl.Program(gl).attach("sample2.vs").attach("sample2.fs").link())
@@ -75,7 +120,7 @@ phina.namespace(function() {
             1, 0,
           ],
         }, ])
-        .setInstanceAttributes("instancePosition")
+        .setInstanceAttributes("instancePosition", "rotY")
         .setUniforms("mMatrix", "vMatrix", "pMatrix", "texture")
         .on("predraw", function() {
           gl.disable(gl.DEPTH_TEST);
@@ -84,67 +129,28 @@ phina.namespace(function() {
           gl.enable(gl.DEPTH_TEST);
         });
 
-      var instanceCount2 = 2000;
+      var instanceCount2 = 100;
       var instances2 = Array.range(0, instanceCount2).map(function() {
-        return [Math.randfloat(-range, range), Math.randfloat(-range, range), Math.randfloat(-range, range)];
+        return [
+          Math.randfloat(-range, range),
+          Math.randfloat(-range, range),
+          Math.randfloat(-range, range),
+          Math.randfloat(0, Math.PI * 2),
+        ];
       }).flatten();
       drawable2.setInstanceAttributeData(instances2);
       var dirs2 = [];
-      for (var i = 0; i < instances2.length; i += 3) {
+      for (var i = 0; i < instances2.length; i += 4) {
         dirs2[i + 0] = Math.randfloat(-6, 6);
         dirs2[i + 1] = Math.randfloat(-6, 6);
         dirs2[i + 2] = Math.randfloat(-6, 6);
+        dirs2[i + 3] = Math.randfloat(-0.01, 0.01);
       }
 
       drawable2.uniforms.vMatrix.value = vMat;
       drawable2.uniforms.pMatrix.value = pMat;
       drawable2.uniforms.mMatrix.value = mat;
       drawable2.uniforms.texture.setValue(0).setTexture(phigl.Texture(gl, "sample.png"));
-    }
-    
-    if (enable1) {
-      var drawable1 = phigl.InstancedDrawable(gl, ext)
-        .setProgram(phigl.Program(gl).attach("sample1.vs").attach("sample1.fs").link())
-        .setIndexValues([0, 1, 2, 1, 3, 2])
-        .setAttributes("position")
-        .setAttributeDataArray([{
-          unitSize: 3,
-          data: [
-            //
-            -0.5, +0.5, 0,
-            //
-            +0.5, +0.5, 0,
-            //
-            -0.5, -0.5, 0,
-            //
-            +0.5, -0.5, 0,
-          ],
-        }, ])
-        .setInstanceAttributes("instancePosition", "rotY")
-        .setUniforms("mMatrix", "vMatrix", "pMatrix")
-        .on("predraw", function() {
-          gl.disable(gl.DEPTH_TEST);
-        })
-        .on("postdraw", function() {
-          gl.enable(gl.DEPTH_TEST);
-        });
-
-      var instanceCount1 = 2000;
-      var instances1 = Array.range(0, instanceCount1).map(function() {
-        return [Math.randfloat(-range, range), Math.randfloat(-range, range), Math.randfloat(-range, range), Math.randfloat(0, Math.PI * 2)];
-      }).flatten();
-      drawable1.setInstanceAttributeData(instances1);
-      var dirs1 = [];
-      for (var i = 0; i < instances1.length; i += 4) {
-        dirs1[i + 0] = Math.randfloat(-6, 6);
-        dirs1[i + 1] = Math.randfloat(-6, 6);
-        dirs1[i + 2] = Math.randfloat(-6, 6);
-        dirs1[i + 3] = Math.randfloat(-0.02, 0.02);
-      }
-
-      drawable1.uniforms.vMatrix.value = vMat;
-      drawable1.uniforms.pMatrix.value = pMat;
-      drawable1.uniforms.mMatrix.value = mat;
     }
 
     phina.app.BaseApp()
@@ -153,19 +159,6 @@ phina.namespace(function() {
         mat4.lookAt(vMat, [Math.sin(this.frame * 0.004) * 1000, 0, Math.cos(this.frame * 0.004) * 3000], [0, 0, 0], [0, 1, 0]);
 
         gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
-
-        if (enable2) {
-          for (var i = 0; i < instances2.length; i += 3) {
-            instances2[i + 0] += dirs2[i + 0];
-            instances2[i + 1] += dirs2[i + 1];
-            instances2[i + 2] += dirs2[i + 2];
-            if (instances2[i + 0] < -range || range < instances2[i + 0]) dirs2[i + 0] *= -1;
-            if (instances2[i + 1] < -range || range < instances2[i + 1]) dirs2[i + 1] *= -1;
-            if (instances2[i + 2] < -range || range < instances2[i + 2]) dirs2[i + 2] *= -1;
-          }
-          drawable2.setInstanceAttributeData(instances2);
-          drawable2.draw(instanceCount2);
-        }
 
         if (enable1) {
           for (var i = 0; i < instances1.length; i += 4) {
@@ -179,6 +172,20 @@ phina.namespace(function() {
           }
           drawable1.setInstanceAttributeData(instances1);
           drawable1.draw(instanceCount1);
+        }
+
+        if (enable2) {
+          for (var i = 0; i < instances2.length; i += 4) {
+            instances2[i + 0] += dirs2[i + 0];
+            instances2[i + 1] += dirs2[i + 1];
+            instances2[i + 2] += dirs2[i + 2];
+            if (instances2[i + 0] < -range || range < instances2[i + 0]) dirs2[i + 0] *= -1;
+            if (instances2[i + 1] < -range || range < instances2[i + 1]) dirs2[i + 1] *= -1;
+            if (instances2[i + 2] < -range || range < instances2[i + 2]) dirs2[i + 2] *= -1;
+            instances1[i + 3] += dirs1[i + 3];
+          }
+          drawable2.setInstanceAttributeData(instances2);
+          drawable2.draw(instanceCount2);
         }
 
         gl.flush();

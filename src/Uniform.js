@@ -80,6 +80,18 @@ phina.namespace(function() {
 
       return this;
     },
+    
+    reassign: function() {
+      var gl = this.gl;
+
+      switch (this._type) {
+        case gl.SAMPLER_2D:
+          if (this.texture) this.texture.unbind();
+          break;
+      }
+
+      return this;
+    },
 
     _accessor: {
       value: {

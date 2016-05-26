@@ -1,13 +1,14 @@
 phina.namespace(function() {
-
+  
   phina.define("phigl.Attribute", {
 
     gl: null,
-
+    name: null,
     _location: null,
     _type: null,
+    _ptype: null,
 
-    init: function(gl, program, name) {
+    init: function(gl, program, name, type) {
       this.gl = gl;
       this.name = name;
 
@@ -16,10 +17,9 @@ phina.namespace(function() {
         throw "attribute " + name + " not found";
       }
       gl.enableVertexAttribArray(this._location);
-      
-      var info = gl.getActiveAttrib(program, this._location);
-      this._type = info.type;
-      switch (info.type) {
+
+      this._type = type;
+      switch (type) {
         case gl.FLOAT:
           this.size = 1;
           this._ptype = gl.FLOAT;
@@ -40,7 +40,9 @@ phina.namespace(function() {
     },
 
     specify: function(stride, offset) {
-      this.gl.vertexAttribPointer(this._location, this.size, this._ptype, false, stride, offset);
+      // console.log("attribute", this.name, this._location);
+      var gl = this.gl;
+      gl.vertexAttribPointer(this._location, this.size, this._ptype, false, stride, offset);
       return this;
     },
 
@@ -109,16 +111,32 @@ phina.namespace(function() {
     },
 
     setAttributeData: function(data, usage) {
-      // this.program.use();
-      if (!this.vbo) this.vbo = phigl.Vbo(this.gl, usage);
+      if (!this.vbo) {
+        this.vbo = phigl.Vbo(this.gl, usage);
+      }
       this.vbo.set(data);
+
+      this.vbo.bind();
+      var stride = this.stride;
+      var offsets = this.offsets;
+      this.attributes.forEach(function(v, i) { v.specify(stride, offsets[i]) });
+      phigl.Vbo.unbind(this.gl);
+
       return this;
     },
 
     setAttributeDataArray: function(dataArray, usage) {
-      // this.program.use();
-      if (!this.vbo) this.vbo = phigl.Vbo(this.gl, usage);
+      if (!this.vbo) {
+        this.vbo = phigl.Vbo(this.gl, usage);
+      }
       this.vbo.setAsInterleavedArray(dataArray);
+
+      this.vbo.bind();
+      var stride = this.stride;
+      var offsets = this.offsets;
+      this.attributes.forEach(function(v, i) { v.specify(stride, offsets[i]) });
+      phigl.Vbo.unbind(this.gl);
+
       return this;
     },
 
@@ -161,6 +179,8 @@ phina.namespace(function() {
     },
 
     draw: function() {
+      // console.log("-- begin");
+
       var gl = this.gl;
       var ext = this.extVao;
 
@@ -170,7 +190,6 @@ phina.namespace(function() {
         ext.bindVertexArrayOES(this.vao);
       } else {
         if (this.indices) this.indices.bind();
-
         if (this.vbo) this.vbo.bind();
         var stride = this.stride;
         var offsets = this.offsets;
@@ -189,6 +208,10 @@ phina.namespace(function() {
         phigl.Ibo.unbind(gl);
         phigl.Vbo.unbind(gl);
       }
+
+      this.uniforms.forIn(function(k, v) { v.reassign() });
+
+      // console.log("-- end");
     },
   });
 
@@ -359,61 +382,40 @@ phina.namespace(function() {
         this.instanceAttributes.push(attr);
         this.instanceOffsets.push(stride);
         stride += attr.size * 4;
-
-        // ext.vertexAttribDivisorANGLE(attr._location, 1);
       }
       this.instanceStride = stride;
+
       return this;
     },
 
     setInstanceAttributeData: function(data) {
-      // this.program.use();
-
       if (!this.instanceVbo) this.instanceVbo = phigl.Vbo(this.gl, this.gl.DYNAMIC_DRAW);
       this.instanceVbo.set(data);
+
+      this.instanceVbo.bind();
+      var iStride = this.instanceStride;
+      var iOffsets = this.instanceOffsets;
+      this.instanceAttributes.forEach(function(v, i) { v.specify(iStride, iOffsets[i]) });
+      phigl.Vbo.unbind(this.gl);
+
       return this;
     },
 
     setInstanceAttributeDataArray: function(dataArray) {
-      // this.program.use();
       if (!this.instanceVbo) this.instanceVbo = phigl.Vbo(this.gl);
       this.instanceVbo.setAsInterleavedArray(dataArray);
+
+      this.instanceVbo.bind();
+      var iStride = this.instanceStride;
+      var iOffsets = this.instanceOffsets;
+      this.instanceAttributes.forEach(function(v, i) { v.specify(iStride, iOffsets[i]) });
+      phigl.Vbo.unbind(this.gl);
+
       return this;
     },
 
     createVao: function() {
-      // TODO 封印中
       return this;
-
-      // var gl = this.gl;
-      // var stride = this.stride;
-      // var offsets = this.offsets;
-      // var iStride = this.instanceStride;
-      // var iOffsets = this.instanceOffsets;
-
-      // if (!this.extVao) this.extVao = phigl.Extensions.getVertexArrayObject(gl);
-      // if (!this.vao) this.vao = this.extVao.createVertexArrayOES();
-
-      // this.extVao.bindVertexArrayOES(this.vao);
-
-      // if (this.indices) this.indices.bind();
-      // if (this.vbo) this.vbo.bind();
-      // this.attributes.forEach(function(v, i) {
-      //   gl.enableVertexAttribArray(v._location);
-      //   v.specify(stride, offsets[i]);
-      // });
-      // if (this.instanceVbo) this.instanceVbo.bind();
-      // this.instanceAttributes.forEach(function(v, i) {
-      //   gl.enableVertexAttribArray(v._location);
-      //   v.specify(iStride, iOffsets[i]);
-      // });
-
-      // this.extVao.bindVertexArrayOES(null);
-
-      // phigl.Ibo.unbind(gl);
-      // phigl.Vbo.unbind(gl);
-
-      // return this;
     },
 
     draw: function(instanceCount) {
@@ -422,15 +424,14 @@ phina.namespace(function() {
 
       this.program.use();
 
-      // if (this.vao) {
-      //   ext.bindVertexArrayOES(this.vao);
-      // } else {
       if (this.indices) this.indices.bind();
 
       if (this.vbo) this.vbo.bind();
       var stride = this.stride;
       var offsets = this.offsets;
-      this.attributes.forEach(function(v, i) { v.specify(stride, offsets[i]) });
+      this.attributes.forEach(function(v, i) {
+        v.specify(stride, offsets[i]);
+      });
 
       if (this.instanceVbo) this.instanceVbo.bind();
       var iStride = this.instanceStride;
@@ -439,7 +440,6 @@ phina.namespace(function() {
         v.specify(iStride, iOffsets[i]);
         ext.vertexAttribDivisorANGLE(v._location, 1);
       });
-      // }
 
       this.uniforms.forIn(function(k, v) { v.assign() });
 
@@ -447,13 +447,11 @@ phina.namespace(function() {
       this.ext.drawElementsInstancedANGLE(this.drawMode, this.indices.length, gl.UNSIGNED_SHORT, 0, instanceCount);
       this.flare("postdraw");
 
-      this.instanceAttributes.forEach(function(v, i) { ext.vertexAttribDivisorANGLE(v._location, 0) });
-      // if (this.vao) {
-      //   ext.bindVertexArrayOES(null);
-      // } else {
+      this.instanceAttributes.forEach(function(v, i) {
+        ext.vertexAttribDivisorANGLE(v._location, 0);
+      });
       phigl.Ibo.unbind(gl);
       phigl.Vbo.unbind(gl);
-      // }
     },
 
   });
@@ -529,9 +527,9 @@ phina.namespace(function() {
       }
     },
     
-    getAttribute: function(name) {
+    getAttribute: function(name, type) {
       if (!this._attributes[name]) {
-        this._attributes[name] = phigl.Attribute(this.gl, this._program, name);
+        this._attributes[name] = phigl.Attribute(this.gl, this._program, name, type);
       }
       return this._attributes[name];
     },
@@ -545,6 +543,7 @@ phina.namespace(function() {
 
     use: function() {
       this.gl.useProgram(this._program);
+      // console.log("useProgram", this._program);
       return this;
     },
   });
@@ -660,7 +659,7 @@ phina.namespace(function() {
 
     bind: function(unitIndex) {
       var gl = this.gl;
-      gl.activeTexture(gl.TEXTURE0 + (unitIndex || 0));
+      gl.activeTexture(gl["TEXTURE" + (unitIndex || 0)]);
       gl.bindTexture(gl.TEXTURE_2D, this._texture);
       return this;
     },
@@ -756,6 +755,18 @@ phina.namespace(function() {
 
       return this;
     },
+    
+    reassign: function() {
+      var gl = this.gl;
+
+      switch (this._type) {
+        case gl.SAMPLER_2D:
+          if (this.texture) this.texture.unbind();
+          break;
+      }
+
+      return this;
+    },
 
     _accessor: {
       value: {
@@ -772,6 +783,7 @@ phina.namespace(function() {
 });
 
 phina.namespace(function() {
+  var i = 0;
 
   phina.define("phigl.Vbo", {
 
@@ -785,6 +797,7 @@ phina.namespace(function() {
       this.gl = gl;
       this.usage = usage || gl.STATIC_DRAW;
       this._vbo = gl.createBuffer();
+      this._vbo._id = i++;
     },
 
     set: function(data) {
@@ -817,13 +830,16 @@ phina.namespace(function() {
     },
 
     bind: function() {
-      this.gl.bindBuffer(this.gl.ARRAY_BUFFER, this._vbo);
+      var gl = this.gl;
+      gl.bindBuffer(gl.ARRAY_BUFFER, this._vbo);
+      // console.log("bindBuffer", this._vbo, this.array.length);
       return this;
     },
 
     _static: {
       unbind: function(gl) {
         gl.bindBuffer(gl.ARRAY_BUFFER, null);
+        // console.log("unbind")
       },
     },
 

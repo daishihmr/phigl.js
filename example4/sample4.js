@@ -10,12 +10,12 @@ phina.namespace(function() {
           "sample.png": "./sample.png",
         },
         vertexShader: {
-          "sample1.vs": "./sample1.vs",
-          "sample2.vs": "./sample2.vs",
+          "sample1.vs": "./sample2.vs", // 逆にしてる
+          "sample2.vs": "./sample1.vs",
         },
         fragmentShader: {
-          "sample1.fs": "./sample1.fs",
-          "sample2.fs": "./sample2.fs",
+          "sample1.fs": "./sample2.fs",
+          "sample2.fs": "./sample1.fs",
         },
       });
 
@@ -107,15 +107,15 @@ phina.namespace(function() {
     phina.util.Ticker()
       .on("tick", function() {
         mat4.rotateZ(mMat1, mMat1, 0.04);
-        mat4.rotateY(mMat2, mMat2, 0.04);
-
+        mat4.rotateZ(mMat2, mMat2, -0.06);
+        
         gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
-
-        drawable1.uniforms.mMatrix.value = mMat1;
-        drawable1.draw();
 
         drawable2.uniforms.mMatrix.value = mMat2;
         drawable2.draw();
+
+        drawable1.uniforms.mMatrix.value = mMat1;
+        drawable1.draw();
 
         gl.flush();
       })

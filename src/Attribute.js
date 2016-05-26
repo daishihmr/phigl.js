@@ -1,13 +1,14 @@
 phina.namespace(function() {
-
+  
   phina.define("phigl.Attribute", {
 
     gl: null,
-
+    name: null,
     _location: null,
     _type: null,
+    _ptype: null,
 
-    init: function(gl, program, name) {
+    init: function(gl, program, name, type) {
       this.gl = gl;
       this.name = name;
 
@@ -16,10 +17,9 @@ phina.namespace(function() {
         throw "attribute " + name + " not found";
       }
       gl.enableVertexAttribArray(this._location);
-      
-      var info = gl.getActiveAttrib(program, this._location);
-      this._type = info.type;
-      switch (info.type) {
+
+      this._type = type;
+      switch (type) {
         case gl.FLOAT:
           this.size = 1;
           this._ptype = gl.FLOAT;
@@ -40,7 +40,9 @@ phina.namespace(function() {
     },
 
     specify: function(stride, offset) {
-      this.gl.vertexAttribPointer(this._location, this.size, this._ptype, false, stride, offset);
+      // console.log("attribute", this.name, this._location);
+      var gl = this.gl;
+      gl.vertexAttribPointer(this._location, this.size, this._ptype, false, stride, offset);
       return this;
     },
 
