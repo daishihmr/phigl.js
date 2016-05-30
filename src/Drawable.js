@@ -88,6 +88,18 @@ phina.namespace(function() {
       return this;
     },
 
+    setAttributeVbo: function(vbo) {
+      this.vbo = vbo;
+
+      this.vbo.bind();
+      var stride = this.stride;
+      var offsets = this.offsets;
+      this.attributes.forEach(function(v, i) { v.specify(stride, offsets[i]) });
+      phigl.Vbo.unbind(this.gl);
+
+      return this;
+    },
+
     createVao: function() {
       var gl = this.gl;
       var stride = this.stride;

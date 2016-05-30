@@ -140,6 +140,18 @@ phina.namespace(function() {
       return this;
     },
 
+    setAttributeVbo: function(vbo) {
+      this.vbo = vbo;
+
+      this.vbo.bind();
+      var stride = this.stride;
+      var offsets = this.offsets;
+      this.attributes.forEach(function(v, i) { v.specify(stride, offsets[i]) });
+      phigl.Vbo.unbind(this.gl);
+
+      return this;
+    },
+
     createVao: function() {
       var gl = this.gl;
       var stride = this.stride;
@@ -844,6 +856,45 @@ phina.namespace(function() {
     },
 
   });
+});
+
+phina.namespace(function() {
+  
+  phina.define("phigl.Vec3", {
+    superClass: Float32Array,
+    
+    init: function() {
+      Float32Array.call(this, [0, 0, 0]);
+    },
+    
+    _accessor: {
+      x: {
+        get: function() {
+          return this[0];
+        },
+        set: function(v) {
+          this[0] = v;
+        },
+      },
+      y: {
+        get: function() {
+          return this[1];
+        },
+        set: function(v) {
+          this[1] = v;
+        },
+      },
+      z: {
+        get: function() {
+          return this[2];
+        },
+        set: function(v) {
+          this[2] = v;
+        },
+      },
+    },
+  });
+  
 });
 
 //# sourceMappingURL=phigl.js.map
