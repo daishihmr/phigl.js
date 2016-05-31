@@ -91,7 +91,12 @@ phina.namespace(function() {
 
     setIndexValues: function(value) {
       if (!this.indices) this.indices = phigl.Ibo(this.gl);
-      this.indices.setValue(value);
+      this.indices.set(value);
+      return this;
+    },
+
+    setIbo: function(ibo) {
+      this.indices = ibo;
       return this;
     },
 
@@ -327,7 +332,7 @@ phina.namespace(function() {
       this._buffer = gl.createBuffer();
     },
 
-    setValue: function(data) {
+    set: function(data) {
       var gl = this.gl;
       gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, this._buffer);
       gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Int16Array(data), gl.STATIC_DRAW);
@@ -339,6 +344,10 @@ phina.namespace(function() {
     bind: function() {
       this.gl.bindBuffer(this.gl.ELEMENT_ARRAY_BUFFER, this._buffer);
       return this;
+    },
+
+    delete: function() {
+      this.gl.deleteBuffer(this._buffer);
     },
 
     _static: {
@@ -354,7 +363,7 @@ phina.namespace(function() {
           return null;
         },
         set: function(v) {
-          this.setValue(v);
+          this.set(v);
         },
       },
     },
@@ -676,10 +685,15 @@ phina.namespace(function() {
       return this;
     },
 
-    unbind: function() {
-      var gl = this.gl;
-      gl.bindTexture(gl.TEXTURE_2D, null);
-      return this;
+    delete: function() {
+      this.gl.deleteTexture(this._texture);
+    },
+
+    _static: {
+      unbind: function(gl) {
+        gl.bindTexture(gl.TEXTURE_2D, null);
+        return this;
+      },
     },
   });
 
@@ -802,7 +816,7 @@ phina.namespace(function() {
     gl: null,
     usage: null,
     _vbo: null,
-    
+
     array: null,
 
     init: function(gl, usage) {
@@ -848,6 +862,10 @@ phina.namespace(function() {
       return this;
     },
 
+    delete: function() {
+      this.gl.deleteBuffer(this._vbo);
+    },
+
     _static: {
       unbind: function(gl) {
         gl.bindBuffer(gl.ARRAY_BUFFER, null);
@@ -856,45 +874,6 @@ phina.namespace(function() {
     },
 
   });
-});
-
-phina.namespace(function() {
-  
-  phina.define("phigl.Vec3", {
-    superClass: Float32Array,
-    
-    init: function() {
-      Float32Array.call(this, [0, 0, 0]);
-    },
-    
-    _accessor: {
-      x: {
-        get: function() {
-          return this[0];
-        },
-        set: function(v) {
-          this[0] = v;
-        },
-      },
-      y: {
-        get: function() {
-          return this[1];
-        },
-        set: function(v) {
-          this[1] = v;
-        },
-      },
-      z: {
-        get: function() {
-          return this[2];
-        },
-        set: function(v) {
-          this[2] = v;
-        },
-      },
-    },
-  });
-  
 });
 
 //# sourceMappingURL=phigl.js.map

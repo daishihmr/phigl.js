@@ -12,7 +12,7 @@ phina.namespace(function() {
       this._buffer = gl.createBuffer();
     },
 
-    setValue: function(data) {
+    set: function(data) {
       var gl = this.gl;
       gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, this._buffer);
       gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Int16Array(data), gl.STATIC_DRAW);
@@ -43,7 +43,7 @@ phina.namespace(function() {
           return null;
         },
         set: function(v) {
-          this.setValue(v);
+          this.set(v);
         },
       },
     },

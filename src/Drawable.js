@@ -39,7 +39,12 @@ phina.namespace(function() {
 
     setIndexValues: function(value) {
       if (!this.indices) this.indices = phigl.Ibo(this.gl);
-      this.indices.setValue(value);
+      this.indices.set(value);
+      return this;
+    },
+
+    setIbo: function(ibo) {
+      this.indices = ibo;
       return this;
     },
 
