@@ -35,10 +35,15 @@ phina.namespace(function() {
       return this;
     },
 
-    unbind: function() {
-      var gl = this.gl;
-      gl.bindTexture(gl.TEXTURE_2D, null);
-      return this;
+    delete: function() {
+      this.gl.deleteTexture(this._texture);
+    },
+
+    _static: {
+      unbind: function(gl) {
+        gl.bindTexture(gl.TEXTURE_2D, null);
+        return this;
+      },
     },
   });
 

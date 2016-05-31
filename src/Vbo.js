@@ -6,7 +6,7 @@ phina.namespace(function() {
     gl: null,
     usage: null,
     _vbo: null,
-    
+
     array: null,
 
     init: function(gl, usage) {
@@ -50,6 +50,10 @@ phina.namespace(function() {
       gl.bindBuffer(gl.ARRAY_BUFFER, this._vbo);
       // console.log("bindBuffer", this._vbo, this.array.length);
       return this;
+    },
+
+    delete: function() {
+      this.gl.deleteBuffer(this._vbo);
     },
 
     _static: {

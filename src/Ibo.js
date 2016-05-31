@@ -26,6 +26,10 @@ phina.namespace(function() {
       return this;
     },
 
+    delete: function() {
+      this.gl.deleteBuffer(this._buffer);
+    },
+
     _static: {
       unbind: function(gl) {
         gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, null);
