@@ -43,7 +43,7 @@ phina.namespace(function() {
       return this;
     },
 
-    setIbo: function(ibo) {
+    setIndexBuffer: function(ibo) {
       this.indices = ibo;
       return this;
     },

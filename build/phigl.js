@@ -95,7 +95,7 @@ phina.namespace(function() {
       return this;
     },
 
-    setIbo: function(ibo) {
+    setIndexBuffer: function(ibo) {
       this.indices = ibo;
       return this;
     },
@@ -303,16 +303,17 @@ phina.namespace(function() {
       gl.bindFramebuffer(gl.FRAMEBUFFER, null);
     },
 
-    bind: function() {
+    bind: function(vpx, vpy, vpw, vph) {
       var gl = this.gl;
       gl.bindFramebuffer(gl.FRAMEBUFFER, this._framebuffer);
-      gl.viewport(0, 0, this.width, this.height);
+      gl.viewport(vpx, vpy, vpw, vph);
       return this;
     },
 
-    unbind: function() {
-      this.gl.bindFramebuffer(this.gl.FRAMEBUFFER, null);
-      return this;
+    _static: {
+      unbind: function(gl) {
+        gl.bindFramebuffer(gl.FRAMEBUFFER, null);
+      },
     },
   });
 
@@ -787,7 +788,7 @@ phina.namespace(function() {
 
       switch (this._type) {
         case gl.SAMPLER_2D:
-          if (this.texture) this.texture.unbind();
+          if (this.texture) phigl.Texture.unbind(gl);
           break;
       }
 

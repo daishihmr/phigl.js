@@ -86,7 +86,7 @@ phina.namespace(function() {
 
       switch (this._type) {
         case gl.SAMPLER_2D:
-          if (this.texture) this.texture.unbind();
+          if (this.texture) phigl.Texture.unbind(gl);
           break;
       }
 
