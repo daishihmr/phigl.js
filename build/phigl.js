@@ -305,10 +305,9 @@ phina.namespace(function() {
       gl.bindFramebuffer(gl.FRAMEBUFFER, null);
     },
 
-    bind: function(vpx, vpy, vpw, vph) {
+    bind: function() {
       var gl = this.gl;
       gl.bindFramebuffer(gl.FRAMEBUFFER, this._framebuffer);
-      gl.viewport(vpx, vpy, vpw, vph);
       return this;
     },
 
