@@ -287,6 +287,8 @@ phina.namespace(function() {
 
       gl.bindRenderbuffer(gl.RENDERBUFFER, this._depthRenderbuffer);
       gl.renderbufferStorage(gl.RENDERBUFFER, gl.DEPTH_COMPONENT16, width, height);
+      
+      gl.framebufferRenderbuffer(gl.FRAMEBUFFER, gl.DEPTH_ATTACHMENT, gl.RENDERBUFFER, this._depthRenderbuffer);
 
       gl.bindTexture(gl.TEXTURE_2D, this._texture);
       gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, width, height, 0, gl.RGBA, gl.UNSIGNED_BYTE, null);
