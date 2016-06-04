@@ -35,6 +35,18 @@ phina.namespace(function() {
 
       return this;
     },
+    
+    setInstanceAttributeVbo: function(vbo) {
+      this.instanceVbo = vbo;
+
+      this.instanceVbo.bind();
+      var iStride = this.instanceStride;
+      var iOffsets = this.instanceOffsets;
+      this.instanceAttributes.forEach(function(v, i) { v.specify(iStride, iOffsets[i]) });
+      phigl.Vbo.unbind(this.gl);
+
+      return this;
+    },
 
     setInstanceAttributeData: function(data) {
       if (!this.instanceVbo) this.instanceVbo = phigl.Vbo(this.gl, this.gl.DYNAMIC_DRAW);
