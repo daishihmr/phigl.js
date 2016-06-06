@@ -96,10 +96,10 @@ phina.namespace(function() {
       var gl = this.gl;
       var program = this._program;
       this._shaders.forEach(function(shader) {
-        gl.detachShader(program, shader);
+        gl.detachShader(program, shader._shader);
       });
       this._shaders.forEach(function(shader) {
-        gl.deleteShader(shader);
+        gl.deleteShader(shader._shader);
       });
       gl.deleteProgram(program);
       return this;
