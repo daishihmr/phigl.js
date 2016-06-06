@@ -13,6 +13,8 @@ phina.namespace(function() {
     _attributes: null,
     _uniforms: null,
 
+    _shaders: null,
+
     init: function(gl) {
       this.gl = gl;
 
@@ -22,6 +24,8 @@ phina.namespace(function() {
 
       this._attributes = {};
       this._uniforms = {};
+
+      this._shaders = [];
     },
 
     attach: function(shader) {
@@ -36,6 +40,8 @@ phina.namespace(function() {
       }
 
       gl.attachShader(this._program, shader._shader);
+
+      this._shaders.push(shader);
 
       return this;
     },
@@ -66,7 +72,7 @@ phina.namespace(function() {
         throw gl.getProgramInfoLog(this._program);
       }
     },
-    
+
     getAttribute: function(name, type) {
       if (!this._attributes[name]) {
         this._attributes[name] = phigl.Attribute(this.gl, this._program, name, type);
@@ -83,7 +89,19 @@ phina.namespace(function() {
 
     use: function() {
       this.gl.useProgram(this._program);
-      // console.log("useProgram", this._program);
+      return this;
+    },
+
+    delete: function() {
+      var gl = this.gl;
+      var program = this._program;
+      this._shaders.forEach(function(shader) {
+        gl.detachShader(program, shader);
+      });
+      this._shaders.forEach(function(shader) {
+        gl.deleteShader(shader);
+      });
+      gl.deleteProgram(program);
       return this;
     },
   });
