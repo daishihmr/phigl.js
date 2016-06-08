@@ -92,7 +92,7 @@ phina.namespace(function() {
     var texture12 = phigl.Texture(gl, "p12.png");
     var texture14 = phigl.Texture(gl, "p14.png");
 
-    var drawable = phigl.Drawable(gl, ext)
+    var drawable = phigl.Drawable(gl)
       .setProgram(phigl.Program(gl).attach("sample.vs").attach("sample.fs").link())
       .setDrawMode(gl.TRIANGLES)
       .setAttributes("position", "uv", "normal")
