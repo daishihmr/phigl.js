@@ -2,6 +2,10 @@ phina.namespace(function() {
   var id = 0;
 
   phina.define("phigl.Program", {
+    
+    _static: {
+      currentAttached: null,
+    },
 
     gl: null,
     linked: false,
@@ -25,6 +29,8 @@ phina.namespace(function() {
     },
 
     attach: function(shader) {
+      if (phigl.Program.currentAttached === this) return;
+      
       var gl = this.gl;
 
       if (typeof shader === "string") {
@@ -36,6 +42,8 @@ phina.namespace(function() {
       }
 
       gl.attachShader(this._program, shader._shader);
+      
+      phigl.Program.currentAttached = this;
 
       return this;
     },
