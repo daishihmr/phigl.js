@@ -2,9 +2,9 @@ phina.namespace(function() {
   var id = 0;
 
   phina.define("phigl.Program", {
-    
+
     _static: {
-      currentAttached: null,
+      currentUsing: null,
     },
 
     gl: null,
@@ -29,8 +29,6 @@ phina.namespace(function() {
     },
 
     attach: function(shader) {
-      if (phigl.Program.currentAttached === this) return;
-      
       var gl = this.gl;
 
       if (typeof shader === "string") {
@@ -42,8 +40,6 @@ phina.namespace(function() {
       }
 
       gl.attachShader(this._program, shader._shader);
-      
-      phigl.Program.currentAttached = this;
 
       return this;
     },
@@ -74,7 +70,7 @@ phina.namespace(function() {
         throw gl.getProgramInfoLog(this._program);
       }
     },
-    
+
     getAttribute: function(name, type) {
       if (!this._attributes[name]) {
         this._attributes[name] = phigl.Attribute(this.gl, this._program, name, type);
@@ -90,8 +86,9 @@ phina.namespace(function() {
     },
 
     use: function() {
+      if (phigl.Program.currentUsing === this) return this;
       this.gl.useProgram(this._program);
-      // console.log("useProgram", this._program);
+      phigl.Program.currentUsing = this;
       return this;
     },
   });
