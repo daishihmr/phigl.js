@@ -7,12 +7,10 @@ phina.namespace(function() {
       })
       .load({
         text: {
-          "obj": "./../../gl-obj.js/test/fighter.obj",
-          // "obj": "./p64.obj",
+          "obj": "./p64.obj",
         },
         image: {
-          "p64.png": "./../../gl-obj.js/test/fighter.png",
-          // "p64.png": "./p64.png",
+          "p64.png": "./p64.png",
         },
         vertexShader: {
           "sample.vs": "./sample.vs",
@@ -26,7 +24,29 @@ phina.namespace(function() {
   var start = function() {
     var data = phina.asset.AssetManager.get("text", "obj").data;
     var obj = globj.ObjParser.parse(data).defaultObject.groups.defaultGroup;
-    var attr = globj.AttributeBuilder.build(obj);
+    console.log(obj);
+    var vertices = [];
+    obj.faces.forEach(function(face) {
+      for (var i = 1; i < face.length - 1; i++) {
+        vertices.push(face[0]);
+        vertices.push(face[i + 0]);
+        vertices.push(face[i + 1]);
+      }
+    });
+    var indices = Array.range(vertices.length);
+    var data = vertices.map(function(vertex, i) {
+      var p = obj.positions[vertex.position - 1];
+      var t = obj.texCoords[vertex.texCoord - 1];
+      var n = obj.normals[vertex.normal - 1];
+      return [
+        // position
+        p.x, p.y, p.z,
+        // texCoord
+        t.u, t.v,
+        // normal
+        n.x, n.y, n.z
+      ];
+    }).flatten();
 
     var canvas = document.getElementById("app");
     canvas.width = 960;
@@ -43,8 +63,8 @@ phina.namespace(function() {
     gl.cullFace(gl.BACK);
     gl.depthFunc(gl.LEQUAL);
 
-    var instanceData = Array.range(-20, 20).map(function(x) {
-      return Array.range(-15, 15).map(function(y) {
+    var instanceData = Array.range(-10, 10).map(function(x) {
+      return Array.range(-5, 5).map(function(y) {
         return [
           // position
           x * 10, Math.random() * 20, y * 10,
@@ -57,9 +77,9 @@ phina.namespace(function() {
     var drawable = phigl.InstancedDrawable(gl, ext)
       .setDrawMode(gl.TRIANGLES)
       .setProgram(phigl.Program(gl).attach("sample.vs").attach("sample.fs").link())
-      .setIndexValues(attr.indices)
+      .setIndexValues(indices)
       .setAttributes("position", "uv", "normal")
-      .setAttributeData(attr.attr)
+      .setAttributeData(data)
       .setInstanceAttributes("instancePosition", "instanceRotationY")
       .setInstanceAttributeData(instanceData)
       .setUniforms(
@@ -91,7 +111,7 @@ phina.namespace(function() {
       .on("tick", function() {
         stats.begin();
 
-        cameraPos = [Math.cos(frame * 0.01) * 50, 10, Math.sin(frame * 0.01) * 50];
+        cameraPos = [Math.cos(frame * 0.01) * 100, 10, Math.sin(frame * 0.01) * 100];
 
         mat4.lookAt(vMatrix, cameraPos, cameraTarget, [0, 1, 0]);
         mat4.multiply(vpMatrix, pMatrix, vMatrix);
