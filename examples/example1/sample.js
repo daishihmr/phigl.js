@@ -78,9 +78,6 @@ phina.namespace(function() {
     drawable.uniforms.vMatrix.value = mat4.lookAt(mat4.create(), [0, 0, 500], [0, 0, 0], [0, 1, 0]);
     drawable.uniforms.pMatrix.value = mat4.ortho(mat4.create(), -512, 512, -512, 512, 0.1, 1000);
 
-    drawable.uniforms.textureA.setValue(0).setTexture(phigl.Texture(gl, "p64.png"));
-    drawable.uniforms.textureB.setValue(1).setTexture(phigl.Texture(gl, "sample2.png"));
-
     var matA = mat4.create();
     mat4.translate(matA, matA, [0, -100, 0]);
     mat4.scale(matA, matA, [100, 100, 100]);
@@ -97,9 +94,13 @@ phina.namespace(function() {
         gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
         drawable.uniforms.mMatrix.value = matA;
+        drawable.uniforms.textureA.setValue(0).setTexture(phigl.Texture(gl, "p64.png"));
+        drawable.uniforms.textureB.setValue(1).setTexture(phigl.Texture(gl, "sample1.png"));
         drawable.draw();
 
         drawable.uniforms.mMatrix.value = matB;
+        drawable.uniforms.textureA.setValue(0).setTexture(phigl.Texture(gl, "p64.png"));
+        drawable.uniforms.textureB.setValue(1).setTexture(phigl.Texture(gl, "sample2.png"));
         drawable.draw();
 
         gl.flush();
