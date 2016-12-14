@@ -1,6 +1,10 @@
 phina.namespace(function() {
   var i = 0;
 
+  /**
+   * @constructor phigl.Vbo
+   * @param  {WebGLRenderingContext} gl context
+   */
   phina.define("phigl.Vbo", {
 
     gl: null,
@@ -31,6 +35,7 @@ phina.namespace(function() {
 
     /**
      * [{ unitSize: 3, data: [...] }, { unitSize: 2, data: [...] }]
+     * @memberOf phigl.Vbo.prototype
      */
     setAsInterleavedArray: function(dataArray) {
       var count = dataArray[0].data.length / dataArray[0].unitSize;

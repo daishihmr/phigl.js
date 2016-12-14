@@ -1,5 +1,9 @@
 phina.namespace(function() {
 
+  /**
+   * @constructor phigl.Texture
+   * @param  {WebGLRenderingContext} gl context
+   */
   phina.define("phigl.Texture", {
 
     gl: null,

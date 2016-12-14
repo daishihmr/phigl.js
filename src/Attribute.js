@@ -1,5 +1,13 @@
 phina.namespace(function() {
   
+  /**
+   * GLSL Attribute variable.
+   * @constructor phigl.Attribute
+   * @param  {WebGLRenderingContext} gl context
+   * @param  {phigl.Program} program
+   * @param  {string} name
+   * @param  {number} type
+   */
   phina.define("phigl.Attribute", {
 
     gl: null,
@@ -39,6 +47,13 @@ phina.namespace(function() {
       }
     },
 
+    /**
+     * set stride and offset
+     * @memberOf phigl.Attribute.prototype
+     * @param  {number} stride
+     * @param  {number} offset
+     * @return {this}
+     */
     specify: function(stride, offset) {
       // console.log("attribute", this.name, this._location);
       var gl = this.gl;

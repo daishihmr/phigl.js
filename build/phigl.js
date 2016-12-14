@@ -1,5 +1,13 @@
 phina.namespace(function() {
   
+  /**
+   * GLSL Attribute variable.
+   * @constructor phigl.Attribute
+   * @param  {WebGLRenderingContext} gl context
+   * @param  {phigl.Program} program
+   * @param  {string} name
+   * @param  {number} type
+   */
   phina.define("phigl.Attribute", {
 
     gl: null,
@@ -39,6 +47,13 @@ phina.namespace(function() {
       }
     },
 
+    /**
+     * set stride and offset
+     * @memberOf phigl.Attribute.prototype
+     * @param  {number} stride
+     * @param  {number} offset
+     * @return {this}
+     */
     specify: function(stride, offset) {
       // console.log("attribute", this.name, this._location);
       var gl = this.gl;
@@ -52,8 +67,17 @@ phina.namespace(function() {
 
 phina.namespace(function() {
 
-  phina.define("glb.Detector", {
+  /**
+   * GLSL Attribute variable.
+   * @constructor phigl.Detector
+   */
+  phina.define("phigl.Detector", {
     _static: {
+      
+      /**
+       * @memberOf phigl.Detector
+       * @property {boolean}
+       */
       isEnable: (function() {
         try {
           var canvas = document.createElement('canvas');
@@ -70,6 +94,12 @@ phina.namespace(function() {
 
 phina.namespace(function() {
 
+  /**
+   * drawable object.
+   * @constructor phigl.Drawable
+   * @param  {WebGLRenderingContext} gl context
+   * @extends {phina.util.EventDispatcher}
+   */
   phina.define("phigl.Drawable", {
     superClass: "phina.util.EventDispatcher",
 
@@ -254,6 +284,9 @@ phina.namespace(function() {
 
 phina.namespace(function() {
   
+  /**
+   * @constructor phigl.Extensions
+   */
   phina.define("phigl.Extensions", {
     
     _static: {
@@ -282,8 +315,19 @@ phina.namespace(function() {
 
 phina.namespace(function() {
 
+  /**
+   * @constructor phigl.Framebuffer
+   * @param  {WebGLRenderingContext} gl context
+   * @param {number} width
+   * @param {number} height
+   */
   phina.define("phigl.Framebuffer", {
     gl: null,
+    
+    /**
+     * @type {phigl.Texture}
+     * @memberOf phigl.Framebuffer.prototype
+     */
     texture: null,
 
     _framebuffer: null,
@@ -294,7 +338,7 @@ phina.namespace(function() {
       this.gl = gl;
       this.width = width;
       this.height = height;
-      
+
       this.texture = phigl.Texture(gl);
 
       this._framebuffer = gl.createFramebuffer();
@@ -305,7 +349,7 @@ phina.namespace(function() {
 
       gl.bindRenderbuffer(gl.RENDERBUFFER, this._depthRenderbuffer);
       gl.renderbufferStorage(gl.RENDERBUFFER, gl.DEPTH_COMPONENT16, width, height);
-      
+
       gl.framebufferRenderbuffer(gl.FRAMEBUFFER, gl.DEPTH_ATTACHMENT, gl.RENDERBUFFER, this._depthRenderbuffer);
 
       gl.bindTexture(gl.TEXTURE_2D, this._texture);
@@ -323,6 +367,10 @@ phina.namespace(function() {
       gl.bindFramebuffer(gl.FRAMEBUFFER, null);
     },
 
+    /**
+     * @memberOf phigl.Framebuffer.prototype
+     * @return {this}
+     */
     bind: function() {
       var gl = this.gl;
       gl.bindFramebuffer(gl.FRAMEBUFFER, this._framebuffer);
@@ -330,6 +378,10 @@ phina.namespace(function() {
     },
 
     _static: {
+      /**
+       * @memberOf phigl.Framebuffer
+       * @param  {WebGLRenderingContext} gl context
+       */
       unbind: function(gl) {
         gl.bindFramebuffer(gl.FRAMEBUFFER, null);
       },
@@ -340,6 +392,10 @@ phina.namespace(function() {
 
 phina.namespace(function() {
 
+  /**
+   * @constructor phigl.Ibo
+   * @param  {WebGLRenderingContext} gl context
+   */
   phina.define("phigl.Ibo", {
 
     gl: null,
@@ -393,6 +449,11 @@ phina.namespace(function() {
 
 phina.namespace(function() {
 
+  /**
+   * @constructor phigl.InstancedDrawable
+   * @extends {phigl.Drawable}
+   * @param  {WebGLRenderingContext} gl context
+   */
   phina.define("phigl.InstancedDrawable", {
     superClass: "phigl.Drawable",
 
@@ -514,6 +575,10 @@ phina.namespace(function() {
 phina.namespace(function() {
   var id = 0;
 
+  /**
+   * @constructor phigl.Program
+   * @param  {WebGLRenderingContext} gl context
+   */
   phina.define("phigl.Program", {
 
     _static: {
@@ -629,6 +694,11 @@ phina.namespace(function() {
 
 phina.namespace(function() {
 
+  /**
+   * @constructor phigl.Shader
+   * @extends {phina.asset.File}
+   * @param  {WebGLRenderingContext} gl context
+   */
   phina.define("phigl.Shader", {
     superClass: "phina.asset.File",
 
@@ -706,6 +776,10 @@ phina.namespace(function() {
 
 phina.namespace(function() {
 
+  /**
+   * @constructor phigl.Texture
+   * @param  {WebGLRenderingContext} gl context
+   */
   phina.define("phigl.Texture", {
 
     gl: null,
@@ -757,6 +831,10 @@ phina.namespace(function() {
 
 phina.namespace(function() {
 
+  /**
+   * @constructor phigl.Uniform
+   * @param  {WebGLRenderingContext} gl context
+   */
   phina.define("phigl.Uniform", {
 
     gl: null,
@@ -867,6 +945,10 @@ phina.namespace(function() {
 phina.namespace(function() {
   var i = 0;
 
+  /**
+   * @constructor phigl.Vbo
+   * @param  {WebGLRenderingContext} gl context
+   */
   phina.define("phigl.Vbo", {
 
     gl: null,
@@ -897,6 +979,7 @@ phina.namespace(function() {
 
     /**
      * [{ unitSize: 3, data: [...] }, { unitSize: 2, data: [...] }]
+     * @memberOf phigl.Vbo.prototype
      */
     setAsInterleavedArray: function(dataArray) {
       var count = dataArray[0].data.length / dataArray[0].unitSize;
