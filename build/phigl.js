@@ -393,6 +393,44 @@ phina.namespace(function() {
 
 phina.namespace(function() {
 
+  phina.define("phigl.ImageUtil", {
+
+    init: function() {},
+
+    _static: {
+
+      resizePowOf2: function(image, fitH, fitV) {
+        if (typeof(image) == "string") {
+          image = phina.asset.AssetManager.get("image", image);
+        }
+
+        if (Math.sqrt(image.width) % 1 == 0 && Math.sqrt(image.height) % 1 == 0) {
+          return image;
+        }
+
+        var width = Math.pow(2, Math.ceil(Math.log2(image.width)));
+        var height = Math.pow(2, Math.ceil(Math.log2(image.height)));
+
+        var canvas = phina.graphics.Canvas().setSize(width, height);
+
+        var dw = fitH ? width : image.width;
+        var dh = fitV ? height : image.height;
+
+        canvas.context.drawImage(image.domElement,
+          0, 0, image.width, image.height,
+          0, 0, dw, dh
+        );
+
+        return canvas;
+      },
+
+    },
+
+  });
+});
+
+phina.namespace(function() {
+
   phina.define("phigl.InstancedDrawable", {
     superClass: "phigl.Drawable",
 
@@ -525,7 +563,7 @@ phina.namespace(function() {
       this.gl = gl;
 
       if (typeof(shader) == "string") {
-        shader = phigl.PostProcessing.createProgram(shader);
+        shader = phigl.PostProcessing.createProgram(gl, shader);
       }
       width = width || 256;
       height = height || 256;
@@ -557,17 +595,8 @@ phina.namespace(function() {
       this.sqHeight = sqHeight;
     },
 
-    render: function(texture, uniformValues, additiveBlending) {
+    render: function(texture, uniformValues) {
       var gl = this.gl;
-
-      gl.enable(gl.BLEND);
-      gl.disable(gl.DEPTH_TEST);
-
-      if (additiveBlending) {
-        gl.blendFunc(gl.SRC_ALPHA, gl.ONE);
-      } else {
-        gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
-      }
 
       this.drawer.uniforms.texture.setValue(0).setTexture(texture);
       this.drawer.uniforms.canvasSize.value = [this.sqWidth, this.sqHeight];
@@ -584,6 +613,10 @@ phina.namespace(function() {
       });
     },
 
+    calcCoord: function(x, y) {
+      return [x / this.sqWidth, 1 - y / this.sqHeight];
+    },
+
     _static: {
       vertexShaderSource: [
         "attribute vec2 position;",
@@ -597,12 +630,12 @@ phina.namespace(function() {
         "}",
       ].join("\n"),
 
-      createProgram: function(fragmentShader) {
-        var vertexShader = phigl.VertexShader();
+      createProgram: function(gl, fragmentShader) {
+        var vertexShader = phigl.VertexShader(gl);
         vertexShader.data = this.vertexShaderSource;
 
-        return phigl.Program()
-          .attach(vs)
+        return phigl.Program(gl)
+          .attach(vertexShader)
           .attach(fragmentShader)
           .link();
       },

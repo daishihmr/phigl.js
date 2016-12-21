@@ -12,7 +12,7 @@ phina.namespace(function() {
       this.gl = gl;
 
       if (typeof(shader) == "string") {
-        shader = phigl.PostProcessing.createProgram(shader);
+        shader = phigl.PostProcessing.createProgram(gl, shader);
       }
       width = width || 256;
       height = height || 256;
@@ -44,17 +44,8 @@ phina.namespace(function() {
       this.sqHeight = sqHeight;
     },
 
-    render: function(texture, uniformValues, additiveBlending) {
+    render: function(texture, uniformValues) {
       var gl = this.gl;
-
-      gl.enable(gl.BLEND);
-      gl.disable(gl.DEPTH_TEST);
-
-      if (additiveBlending) {
-        gl.blendFunc(gl.SRC_ALPHA, gl.ONE);
-      } else {
-        gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
-      }
 
       this.drawer.uniforms.texture.setValue(0).setTexture(texture);
       this.drawer.uniforms.canvasSize.value = [this.sqWidth, this.sqHeight];
@@ -71,6 +62,10 @@ phina.namespace(function() {
       });
     },
 
+    calcCoord: function(x, y) {
+      return [x / this.sqWidth, 1 - y / this.sqHeight];
+    },
+
     _static: {
       vertexShaderSource: [
         "attribute vec2 position;",
@@ -84,12 +79,12 @@ phina.namespace(function() {
         "}",
       ].join("\n"),
 
-      createProgram: function(fragmentShader) {
-        var vertexShader = phigl.VertexShader();
+      createProgram: function(gl, fragmentShader) {
+        var vertexShader = phigl.VertexShader(gl);
         vertexShader.data = this.vertexShaderSource;
 
-        return phigl.Program()
-          .attach(vs)
+        return phigl.Program(gl)
+          .attach(vertexShader)
           .attach(fragmentShader)
           .link();
       },
