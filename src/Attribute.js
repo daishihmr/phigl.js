@@ -1,5 +1,5 @@
 phina.namespace(function() {
-  
+
   /**
    * GLSL Attribute variable.
    * @constructor phigl.Attribute
@@ -10,8 +10,17 @@ phina.namespace(function() {
    */
   phina.define("phigl.Attribute", {
 
+    /** 
+     * @type {WebGLRenderingContext}
+     * @memberOf phigl.Attribute.prototype
+     */
     gl: null,
+    /**
+     * @type {string}
+     * @memberOf phigl.Attribute.prototype
+     */
     name: null,
+
     _location: null,
     _type: null,
     _ptype: null,

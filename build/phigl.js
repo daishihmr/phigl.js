@@ -1,5 +1,5 @@
 phina.namespace(function() {
-  
+
   /**
    * GLSL Attribute variable.
    * @constructor phigl.Attribute
@@ -10,8 +10,17 @@ phina.namespace(function() {
    */
   phina.define("phigl.Attribute", {
 
+    /** 
+     * @type {WebGLRenderingContext}
+     * @memberOf phigl.Attribute.prototype
+     */
     gl: null,
+    /**
+     * @type {string}
+     * @memberOf phigl.Attribute.prototype
+     */
     name: null,
+
     _location: null,
     _type: null,
     _ptype: null,
@@ -96,24 +105,71 @@ phina.namespace(function() {
 
   /**
    * drawable object.
+   * 
    * @constructor phigl.Drawable
    * @param  {WebGLRenderingContext} gl context
+   * @param {WebGLExtension?} extVao value of gl.getExtension('OES_vertex_array_object')
    * @extends {phina.util.EventDispatcher}
    */
   phina.define("phigl.Drawable", {
     superClass: "phina.util.EventDispatcher",
 
+    /**
+     * @type {WebGLRenderingContext}
+     * @memberOf phigl.Drawable.prototype
+     */
     gl: null,
+    /**
+     * @type {WebGLExtension}
+     * @memberOf phigl.Drawable.prototype
+     */
     extVao: null,
 
+    /**
+     * @type {phigl.Program}
+     * @memberOf phigl.Drawable.prototype
+     */
     program: null,
+    /**
+     * @type {phigl.Ibo}
+     * @memberOf phigl.Drawable.prototype
+     */
     indices: null,
+    /**
+     * @type {Array.<phigl.Attribute>}
+     * @memberOf phigl.Drawable.prototype
+     */
     attributes: null,
+    /**
+     * @type {number}
+     * @memberOf phigl.Drawable.prototype
+     */
     stride: 0,
+    /**
+     * @type {Array.<number>}
+     * @memberOf phigl.Drawable.prototype
+     */
     offsets: null,
+    /**
+     * @type {Array.<phigl.Uniform>}
+     * @memberOf phigl.Drawable.prototype
+     */
     uniforms: null,
+    /**
+     * @type {phigl.Vbo}
+     * @memberOf phigl.Drawable.prototype
+     */
     vbo: null,
+    /**
+     * drawElements method 1st parameter
+     * @type {number}
+     * @memberOf phigl.Drawable.prototype
+     */
     drawMode: 0,
+    /**
+     * @type {WebGLVertexArrayObjectOES}
+     * @memberOf phigl.Drawable.prototype
+     */
     vao: null,
 
     init: function(gl, extVao) {
@@ -126,28 +182,53 @@ phina.namespace(function() {
       this.drawMode = gl.TRIANGLES;
     },
 
+    /**
+     * @param {number} mode
+     * @memberOf phigl.Drawable.prototype
+     * @return {this}
+     */
     setDrawMode: function(mode) {
       this.drawMode = mode;
       return this;
     },
 
+    /**
+     * @param {phigl.Program} program
+     * @memberOf phigl.Drawable.prototype
+     * @return {this}
+     */
     setProgram: function(program) {
       this.program = program;
       program.use();
       return this;
     },
 
+    /**
+     * @param {Array.<number>} value
+     * @memberOf phigl.Drawable.prototype
+     * @return {this}
+     */
     setIndexValues: function(value) {
       if (!this.indices) this.indices = phigl.Ibo(this.gl);
       this.indices.set(value);
       return this;
     },
 
+    /**
+     * @param {phigl.Ibo} ibo
+     * @memberOf phigl.Drawable.prototype
+     * @return {this}
+     */
     setIndexBuffer: function(ibo) {
       this.indices = ibo;
       return this;
     },
 
+    /**
+     * @param {Array.<string>} names
+     * @memberOf phigl.Drawable.prototype
+     * @return {this}
+     */
     setAttributes: function(names) {
       names = Array.prototype.concat.apply([], arguments);
 
@@ -163,6 +244,12 @@ phina.namespace(function() {
       return this;
     },
 
+    /**
+     * @param {Array.<number>} data
+     * @param {number=} usage default = gl.STATIC_DRAW
+     * @memberOf phigl.Drawable.prototype
+     * @return {this}
+     */
     setAttributeData: function(data, usage) {
       if (!this.vbo) {
         this.vbo = phigl.Vbo(this.gl, usage);
@@ -178,6 +265,12 @@ phina.namespace(function() {
       return this;
     },
 
+    /**
+     * @param {Array.<object>} dataArray [{ unitSize: n, data: [number] }, ...]
+     * @param {number=} usage default = gl.STATIC_DRAW
+     * @memberOf phigl.Drawable.prototype
+     * @return {this}
+     */
     setAttributeDataArray: function(dataArray, usage) {
       if (!this.vbo) {
         this.vbo = phigl.Vbo(this.gl, usage);
@@ -193,6 +286,11 @@ phina.namespace(function() {
       return this;
     },
 
+    /**
+     * @param {phigl.Vbo} vbo
+     * @memberOf phigl.Drawable.prototype
+     * @return {this}
+     */
     setAttributeVbo: function(vbo) {
       this.vbo = vbo;
 
@@ -205,6 +303,10 @@ phina.namespace(function() {
       return this;
     },
 
+    /**
+     * @memberOf phigl.Drawable.prototype
+     * @return {this}
+     */
     createVao: function() {
       var gl = this.gl;
       var stride = this.stride;
@@ -231,6 +333,11 @@ phina.namespace(function() {
       return this;
     },
 
+    /**
+     * @param {Array.<string>} names
+     * @memberOf phigl.Drawable.prototype
+     * @return {this}
+     */
     setUniforms: function(names) {
       names = Array.prototype.concat.apply([], arguments);
 
@@ -243,6 +350,9 @@ phina.namespace(function() {
       return this;
     },
 
+    /**
+     * @memberOf phigl.Drawable.prototype
+     */
     draw: function() {
       // console.log("-- begin");
 
@@ -491,6 +601,7 @@ phina.namespace(function() {
    * @constructor phigl.InstancedDrawable
    * @extends {phigl.Drawable}
    * @param  {WebGLRenderingContext} gl context
+   * @param {WebGLExtension?} extVao value of gl.getExtension('ANGLE_instanced_arrays')
    */
   phina.define("phigl.InstancedDrawable", {
     superClass: "phigl.Drawable",
@@ -1112,7 +1223,7 @@ phina.namespace(function() {
     },
 
     /**
-     * [{ unitSize: 3, data: [...] }, { unitSize: 2, data: [...] }]
+     * @param {Array.<object>} dataArray [{ unitSize: 3, data: [...] }, { unitSize: 2, data: [...] }]
      * @memberOf phigl.Vbo.prototype
      */
     setAsInterleavedArray: function(dataArray) {

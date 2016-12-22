@@ -53,3 +53,7 @@ gulp.task("jsdoc", function() {
 gulp.task("watch", function() {
   gulp.watch(sourceFiles("./src"), ["concat"]);
 });
+
+gulp.task("watchJsdoc", function() {
+  gulp.watch(sourceFiles("./src"), ["jsdoc"]);
+});

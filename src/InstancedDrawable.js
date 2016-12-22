@@ -4,6 +4,7 @@ phina.namespace(function() {
    * @constructor phigl.InstancedDrawable
    * @extends {phigl.Drawable}
    * @param  {WebGLRenderingContext} gl context
+   * @param {WebGLExtension?} extVao value of gl.getExtension('ANGLE_instanced_arrays')
    */
   phina.define("phigl.InstancedDrawable", {
     superClass: "phigl.Drawable",

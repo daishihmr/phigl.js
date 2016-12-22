@@ -34,7 +34,7 @@ phina.namespace(function() {
     },
 
     /**
-     * [{ unitSize: 3, data: [...] }, { unitSize: 2, data: [...] }]
+     * @param {Array.<object>} dataArray [{ unitSize: 3, data: [...] }, { unitSize: 2, data: [...] }]
      * @memberOf phigl.Vbo.prototype
      */
     setAsInterleavedArray: function(dataArray) {
