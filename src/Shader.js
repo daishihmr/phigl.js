@@ -1,5 +1,10 @@
 phina.namespace(function() {
 
+  /**
+   * @constructor phigl.Shader
+   * @extends {phina.asset.File}
+   * @param  {WebGLRenderingContext} gl context
+   */
   phina.define("phigl.Shader", {
     superClass: "phina.asset.File",
 

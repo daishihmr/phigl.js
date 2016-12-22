@@ -1,5 +1,9 @@
 phina.namespace(function() {
 
+  /**
+   * @constructor phigl.Ibo
+   * @param  {WebGLRenderingContext} gl context
+   */
   phina.define("phigl.Ibo", {
 
     gl: null,

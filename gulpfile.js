@@ -6,6 +6,7 @@ var uglify = require("gulp-uglify");
 var rename = require("gulp-rename");
 var fs = require("node-fs-extra");
 require("high");
+var jsdoc = require("gulp-jsdoc");
 
 var sourceFiles = function(folder) {
   var scan = function(file) {
@@ -25,7 +26,7 @@ var sourceFiles = function(folder) {
   return srcs;
 };
 
-gulp.task("default", ["concat", "uglify"]);
+gulp.task("default", ["concat", "uglify", "jsdoc"]);
 
 gulp.task("concat", function() {
   gulp.src(sourceFiles("./src"))
@@ -42,6 +43,11 @@ gulp.task("uglify", function() {
       extname: ".min.js"
     }))
     .pipe(gulp.dest("./build"));
+});
+
+gulp.task("jsdoc", function() {
+  gulp.src("./src/**/*.js")
+    .pipe(jsdoc("./docs"));
 });
 
 gulp.task("watch", function() {

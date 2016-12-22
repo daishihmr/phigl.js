@@ -1,7 +1,16 @@
 phina.namespace(function() {
 
-  phina.define("glb.Detector", {
+  /**
+   * GLSL Attribute variable.
+   * @constructor phigl.Detector
+   */
+  phina.define("phigl.Detector", {
     _static: {
+      
+      /**
+       * @memberOf phigl.Detector
+       * @property {boolean}
+       */
       isEnable: (function() {
         try {
           var canvas = document.createElement('canvas');

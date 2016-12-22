@@ -1,5 +1,8 @@
 phina.namespace(function() {
   
+  /**
+   * @constructor phigl.Extensions
+   */
   phina.define("phigl.Extensions", {
     
     _static: {
