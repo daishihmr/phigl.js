@@ -8,7 +8,7 @@ phina.namespace(function() {
 
       resizePowOf2: function(image, fitH, fitV) {
         if (typeof(image) == "string") {
-          image = phina.asset.AssetManager.get("image", image);
+          image = phina.asset.AssetManager.get("image", image).domElement;
         }
 
         if (Math.sqrt(image.width) % 1 == 0 && Math.sqrt(image.height) % 1 == 0) {
@@ -23,7 +23,7 @@ phina.namespace(function() {
         var dw = fitH ? width : image.width;
         var dh = fitV ? height : image.height;
 
-        canvas.context.drawImage(image.domElement,
+        canvas.context.drawImage(image,
           0, 0, image.width, image.height,
           0, 0, dw, dh
         );

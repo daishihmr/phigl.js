@@ -63,7 +63,7 @@ phina.namespace(function() {
     },
 
     calcCoord: function(x, y) {
-      return [x / this.sqWidth, 1 - y / this.sqHeight];
+      return [x / this.sqWidth, (this.height - y) / this.sqHeight];
     },
 
     _static: {
