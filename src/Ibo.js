@@ -6,7 +6,13 @@ phina.namespace(function() {
    */
   phina.define("phigl.Ibo", {
 
+    /**
+     * @memberOf phigl.Ibo.prototype
+     */
     gl: null,
+    /**
+     * @memberOf phigl.Ibo.prototype
+     */
     length: 0,
 
     _buffer: null,
@@ -16,6 +22,9 @@ phina.namespace(function() {
       this._buffer = gl.createBuffer();
     },
 
+    /**
+     * @memberOf phigl.Ibo.prototype
+     */
     set: function(data) {
       var gl = this.gl;
       gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, this._buffer);
@@ -25,11 +34,17 @@ phina.namespace(function() {
       return this;
     },
 
+    /**
+     * @memberOf phigl.Ibo.prototype
+     */
     bind: function() {
       this.gl.bindBuffer(this.gl.ELEMENT_ARRAY_BUFFER, this._buffer);
       return this;
     },
 
+    /**
+     * @memberOf phigl.Ibo.prototype
+     */
     delete: function() {
       this.gl.deleteBuffer(this._buffer);
     },
@@ -42,6 +57,9 @@ phina.namespace(function() {
     },
 
     _accessor: {
+      /**
+       * @memberOf phigl.Ibo.prototype
+       */
       value: {
         get: function() {
           return null;

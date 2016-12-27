@@ -1,11 +1,17 @@
 phina.namespace(function() {
 
+  /**
+   * @constructor phigl.ImageUtil
+   */
   phina.define("phigl.ImageUtil", {
 
     init: function() {},
 
     _static: {
 
+      /**
+       * @memberOf phigl.ImageUtil
+       */
       resizePowOf2: function(image, fitH, fitV) {
         if (typeof(image) == "string") {
           image = phina.asset.AssetManager.get("image", image).domElement;

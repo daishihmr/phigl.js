@@ -7,10 +7,19 @@ phina.namespace(function() {
    */
   phina.define("phigl.Vbo", {
 
+    /**
+     * @memberOf phigl.Vbo.prototype
+     */
     gl: null,
+    /**
+     * @memberOf phigl.Vbo.prototype
+     */
     usage: null,
     _vbo: null,
 
+    /**
+     * @memberOf phigl.Vbo.prototype
+     */
     array: null,
 
     init: function(gl, usage) {
@@ -20,6 +29,9 @@ phina.namespace(function() {
       this._vbo._id = i++;
     },
 
+    /**
+     * @memberOf phigl.Vbo.prototype
+     */
     set: function(data) {
       var gl = this.gl;
       if (this.array) {
@@ -34,7 +46,7 @@ phina.namespace(function() {
     },
 
     /**
-     * @param {Array.<object>} dataArray [{ unitSize: 3, data: [...] }, { unitSize: 2, data: [...] }]
+     * @param {Array.<object>} dataArray [{ unitSize: n, data: [number] }, ...]
      * @memberOf phigl.Vbo.prototype
      */
     setAsInterleavedArray: function(dataArray) {
@@ -50,6 +62,9 @@ phina.namespace(function() {
       return this.set(interleavedArray);
     },
 
+    /**
+     * @memberOf phigl.Vbo.prototype
+     */
     bind: function() {
       var gl = this.gl;
       gl.bindBuffer(gl.ARRAY_BUFFER, this._vbo);
@@ -57,11 +72,17 @@ phina.namespace(function() {
       return this;
     },
 
+    /**
+     * @memberOf phigl.Vbo.prototype
+     */
     delete: function() {
       this.gl.deleteBuffer(this._vbo);
     },
 
     _static: {
+      /**
+       * @memberOf phigl.Vbo
+       */
       unbind: function(gl) {
         gl.bindBuffer(gl.ARRAY_BUFFER, null);
         // console.log("unbind")

@@ -3,13 +3,21 @@ phina.namespace(function() {
   /**
    * @constructor phigl.Shader
    * @extends {phina.asset.File}
-   * @param  {WebGLRenderingContext} gl context
    */
   phina.define("phigl.Shader", {
     superClass: "phina.asset.File",
 
+    /**
+     * @memberOf phigl.Shader.prototype
+     */
     type: null,
+    /**
+     * @memberOf phigl.Shader.prototype
+     */
     gl: null,
+    /**
+     * @memberOf phigl.Shader.prototype
+     */
     compiled: false,
 
     _shader: null,
@@ -19,6 +27,9 @@ phina.namespace(function() {
       this.compiled = false;
     },
 
+    /**
+     * @memberOf phigl.Shader.prototype
+     */
     compile: function(gl) {
       this.gl = gl;
 
@@ -42,6 +53,10 @@ phina.namespace(function() {
     },
   });
 
+  /**
+   * @constructor phigl.VertexShader
+   * @extends {phigl.Shader}
+   */
   phina.define("phigl.VertexShader", {
     superClass: "phigl.Shader",
 
@@ -60,6 +75,10 @@ phina.namespace(function() {
     });
   };
 
+  /**
+   * @constructor phigl.FragmentShader
+   * @extends {phigl.Shader}
+   */
   phina.define("phigl.FragmentShader", {
     superClass: "phigl.Shader",
 

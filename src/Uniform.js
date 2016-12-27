@@ -6,9 +6,18 @@ phina.namespace(function() {
    */
   phina.define("phigl.Uniform", {
 
+    /**
+     * @memberOf phigl.Uniform.prototype
+     */
     gl: null,
+    /**
+     * @memberOf phigl.Uniform.prototype
+     */
     name: null,
 
+    /**
+     * @memberOf phigl.Uniform.prototype
+     */
     texture: null,
 
     _location: null,
@@ -51,16 +60,25 @@ phina.namespace(function() {
       }
     },
 
+    /**
+     * @memberOf phigl.Uniform.prototype
+     */
     setValue: function(value) {
       this._value = value;
       return this;
     },
 
+    /**
+     * @memberOf phigl.Uniform.prototype
+     */
     setTexture: function(texture) {
       this.texture = texture;
       return this;
     },
 
+    /**
+     * @memberOf phigl.Uniform.prototype
+     */
     assign: function() {
       var gl = this.gl;
 
@@ -84,7 +102,10 @@ phina.namespace(function() {
 
       return this;
     },
-    
+
+    /**
+     * @memberOf phigl.Uniform.prototype
+     */
     reassign: function() {
       var gl = this.gl;
 
@@ -98,6 +119,9 @@ phina.namespace(function() {
     },
 
     _accessor: {
+      /**
+       * @memberOf phigl.Uniform.prototype
+       */
       value: {
         get: function() {
           return this._value;

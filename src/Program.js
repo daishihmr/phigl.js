@@ -8,10 +8,19 @@ phina.namespace(function() {
   phina.define("phigl.Program", {
 
     _static: {
+      /**
+       * @memberOf phigl.Program
+       */
       currentUsing: null,
     },
 
+    /**
+     * @memberOf phigl.Program.prototype
+     */
     gl: null,
+    /**
+     * @memberOf phigl.Program.prototype
+     */
     linked: false,
 
     _program: null,
@@ -36,6 +45,11 @@ phina.namespace(function() {
       this._shaders = [];
     },
 
+    /**
+     * @param {string|phigl.Shader} shader
+     * @memberOf phigl.Program.prototype
+     * @return {this}
+     */
     attach: function(shader) {
       var gl = this.gl;
 
@@ -54,6 +68,10 @@ phina.namespace(function() {
       return this;
     },
 
+    /**
+     * @memberOf phigl.Program.prototype
+     * @return {this}
+     */
     link: function() {
       var gl = this.gl;
 
@@ -81,6 +99,12 @@ phina.namespace(function() {
       }
     },
 
+    /**
+     * @param {string} name
+     * @param {number} type
+     * @memberOf phigl.Program.prototype
+     * @return {phigl.Attribute}
+     */
     getAttribute: function(name, type) {
       if (!this._attributes[name]) {
         this._attributes[name] = phigl.Attribute(this.gl, this._program, name, type);
@@ -88,6 +112,12 @@ phina.namespace(function() {
       return this._attributes[name];
     },
 
+    /**
+     * @param {string} name
+     * @param {number} type
+     * @memberOf phigl.Program.prototype
+     * @return {phigl.Uniform}
+     */
     getUniform: function(name, type) {
       if (!this._uniforms[name]) {
         this._uniforms[name] = phigl.Uniform(this.gl, this._program, name, type);
@@ -95,6 +125,10 @@ phina.namespace(function() {
       return this._uniforms[name];
     },
 
+    /**
+     * @memberOf phigl.Program.prototype
+     * @return {this}
+     */
     use: function() {
       if (phigl.Program.currentUsing === this) return this;
       this.gl.useProgram(this._program);
@@ -102,6 +136,10 @@ phina.namespace(function() {
       return this;
     },
 
+    /**
+     * @memberOf phigl.Program.prototype
+     * @return {this}
+     */
     delete: function() {
       var gl = this.gl;
       var program = this._program;
