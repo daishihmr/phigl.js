@@ -48,7 +48,7 @@ phina.namespace(function() {
      */
     offsets: null,
     /**
-     * @type {Array.<phigl.Uniform>}
+     * @type {Object.<string, phigl.Uniform>}
      * @memberOf phigl.Drawable.prototype
      */
     uniforms: null,
