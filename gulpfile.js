@@ -36,7 +36,7 @@ var uglify = require("gulp-uglify");
 var rename = require("gulp-rename");
 var fs = require("node-fs-extra");
 require("high");
-var jsdoc = require("gulp-jsdoc");
+var jsdoc = require("gulp-jsdoc3");
 
 var sourceFiles = function(folder) {
   var scan = function(file) {
@@ -78,8 +78,9 @@ gulp.task("uglify", function() {
 });
 
 gulp.task("jsdoc", function() {
-  gulp.src("./src/**/*.js")
-    .pipe(jsdoc("./docs"));
+  var config = require("./jsdoc.json");
+  gulp.src(["README.md", "./src/**/*.js"], { read: false })
+    .pipe(jsdoc(config));
 });
 
 gulp.task("watch", function() {

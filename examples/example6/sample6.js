@@ -88,7 +88,7 @@ phina.namespace(function() {
     var vpMatrix = mat4.multiply(mat4.create(), pMatrix, vMatrix);
     var mvpMatrix = mat4.create();
     var invMatrix = mat4.create();
-    var lightDirection = vec3.normalize(vec3.create(), [1, 1, -1]);
+    var lightDirection = vec3.normalize(vec3.create(), [0, -1, 0.005]);
 
     var mMatrix = mat4.create();
     mat4.translate(mMatrix, mMatrix, [0, 0, 0]);
@@ -101,11 +101,11 @@ phina.namespace(function() {
         mat4.multiply(mvpMatrix, vpMatrix, mMatrix);
         mat4.invert(invMatrix, mvpMatrix);
 
-        drawable.uniforms.mvpMatrix.value = mvpMatrix;
-        drawable.uniforms.invMatrix.value = invMatrix;
-        drawable.uniforms.lightDirection.value = lightDirection;
-        drawable.uniforms.diffuseColor.value = [1.0, 1.0, 1.0, 1.0];
-        drawable.uniforms.ambientColor.value = [0.1, 0.1, 0.1, 1.0];
+        drawable.uniforms.mvpMatrix.setValue(mvpMatrix);
+        drawable.uniforms.invMatrix.setValue(invMatrix);
+        drawable.uniforms.lightDirection.setValue(lightDirection);
+        drawable.uniforms.diffuseColor.setValue([1.00, 1.00, 1.00, 1.0]);
+        drawable.uniforms.ambientColor.setValue([0.01, 0.01, 0.01, 1.0]);
 
         gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 

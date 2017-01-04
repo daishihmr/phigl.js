@@ -1,0 +1,17 @@
+{
+  "opts": {
+    "destination": "./docs"
+  },
+  "templates": {
+    "cleverLinks": true,
+    "monospaceLinks": false,
+    "default": {
+      "outputSourceFiles": true
+    },
+    "path": "ink-docstrap",
+    "theme": "cerulean",
+    "navType": "vertical",
+    "linenums": true,
+    "dateFormat": "YYYY/MM/DD HH:mm:ss"
+  }
+}

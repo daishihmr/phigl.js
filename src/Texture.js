@@ -3,6 +3,7 @@ phina.namespace(function() {
   /**
    * @constructor phigl.Texture
    * @param  {WebGLRenderingContext} gl context
+   * @param  {(string|phina.asset.Texture|phina.graphics.Canvas)=} image context
    */
   phina.define("phigl.Texture", {
 
@@ -23,6 +24,7 @@ phina.namespace(function() {
 
     /**
      * @memberOf phigl.Texture.prototype
+     * @param  {string|phina.asset.Texture|phina.graphics.Canvas} image context
      */
     setImage: function(image) {
       var gl = this.gl;
@@ -32,6 +34,12 @@ phina.namespace(function() {
       }
       gl.bindTexture(gl.TEXTURE_2D, this._texture);
       gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, image.domElement);
+
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+
       gl.generateMipmap(gl.TEXTURE_2D);
       gl.bindTexture(gl.TEXTURE_2D, null);
 
@@ -40,6 +48,7 @@ phina.namespace(function() {
 
     /**
      * @memberOf phigl.Texture.prototype
+     * @param {number} unitIndex
      */
     bind: function(unitIndex) {
       var gl = this.gl;
@@ -54,10 +63,11 @@ phina.namespace(function() {
     delete: function() {
       this.gl.deleteTexture(this._texture);
     },
-
+    
     _static: {
       /**
        * @memberOf phigl.Texture
+       * @param  {WebGLRenderingContext} gl context
        */
       unbind: function(gl) {
         gl.bindTexture(gl.TEXTURE_2D, null);
