@@ -11,7 +11,6 @@ phina.namespace(function() {
         },
         image: {
           "p64.png": "./p64.png",
-          "sample.png": "./sample.png",
         },
         vertexShader: {
           "sample.vs": "./sample.vs",
@@ -25,7 +24,7 @@ phina.namespace(function() {
   var start = function() {
     var data = phina.asset.AssetManager.get("text", "obj").data;
     var obj = globj.ObjParser.parse(data).defaultObject.groups.defaultGroup;
-    console.log(obj);
+    // console.log(obj);
 
     var canvas = document.getElementById("app");
     canvas.width = 512;
@@ -41,21 +40,12 @@ phina.namespace(function() {
     gl.cullFace(gl.BACK);
     gl.depthFunc(gl.LEQUAL);
 
-    var trigons = [];
-    obj.faces.forEach(function(face) {
-      for (var i = 1; i < face.length - 1; i++) {
-        trigons.push(face[0]);
-        trigons.push(face[i + 0]);
-        trigons.push(face[i + 1]);
-      }
-    });
-
     var drawable = phigl.Drawable(gl)
       .setDrawMode(gl.TRIANGLES)
       .setProgram(phigl.Program(gl).attach("sample.vs").attach("sample.fs").link())
-      .setIndexValues(Array.range(trigons.length))
+      .setIndexValues(Array.range(obj.trigons.length))
       .setAttributes("position", "uv", "normal")
-      .setAttributeData(trigons.map(function(vertex, i) {
+      .setAttributeData(obj.trigons.map(function(vertex, i) {
         var p = obj.positions[vertex.position - 1];
         var t = obj.texCoords[vertex.texCoord - 1];
         var n = obj.normals[vertex.normal - 1];

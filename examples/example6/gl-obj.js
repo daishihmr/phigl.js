@@ -52,8 +52,10 @@
               },
             },
           };
+          if (g) trianglate(g);
           g = o.groups.defaultGroup;
         } else if (line.match(ptnGroup)) {
+          if (g) trianglate(g);
           g = o.groups[line.substring(2)] = {
             positions: [],
             texCoords: [],
@@ -111,8 +113,22 @@
 
         this.cur += 1;
       }
+      
+      if (g) trianglate(g);
 
       return objects;
+    };
+    
+    var trianglate = function(group) {
+      var trigons = [];
+      group.faces.forEach(function(face) {
+        for (var i = 1; i < face.length - 1; i++) {
+          trigons.push(face[0]);
+          trigons.push(face[i + 0]);
+          trigons.push(face[i + 1]);
+        }
+      });
+      group.trigons = trigons;
     };
 
   })();
