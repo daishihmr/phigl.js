@@ -24,53 +24,6 @@ phina.namespace(function() {
   });
 
   var start = function() {
-    var obj12 = phina.asset.AssetManager.get("text", "p12").data;
-    var p12 = globj.ObjParser.parse(obj12).defaultObject.groups.defaultGroup;
-    var vertices12 = [];
-    p12.faces.forEach(function(face) {
-      for (var i = 1; i < face.length - 1; i++) {
-        vertices12.push(face[0]);
-        vertices12.push(face[i + 0]);
-        vertices12.push(face[i + 1]);
-      }
-    });
-    var data12 = vertices12.map(function(vertex, i) {
-      var p = p12.positions[vertex.position - 1];
-      var t = p12.texCoords[vertex.texCoord - 1];
-      var n = p12.normals[vertex.normal - 1];
-      return [
-        // position
-        p.x, p.y, p.z,
-        // texCoord
-        t.u, t.v,
-        // normal
-        n.x, n.y, n.z
-      ];
-    }).flatten();
-
-    var obj14 = phina.asset.AssetManager.get("text", "p14").data;
-    var p14 = globj.ObjParser.parse(obj14).defaultObject.groups.defaultGroup;
-    var vertices14 = [];
-    p14.faces.forEach(function(face) {
-      for (var i = 1; i < face.length - 1; i++) {
-        vertices14.push(face[0]);
-        vertices14.push(face[i + 0]);
-        vertices14.push(face[i + 1]);
-      }
-    });
-    var data14 = vertices14.map(function(vertex, i) {
-      var p = p14.positions[vertex.position - 1];
-      var t = p14.texCoords[vertex.texCoord - 1];
-      var n = p14.normals[vertex.normal - 1];
-      return [
-        // position
-        p.x, p.y, p.z,
-        // texCoord
-        t.u, t.v,
-        // normal
-        n.x, n.y, n.z
-      ];
-    }).flatten();
 
     var canvas = document.getElementById("app");
     canvas.width = 960;
@@ -86,9 +39,12 @@ phina.namespace(function() {
     gl.cullFace(gl.BACK);
     gl.depthFunc(gl.LEQUAL);
 
-    var vbo12 = phigl.Vbo(gl).set(data12);
-    var vbo14 = phigl.Vbo(gl).set(data14);
+    var vbo12 = createObjData("p12", gl);
+    var vbo14 = createObjData("p14", gl);
     
+    var indices12 = phigl.Ibo(gl).set(Array.range(vbo12.dataLength));
+    var indices14 = phigl.Ibo(gl).set(Array.range(vbo14.dataLength));
+
     var texture12 = phigl.Texture(gl, "p12.png");
     var texture14 = phigl.Texture(gl, "p14.png");
 
@@ -108,8 +64,10 @@ phina.namespace(function() {
     var cameraPos = [Math.cos(0) * 100, 50, Math.sin(0) * 100];
     var cameraTarget = [0, 10, 0];
 
-    var mMatrix12 = mat4.translate(mat4.create(), mat4.create(), [10, 0, 0]);
-    var mMatrix14 = mat4.translate(mat4.create(), mat4.create(), [-10, 0, 0]);
+    var mMatrix12 = mat4.create();
+    var mMatrix14 = mat4.create();
+    mat4.translate(mMatrix12, mMatrix12, [10, 0, 0]);
+    mat4.translate(mMatrix14, mMatrix14, [-10, 0, 0]);
     var vMatrix = mat4.lookAt(mat4.create(), cameraPos, cameraTarget, [0, 1, 0]);
     var pMatrix = mat4.perspective(mat4.create(), 45, canvas.width / canvas.height, 0.1, 10000);
     var vpMatrix = mat4.multiply(mat4.create(), pMatrix, vMatrix);
@@ -132,14 +90,14 @@ phina.namespace(function() {
         gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
         drawable
-          .setIndexValues(Array.range(vertices12.length))
+          .setIndexBuffer(indices12)
           .setAttributeVbo(vbo12);
         drawable.uniforms.mMatrix.value = mMatrix12;
         drawable.uniforms.texture.setValue(0).setTexture(texture12);
         drawable.draw();
 
         drawable
-          .setIndexValues(Array.range(vertices14.length))
+          .setIndexBuffer(indices14)
           .setAttributeVbo(vbo14);
         drawable.uniforms.mMatrix.value = mMatrix14;
         drawable.uniforms.texture.setValue(0).setTexture(texture14);
@@ -150,6 +108,36 @@ phina.namespace(function() {
         if (!pause) frame += 1;
       })
       .start();
+  };
+
+  var createObjData = function(name, gl) {
+    var obj = phina.asset.AssetManager.get("text", name).data;
+    var group = globj.ObjParser.parse(obj).defaultObject.groups.defaultGroup;
+    var vertices = [];
+    group.faces.forEach(function(face) {
+      for (var i = 1; i < face.length - 1; i++) {
+        vertices.push(face[0]);
+        vertices.push(face[i + 0]);
+        vertices.push(face[i + 1]);
+      }
+    });
+    var data = vertices.map(function(vertex, i) {
+      var p = group.positions[vertex.position - 1];
+      var t = group.texCoords[vertex.texCoord - 1];
+      var n = group.normals[vertex.normal - 1];
+      return [
+        // position
+        p.x, p.y, p.z,
+        // texCoord
+        t.u, t.v,
+        // normal
+        n.x, n.y, n.z
+      ];
+    }).flatten();
+
+    var result = phigl.Vbo(gl).set(data);
+    result.dataLength = vertices.length;
+    return result;
   };
 
 });
