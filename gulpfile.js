@@ -4,7 +4,7 @@ var BANNER = [
   " * <%= pkg.homepage %>",
   " * ",
   " * The MIT License (MIT)",
-  " * Copyright © 2016 <%= pkg.author %>",
+  " * Copyright © 2016-2017 <%= pkg.author %>",
   " * ",
   " * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and",
   " * associated documentation files (the “Software”), to deal in the Software without restriction, including",

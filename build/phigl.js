@@ -1,9 +1,9 @@
 /*
- * phigl.js 1.1.1
+ * phigl.js 1.1.2-pre
  * https://github.com/daishihmr/phigl.js
  * 
  * The MIT License (MIT)
- * Copyright © 2016 daishihmr <daishi.hmr@gmail.com> (http://github.dev7.jp/)
+ * Copyright © 2016-2017 daishihmr <daishi.hmr@gmail.com> (http://github.dev7.jp/)
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
  * associated documentation files (the “Software”), to deal in the Software without restriction, including
@@ -99,11 +99,11 @@ phina.namespace(function() {
 });
 
 /*
- * phigl.js 1.1.1
+ * phigl.js 1.1.2-pre
  * https://github.com/daishihmr/phigl.js
  * 
  * The MIT License (MIT)
- * Copyright © 2016 daishihmr <daishi.hmr@gmail.com> (http://github.dev7.jp/)
+ * Copyright © 2016-2017 daishihmr <daishi.hmr@gmail.com> (http://github.dev7.jp/)
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
  * associated documentation files (the “Software”), to deal in the Software without restriction, including
@@ -150,11 +150,11 @@ phina.namespace(function() {
 });
 
 /*
- * phigl.js 1.1.1
+ * phigl.js 1.1.2-pre
  * https://github.com/daishihmr/phigl.js
  * 
  * The MIT License (MIT)
- * Copyright © 2016 daishihmr <daishi.hmr@gmail.com> (http://github.dev7.jp/)
+ * Copyright © 2016-2017 daishihmr <daishi.hmr@gmail.com> (http://github.dev7.jp/)
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
  * associated documentation files (the “Software”), to deal in the Software without restriction, including
@@ -464,11 +464,11 @@ phina.namespace(function() {
 });
 
 /*
- * phigl.js 1.1.1
+ * phigl.js 1.1.2-pre
  * https://github.com/daishihmr/phigl.js
  * 
  * The MIT License (MIT)
- * Copyright © 2016 daishihmr <daishi.hmr@gmail.com> (http://github.dev7.jp/)
+ * Copyright © 2016-2017 daishihmr <daishi.hmr@gmail.com> (http://github.dev7.jp/)
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
  * associated documentation files (the “Software”), to deal in the Software without restriction, including
@@ -519,11 +519,11 @@ phina.namespace(function() {
 });
 
 /*
- * phigl.js 1.1.1
+ * phigl.js 1.1.2-pre
  * https://github.com/daishihmr/phigl.js
  * 
  * The MIT License (MIT)
- * Copyright © 2016 daishihmr <daishi.hmr@gmail.com> (http://github.dev7.jp/)
+ * Copyright © 2016-2017 daishihmr <daishi.hmr@gmail.com> (http://github.dev7.jp/)
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
  * associated documentation files (the “Software”), to deal in the Software without restriction, including
@@ -620,11 +620,11 @@ phina.namespace(function() {
 });
 
 /*
- * phigl.js 1.1.1
+ * phigl.js 1.1.2-pre
  * https://github.com/daishihmr/phigl.js
  * 
  * The MIT License (MIT)
- * Copyright © 2016 daishihmr <daishi.hmr@gmail.com> (http://github.dev7.jp/)
+ * Copyright © 2016-2017 daishihmr <daishi.hmr@gmail.com> (http://github.dev7.jp/)
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
  * associated documentation files (the “Software”), to deal in the Software without restriction, including
@@ -719,11 +719,11 @@ phina.namespace(function() {
 });
 
 /*
- * phigl.js 1.1.1
+ * phigl.js 1.1.2-pre
  * https://github.com/daishihmr/phigl.js
  * 
  * The MIT License (MIT)
- * Copyright © 2016 daishihmr <daishi.hmr@gmail.com> (http://github.dev7.jp/)
+ * Copyright © 2016-2017 daishihmr <daishi.hmr@gmail.com> (http://github.dev7.jp/)
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
  * associated documentation files (the “Software”), to deal in the Software without restriction, including
@@ -787,11 +787,11 @@ phina.namespace(function() {
 });
 
 /*
- * phigl.js 1.1.1
+ * phigl.js 1.1.2-pre
  * https://github.com/daishihmr/phigl.js
  * 
  * The MIT License (MIT)
- * Copyright © 2016 daishihmr <daishi.hmr@gmail.com> (http://github.dev7.jp/)
+ * Copyright © 2016-2017 daishihmr <daishi.hmr@gmail.com> (http://github.dev7.jp/)
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
  * associated documentation files (the “Software”), to deal in the Software without restriction, including
@@ -935,11 +935,11 @@ phina.namespace(function() {
 });
 
 /*
- * phigl.js 1.1.1
+ * phigl.js 1.1.2-pre
  * https://github.com/daishihmr/phigl.js
  * 
  * The MIT License (MIT)
- * Copyright © 2016 daishihmr <daishi.hmr@gmail.com> (http://github.dev7.jp/)
+ * Copyright © 2016-2017 daishihmr <daishi.hmr@gmail.com> (http://github.dev7.jp/)
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
  * associated documentation files (the “Software”), to deal in the Software without restriction, including
@@ -1085,11 +1085,11 @@ phina.namespace(function() {
 });
 
 /*
- * phigl.js 1.1.1
+ * phigl.js 1.1.2-pre
  * https://github.com/daishihmr/phigl.js
  * 
  * The MIT License (MIT)
- * Copyright © 2016 daishihmr <daishi.hmr@gmail.com> (http://github.dev7.jp/)
+ * Copyright © 2016-2017 daishihmr <daishi.hmr@gmail.com> (http://github.dev7.jp/)
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
  * associated documentation files (the “Software”), to deal in the Software without restriction, including
@@ -1267,11 +1267,11 @@ phina.namespace(function() {
 });
 
 /*
- * phigl.js 1.1.1
+ * phigl.js 1.1.2-pre
  * https://github.com/daishihmr/phigl.js
  * 
  * The MIT License (MIT)
- * Copyright © 2016 daishihmr <daishi.hmr@gmail.com> (http://github.dev7.jp/)
+ * Copyright © 2016-2017 daishihmr <daishi.hmr@gmail.com> (http://github.dev7.jp/)
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
  * associated documentation files (the “Software”), to deal in the Software without restriction, including
@@ -1392,11 +1392,11 @@ phina.namespace(function() {
 });
 
 /*
- * phigl.js 1.1.1
+ * phigl.js 1.1.2-pre
  * https://github.com/daishihmr/phigl.js
  * 
  * The MIT License (MIT)
- * Copyright © 2016 daishihmr <daishi.hmr@gmail.com> (http://github.dev7.jp/)
+ * Copyright © 2016-2017 daishihmr <daishi.hmr@gmail.com> (http://github.dev7.jp/)
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
  * associated documentation files (the “Software”), to deal in the Software without restriction, including
@@ -1496,11 +1496,11 @@ phina.namespace(function() {
 });
 
 /*
- * phigl.js 1.1.1
+ * phigl.js 1.1.2-pre
  * https://github.com/daishihmr/phigl.js
  * 
  * The MIT License (MIT)
- * Copyright © 2016 daishihmr <daishi.hmr@gmail.com> (http://github.dev7.jp/)
+ * Copyright © 2016-2017 daishihmr <daishi.hmr@gmail.com> (http://github.dev7.jp/)
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
  * associated documentation files (the “Software”), to deal in the Software without restriction, including
@@ -1657,11 +1657,11 @@ phina.namespace(function() {
 });
 
 /*
- * phigl.js 1.1.1
+ * phigl.js 1.1.2-pre
  * https://github.com/daishihmr/phigl.js
  * 
  * The MIT License (MIT)
- * Copyright © 2016 daishihmr <daishi.hmr@gmail.com> (http://github.dev7.jp/)
+ * Copyright © 2016-2017 daishihmr <daishi.hmr@gmail.com> (http://github.dev7.jp/)
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
  * associated documentation files (the “Software”), to deal in the Software without restriction, including
