@@ -6,7 +6,6 @@ Super strongest awesome WebGL library depends on [phina.js](https://github.com/p
 
 ## Features
 
-* create WebGL context
 * load shader as asset
 * support VAO
 * support Instanced Array

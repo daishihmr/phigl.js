@@ -72,6 +72,9 @@ phina.namespace(function() {
      * @memberOf phigl.Uniform.prototype
      */
     setTexture: function(texture) {
+      if (typeof(texture) == "string") {
+        texture = phigl.Texture(this.gl, texture);
+      }
       this.texture = texture;
       return this;
     },
