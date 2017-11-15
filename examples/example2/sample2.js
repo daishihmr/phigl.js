@@ -46,7 +46,7 @@ phina.namespace(function() {
     var obj = phigl.Drawable(gl)
       .setProgram(programA)
       .setIndexValues([0, 1, 2, 1, 3, 2])
-      .setAttributes("position", "uv")
+      .declareAttributes("position", "uv")
       .setAttributeDataArray([{
         unitSize: 3,
         data: [
@@ -73,9 +73,9 @@ phina.namespace(function() {
         ],
       }, ])
       .createVao()
-      .setUniforms("mMatrix", "vMatrix", "pMatrix", "texture");
+      .declareUniforms("mMatrix", "vMatrix", "pMatrix", "texture");
 
-    obj.uniforms.texture.setValue(0).setTexture(phigl.Texture(gl, "sample.png"));
+    obj.uniforms["texture"].setValue(0).setTexture(phigl.Texture(gl, "sample.png"));
 
     var framebuffer = phigl.Framebuffer(gl, 512, 512);
 
@@ -86,7 +86,7 @@ phina.namespace(function() {
     var screen = phigl.Drawable(gl)
       .setProgram(programB)
       .setIndexValues([0, 1, 2, 1, 3, 2])
-      .setAttributes("position", "uv")
+      .declareAttributes("position", "uv")
       .setAttributeDataArray([{
         unitSize: 3,
         data: [
@@ -113,9 +113,9 @@ phina.namespace(function() {
         ],
       }, ])
       .createVao()
-      .setUniforms("texture");
+      .declareUniforms("texture");
 
-    screen.uniforms.texture.setValue(0).setTexture(framebuffer.texture);
+    screen.uniforms["texture"].setValue(0).setTexture(framebuffer.texture);
 
     var matM0 = mat4.create();
     mat4.translate(matM0, matM0, [-256, -256, 0]);
@@ -150,19 +150,19 @@ phina.namespace(function() {
 
         gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
-        obj.uniforms.vMatrix.value = matV;
-        obj.uniforms.pMatrix.value = matP;
+        obj.uniforms["vMatrix"].setValue(matV);
+        obj.uniforms["pMatrix"].setValue(matP);
 
-        obj.uniforms.mMatrix.value = matM0;
+        obj.uniforms["mMatrix"].setValue(matM0);
         obj.draw();
 
-        obj.uniforms.mMatrix.value = matM1;
+        obj.uniforms["mMatrix"].setValue(matM1);
         obj.draw();
 
-        obj.uniforms.mMatrix.value = matM2;
+        obj.uniforms["mMatrix"].setValue(matM2);
         obj.draw();
 
-        obj.uniforms.mMatrix.value = matM3;
+        obj.uniforms["mMatrix"].setValue(matM3);
         obj.draw();
         
         gl.flush();

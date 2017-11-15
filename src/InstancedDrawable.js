@@ -14,16 +14,14 @@ phina.namespace(function() {
 
     instanceVbo: null,
     instanceStride: 0,
-    instanceOffsets: null,
 
     init: function(gl, extInstancedArrays) {
       this.superInit(gl);
       this.ext = extInstancedArrays;
       this.instanceAttributes = [];
-      this.instanceOffsets = [];
     },
 
-    setInstanceAttributes: function(names) {
+    declareInstanceAttributes: function(names) {
       names = Array.prototype.concat.apply([], arguments);
 
       var gl = this.gl;
@@ -34,12 +32,17 @@ phina.namespace(function() {
         var attr = names[i];
         if (typeof attr === "string") attr = this.program.getAttribute(attr);
         this.instanceAttributes.push(attr);
-        this.instanceOffsets.push(stride);
+        attr._offset = stride;
         stride += attr.size * 4;
       }
       this.instanceStride = stride;
 
       return this;
+    },
+
+    setInstanceAttributes: function(names) {
+      console.warn("deprecated");
+      return this.declareInstanceAttributes(names);
     },
     
     setInstanceAttributeVbo: function(vbo) {
@@ -47,8 +50,7 @@ phina.namespace(function() {
 
       this.instanceVbo.bind();
       var iStride = this.instanceStride;
-      var iOffsets = this.instanceOffsets;
-      this.instanceAttributes.forEach(function(v, i) { v.specify(iStride, iOffsets[i]) });
+      this.instanceAttributes.forEach(function(v, i) { v.specify(iStride) });
       phigl.Vbo.unbind(this.gl);
 
       return this;
@@ -60,8 +62,7 @@ phina.namespace(function() {
 
       this.instanceVbo.bind();
       var iStride = this.instanceStride;
-      var iOffsets = this.instanceOffsets;
-      this.instanceAttributes.forEach(function(v, i) { v.specify(iStride, iOffsets[i]) });
+      this.instanceAttributes.forEach(function(v, i) { v.specify(iStride) });
       phigl.Vbo.unbind(this.gl);
 
       return this;
@@ -73,8 +74,7 @@ phina.namespace(function() {
 
       this.instanceVbo.bind();
       var iStride = this.instanceStride;
-      var iOffsets = this.instanceOffsets;
-      this.instanceAttributes.forEach(function(v, i) { v.specify(iStride, iOffsets[i]) });
+      this.instanceAttributes.forEach(function(v, i) { v.specify(iStride) });
       phigl.Vbo.unbind(this.gl);
 
       return this;
@@ -94,16 +94,14 @@ phina.namespace(function() {
 
       if (this.vbo) this.vbo.bind();
       var stride = this.stride;
-      var offsets = this.offsets;
       this.attributes.forEach(function(v, i) {
-        v.specify(stride, offsets[i]);
+        v.specify(stride);
       });
 
       if (this.instanceVbo) this.instanceVbo.bind();
       var iStride = this.instanceStride;
-      var iOffsets = this.instanceOffsets;
       this.instanceAttributes.forEach(function(v, i) {
-        v.specify(iStride, iOffsets[i]);
+        v.specify(iStride);
         ext.vertexAttribDivisorANGLE(v._location, 1);
       });
 

@@ -48,6 +48,7 @@ phina.namespace(function() {
     _location: null,
     _type: null,
     _ptype: null,
+    _offset: 0,
 
     init: function(gl, program, name, type) {
       this.gl = gl;
@@ -81,16 +82,15 @@ phina.namespace(function() {
     },
 
     /**
-     * set stride and offset
+     * set stride
      * @memberOf phigl.Attribute.prototype
      * @param  {number} stride
-     * @param  {number} offset
      * @return {this}
      */
-    specify: function(stride, offset) {
+    specify: function(stride) {
       // console.log("attribute", this.name, this._location);
       var gl = this.gl;
-      gl.vertexAttribPointer(this._location, this.size, this._ptype, false, stride, offset);
+      gl.vertexAttribPointer(this._location, this.size, this._ptype, false, stride, this._offset);
       return this;
     },
 
@@ -218,11 +218,6 @@ phina.namespace(function() {
      */
     stride: 0,
     /**
-     * @type {Array.<number>}
-     * @memberOf phigl.Drawable.prototype
-     */
-    offsets: null,
-    /**
      * @type {Object.<string, phigl.Uniform>}
      * @memberOf phigl.Drawable.prototype
      */
@@ -249,7 +244,6 @@ phina.namespace(function() {
       this.gl = gl;
       this.extVao = extVao;
       this.attributes = [];
-      this.offsets = [];
       this.uniforms = {};
       this.drawMode = gl.TRIANGLES;
     },
@@ -301,7 +295,7 @@ phina.namespace(function() {
      * @memberOf phigl.Drawable.prototype
      * @return {this}
      */
-    setAttributes: function(names) {
+    declareAttributes: function(names) {
       names = Array.prototype.concat.apply([], arguments);
 
       var stride = 0;
@@ -309,11 +303,16 @@ phina.namespace(function() {
         var attr = names[i];
         if (typeof attr === "string") attr = this.program.getAttribute(attr);
         this.attributes.push(attr);
-        this.offsets.push(stride);
+        attr._offset = stride;
         stride += attr.size * 4;
       }
       this.stride = stride;
       return this;
+    },
+
+    setAttributes: function(names) {
+      console.warn("deprecated");
+      return this.declareAttributes(names);
     },
 
     /**
@@ -330,8 +329,7 @@ phina.namespace(function() {
 
       this.vbo.bind();
       var stride = this.stride;
-      var offsets = this.offsets;
-      this.attributes.forEach(function(v, i) { v.specify(stride, offsets[i]) });
+      this.attributes.forEach(function(v, i) { v.specify(stride) });
       phigl.Vbo.unbind(this.gl);
 
       return this;
@@ -351,8 +349,7 @@ phina.namespace(function() {
 
       this.vbo.bind();
       var stride = this.stride;
-      var offsets = this.offsets;
-      this.attributes.forEach(function(v, i) { v.specify(stride, offsets[i]) });
+      this.attributes.forEach(function(v, i) { v.specify(stride) });
       phigl.Vbo.unbind(this.gl);
 
       return this;
@@ -368,8 +365,7 @@ phina.namespace(function() {
 
       this.vbo.bind();
       var stride = this.stride;
-      var offsets = this.offsets;
-      this.attributes.forEach(function(v, i) { v.specify(stride, offsets[i]) });
+      this.attributes.forEach(function(v, i) { v.specify(stride) });
       phigl.Vbo.unbind(this.gl);
 
       return this;
@@ -382,7 +378,6 @@ phina.namespace(function() {
     createVao: function() {
       var gl = this.gl;
       var stride = this.stride;
-      var offsets = this.offsets;
 
       if (!this.extVao) this.extVao = phigl.Extensions.getVertexArrayObject(gl);
       if (!this.vao) this.vao = this.extVao.createVertexArrayOES();
@@ -393,7 +388,7 @@ phina.namespace(function() {
 
       if (this.vbo) this.vbo.bind();
       this.attributes.forEach(function(v, i) {
-        v.specify(stride, offsets[i]);
+        v.specify(stride);
         gl.enableVertexAttribArray(v._location);
       });
 
@@ -410,7 +405,7 @@ phina.namespace(function() {
      * @memberOf phigl.Drawable.prototype
      * @return {this}
      */
-    setUniforms: function(names) {
+    declareUniforms: function(names) {
       names = Array.prototype.concat.apply([], arguments);
 
       var program = this.program;
@@ -420,6 +415,11 @@ phina.namespace(function() {
       }, {});
       this.uniforms.$extend(map);
       return this;
+    },
+
+    setUniforms: function(names) {
+      console.warn("deprecated");
+      return this.declareUniforms(names);
     },
 
     /**
@@ -439,8 +439,7 @@ phina.namespace(function() {
         if (this.indices) this.indices.bind();
         if (this.vbo) this.vbo.bind();
         var stride = this.stride;
-        var offsets = this.offsets;
-        this.attributes.forEach(function(v, i) { v.specify(stride, offsets[i]) });
+        this.attributes.forEach(function(v, i) { v.specify(stride) });
       }
 
       this.uniforms.forIn(function(k, v) { v.assign() });
@@ -827,16 +826,14 @@ phina.namespace(function() {
 
     instanceVbo: null,
     instanceStride: 0,
-    instanceOffsets: null,
 
     init: function(gl, extInstancedArrays) {
       this.superInit(gl);
       this.ext = extInstancedArrays;
       this.instanceAttributes = [];
-      this.instanceOffsets = [];
     },
 
-    setInstanceAttributes: function(names) {
+    declareInstanceAttributes: function(names) {
       names = Array.prototype.concat.apply([], arguments);
 
       var gl = this.gl;
@@ -847,12 +844,17 @@ phina.namespace(function() {
         var attr = names[i];
         if (typeof attr === "string") attr = this.program.getAttribute(attr);
         this.instanceAttributes.push(attr);
-        this.instanceOffsets.push(stride);
+        attr._offset = stride;
         stride += attr.size * 4;
       }
       this.instanceStride = stride;
 
       return this;
+    },
+
+    setInstanceAttributes: function(names) {
+      console.warn("deprecated");
+      return this.declareInstanceAttributes(names);
     },
     
     setInstanceAttributeVbo: function(vbo) {
@@ -860,8 +862,7 @@ phina.namespace(function() {
 
       this.instanceVbo.bind();
       var iStride = this.instanceStride;
-      var iOffsets = this.instanceOffsets;
-      this.instanceAttributes.forEach(function(v, i) { v.specify(iStride, iOffsets[i]) });
+      this.instanceAttributes.forEach(function(v, i) { v.specify(iStride) });
       phigl.Vbo.unbind(this.gl);
 
       return this;
@@ -873,8 +874,7 @@ phina.namespace(function() {
 
       this.instanceVbo.bind();
       var iStride = this.instanceStride;
-      var iOffsets = this.instanceOffsets;
-      this.instanceAttributes.forEach(function(v, i) { v.specify(iStride, iOffsets[i]) });
+      this.instanceAttributes.forEach(function(v, i) { v.specify(iStride) });
       phigl.Vbo.unbind(this.gl);
 
       return this;
@@ -886,8 +886,7 @@ phina.namespace(function() {
 
       this.instanceVbo.bind();
       var iStride = this.instanceStride;
-      var iOffsets = this.instanceOffsets;
-      this.instanceAttributes.forEach(function(v, i) { v.specify(iStride, iOffsets[i]) });
+      this.instanceAttributes.forEach(function(v, i) { v.specify(iStride) });
       phigl.Vbo.unbind(this.gl);
 
       return this;
@@ -907,16 +906,14 @@ phina.namespace(function() {
 
       if (this.vbo) this.vbo.bind();
       var stride = this.stride;
-      var offsets = this.offsets;
       this.attributes.forEach(function(v, i) {
-        v.specify(stride, offsets[i]);
+        v.specify(stride);
       });
 
       if (this.instanceVbo) this.instanceVbo.bind();
       var iStride = this.instanceStride;
-      var iOffsets = this.instanceOffsets;
       this.instanceAttributes.forEach(function(v, i) {
-        v.specify(iStride, iOffsets[i]);
+        v.specify(iStride);
         ext.vertexAttribDivisorANGLE(v._location, 1);
       });
 
@@ -1423,6 +1420,7 @@ phina.namespace(function() {
   /**
    * @constructor phigl.Texture
    * @param  {WebGLRenderingContext} gl context
+   * @param  {(string|phina.asset.Texture|phina.graphics.Canvas)=} image context
    */
   phina.define("phigl.Texture", {
 
@@ -1443,6 +1441,7 @@ phina.namespace(function() {
 
     /**
      * @memberOf phigl.Texture.prototype
+     * @param  {string|phina.asset.Texture|phina.graphics.Canvas} image context
      */
     setImage: function(image) {
       var gl = this.gl;
@@ -1452,6 +1451,12 @@ phina.namespace(function() {
       }
       gl.bindTexture(gl.TEXTURE_2D, this._texture);
       gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, image.domElement);
+
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+
       gl.generateMipmap(gl.TEXTURE_2D);
       gl.bindTexture(gl.TEXTURE_2D, null);
 
@@ -1460,6 +1465,7 @@ phina.namespace(function() {
 
     /**
      * @memberOf phigl.Texture.prototype
+     * @param {number} unitIndex
      */
     bind: function(unitIndex) {
       var gl = this.gl;
@@ -1474,10 +1480,11 @@ phina.namespace(function() {
     delete: function() {
       this.gl.deleteTexture(this._texture);
     },
-
+    
     _static: {
       /**
        * @memberOf phigl.Texture
+       * @param  {WebGLRenderingContext} gl context
        */
       unbind: function(gl) {
         gl.bindTexture(gl.TEXTURE_2D, null);

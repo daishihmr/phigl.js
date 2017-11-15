@@ -24,6 +24,7 @@ phina.namespace(function() {
     _location: null,
     _type: null,
     _ptype: null,
+    _offset: 0,
 
     init: function(gl, program, name, type) {
       this.gl = gl;
@@ -57,16 +58,15 @@ phina.namespace(function() {
     },
 
     /**
-     * set stride and offset
+     * set stride
      * @memberOf phigl.Attribute.prototype
      * @param  {number} stride
-     * @param  {number} offset
      * @return {this}
      */
-    specify: function(stride, offset) {
+    specify: function(stride) {
       // console.log("attribute", this.name, this._location);
       var gl = this.gl;
-      gl.vertexAttribPointer(this._location, this.size, this._ptype, false, stride, offset);
+      gl.vertexAttribPointer(this._location, this.size, this._ptype, false, stride, this._offset);
       return this;
     },
 

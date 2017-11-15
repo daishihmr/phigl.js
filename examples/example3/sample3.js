@@ -39,7 +39,7 @@ phina.namespace(function() {
     var drawable = phigl.InstancedDrawable(gl, ext)
       .setProgram(program)
       .setIndexValues([0, 1, 2, 1, 3, 2])
-      .setAttributes("position")
+      .declareAttributes("position")
       .setAttributeDataArray([{
         unitSize: 3,
         data: [
@@ -53,8 +53,8 @@ phina.namespace(function() {
           +0.5, -0.5, 0,
         ],
       }, ])
-      .setInstanceAttributes("instancePosition", "rotY")
-      .setUniforms("mMatrix", "vMatrix", "pMatrix")
+      .declareInstanceAttributes("instancePosition", "rotY")
+      .declareUniforms("mMatrix", "vMatrix", "pMatrix")
       .on("predraw", function() {
         gl.disable(gl.DEPTH_TEST);
       })
@@ -64,7 +64,16 @@ phina.namespace(function() {
 
     var range = 1000;
     var iv = Array.range(0, 2000).map(function() {
-      return [Math.randfloat(-range, range), Math.randfloat(-range, range), Math.randfloat(-range, range), Math.randfloat(0, Math.PI * 2)];
+      return [
+        // instancePosition.x
+        Math.randfloat(-range, range),
+        // instancePosition.y
+        Math.randfloat(-range, range),
+        // instancePosition.z
+        Math.randfloat(-range, range),
+        // rotY
+        Math.randfloat(0, Math.PI * 2),
+      ];
     }).flatten();
     drawable.setInstanceAttributeData(iv);
     var instanceCount = iv.length / 4;
@@ -82,8 +91,8 @@ phina.namespace(function() {
     var vMat = mat4.lookAt(mat4.create(), [0, 0, 2000], [0, 0, 0], [0, 1, 0]);
     var pMat = mat4.perspective(mat4.create(), 45, 1 / 1, 0.1, 5000);
 
-    drawable.uniforms.vMatrix.value = vMat;
-    drawable.uniforms.pMatrix.value = pMat;
+    drawable.uniforms["vMatrix"].setValue(vMat);
+    drawable.uniforms["pMatrix"].setValue(pMat);
 
     var mat = mat4.create();
     mat4.translate(mat, mat, [0, 0, 0]);
@@ -107,7 +116,7 @@ phina.namespace(function() {
         }
         drawable.setInstanceAttributeData(iv);
 
-        drawable.uniforms.mMatrix.value = mat;
+        drawable.uniforms["mMatrix"].setValue(mat);
         drawable.draw(instanceCount);
 
         gl.flush();

@@ -43,11 +43,6 @@ phina.namespace(function() {
      */
     stride: 0,
     /**
-     * @type {Array.<number>}
-     * @memberOf phigl.Drawable.prototype
-     */
-    offsets: null,
-    /**
      * @type {Object.<string, phigl.Uniform>}
      * @memberOf phigl.Drawable.prototype
      */
@@ -74,7 +69,6 @@ phina.namespace(function() {
       this.gl = gl;
       this.extVao = extVao;
       this.attributes = [];
-      this.offsets = [];
       this.uniforms = {};
       this.drawMode = gl.TRIANGLES;
     },
@@ -126,7 +120,7 @@ phina.namespace(function() {
      * @memberOf phigl.Drawable.prototype
      * @return {this}
      */
-    setAttributes: function(names) {
+    declareAttributes: function(names) {
       names = Array.prototype.concat.apply([], arguments);
 
       var stride = 0;
@@ -134,11 +128,16 @@ phina.namespace(function() {
         var attr = names[i];
         if (typeof attr === "string") attr = this.program.getAttribute(attr);
         this.attributes.push(attr);
-        this.offsets.push(stride);
+        attr._offset = stride;
         stride += attr.size * 4;
       }
       this.stride = stride;
       return this;
+    },
+
+    setAttributes: function(names) {
+      console.warn("deprecated");
+      return this.declareAttributes(names);
     },
 
     /**
@@ -155,8 +154,7 @@ phina.namespace(function() {
 
       this.vbo.bind();
       var stride = this.stride;
-      var offsets = this.offsets;
-      this.attributes.forEach(function(v, i) { v.specify(stride, offsets[i]) });
+      this.attributes.forEach(function(v, i) { v.specify(stride) });
       phigl.Vbo.unbind(this.gl);
 
       return this;
@@ -176,8 +174,7 @@ phina.namespace(function() {
 
       this.vbo.bind();
       var stride = this.stride;
-      var offsets = this.offsets;
-      this.attributes.forEach(function(v, i) { v.specify(stride, offsets[i]) });
+      this.attributes.forEach(function(v, i) { v.specify(stride) });
       phigl.Vbo.unbind(this.gl);
 
       return this;
@@ -193,8 +190,7 @@ phina.namespace(function() {
 
       this.vbo.bind();
       var stride = this.stride;
-      var offsets = this.offsets;
-      this.attributes.forEach(function(v, i) { v.specify(stride, offsets[i]) });
+      this.attributes.forEach(function(v, i) { v.specify(stride) });
       phigl.Vbo.unbind(this.gl);
 
       return this;
@@ -207,7 +203,6 @@ phina.namespace(function() {
     createVao: function() {
       var gl = this.gl;
       var stride = this.stride;
-      var offsets = this.offsets;
 
       if (!this.extVao) this.extVao = phigl.Extensions.getVertexArrayObject(gl);
       if (!this.vao) this.vao = this.extVao.createVertexArrayOES();
@@ -218,7 +213,7 @@ phina.namespace(function() {
 
       if (this.vbo) this.vbo.bind();
       this.attributes.forEach(function(v, i) {
-        v.specify(stride, offsets[i]);
+        v.specify(stride);
         gl.enableVertexAttribArray(v._location);
       });
 
@@ -235,7 +230,7 @@ phina.namespace(function() {
      * @memberOf phigl.Drawable.prototype
      * @return {this}
      */
-    setUniforms: function(names) {
+    declareUniforms: function(names) {
       names = Array.prototype.concat.apply([], arguments);
 
       var program = this.program;
@@ -245,6 +240,11 @@ phina.namespace(function() {
       }, {});
       this.uniforms.$extend(map);
       return this;
+    },
+
+    setUniforms: function(names) {
+      console.warn("deprecated");
+      return this.declareUniforms(names);
     },
 
     /**
@@ -264,8 +264,7 @@ phina.namespace(function() {
         if (this.indices) this.indices.bind();
         if (this.vbo) this.vbo.bind();
         var stride = this.stride;
-        var offsets = this.offsets;
-        this.attributes.forEach(function(v, i) { v.specify(stride, offsets[i]) });
+        this.attributes.forEach(function(v, i) { v.specify(stride) });
       }
 
       this.uniforms.forIn(function(k, v) { v.assign() });

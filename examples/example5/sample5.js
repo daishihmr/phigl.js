@@ -49,7 +49,7 @@ phina.namespace(function() {
       var drawable1 = phigl.InstancedDrawable(gl, ext)
         .setProgram(phigl.Program(gl).attach("sample1.vs").attach("sample1.fs").link())
         .setIndexValues([0, 1, 2, 1, 3, 2])
-        .setAttributes("position")
+        .declareAttributes("position")
         .setAttributeDataArray([{
           unitSize: 3,
           data: [
@@ -63,8 +63,8 @@ phina.namespace(function() {
             +0.5, -0.5, 0,
           ],
         }, ])
-        .setInstanceAttributes("instancePosition", "rotY")
-        .setUniforms("mMatrix", "vMatrix", "pMatrix")
+        .declareInstanceAttributes("instancePosition", "rotY")
+        .declareUniforms("mMatrix", "vMatrix", "pMatrix")
         .on("predraw", function() {
           gl.disable(gl.DEPTH_TEST);
         })
@@ -85,16 +85,16 @@ phina.namespace(function() {
         dirs1[i + 3] = Math.randfloat(-0.02, 0.02);
       }
 
-      drawable1.uniforms.vMatrix.value = vMat;
-      drawable1.uniforms.pMatrix.value = pMat;
-      drawable1.uniforms.mMatrix.value = mat;
+      drawable1.uniforms["vMatrix"].setValue(vMat);
+      drawable1.uniforms["pMatrix"].setValue(pMat);
+      drawable1.uniforms["mMatrix"].setValue(mat);
     }
 
     if (enable2) {
       var drawable2 = phigl.InstancedDrawable(gl, ext)
         .setProgram(phigl.Program(gl).attach("sample2.vs").attach("sample2.fs").link())
         .setIndexValues([0, 1, 2, 1, 3, 2])
-        .setAttributes("noitisop", "uv")
+        .declareAttributes("noitisop", "uv")
         .setAttributeDataArray([{
           unitSize: 3,
           data: [
@@ -120,8 +120,8 @@ phina.namespace(function() {
             1, 0,
           ],
         }, ])
-        .setInstanceAttributes("instancePosition", "rotY")
-        .setUniforms("mMatrix", "vMatrix", "pMatrix", "texture")
+        .declareInstanceAttributes("instancePosition", "rotY")
+        .declareUniforms("mMatrix", "vMatrix", "pMatrix", "texture")
         .on("predraw", function() {
           gl.disable(gl.DEPTH_TEST);
         })
@@ -147,10 +147,10 @@ phina.namespace(function() {
         dirs2[i + 3] = Math.randfloat(-0.01, 0.01);
       }
 
-      drawable2.uniforms.vMatrix.value = vMat;
-      drawable2.uniforms.pMatrix.value = pMat;
-      drawable2.uniforms.mMatrix.value = mat;
-      drawable2.uniforms.texture.setValue(0).setTexture(phigl.Texture(gl, "sample.png"));
+      drawable2.uniforms["vMatrix"].setValue(vMat);
+      drawable2.uniforms["pMatrix"].setValue(pMat);
+      drawable2.uniforms["mMatrix"].setValue(mat);
+      drawable2.uniforms["texture"].setValue(0).setTexture(phigl.Texture(gl, "sample.png"));
     }
 
     phina.app.BaseApp()

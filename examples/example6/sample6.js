@@ -44,7 +44,7 @@ phina.namespace(function() {
       .setDrawMode(gl.TRIANGLES)
       .setProgram(phigl.Program(gl).attach("sample.vs").attach("sample.fs").link())
       .setIndexValues(Array.range(obj.trigons.length))
-      .setAttributes("position", "uv", "normal")
+      .declareAttributes("position", "uv", "normal")
       .setAttributeData(obj.trigons.map(function(vertex, i) {
         var p = obj.positions[vertex.position - 1];
         var t = obj.texCoords[vertex.texCoord - 1];
@@ -59,7 +59,7 @@ phina.namespace(function() {
         ];
       }).flatten())
       .createVao()
-      .setUniforms(
+      .declareUniforms(
         "mvpMatrix",
         "invMatrix",
         "lightDirection",
@@ -68,7 +68,7 @@ phina.namespace(function() {
         "texture"
       );
 
-    drawable.uniforms.texture.setValue(0).setTexture(phigl.Texture(gl, "p64.png"));
+    drawable.uniforms["texture"].setValue(0).setTexture(phigl.Texture(gl, "p64.png"));
 
     var cameraPos = [0, 15, 30];
     var cameraTarget = [0, 10, 0];
@@ -91,11 +91,11 @@ phina.namespace(function() {
         mat4.multiply(mvpMatrix, vpMatrix, mMatrix);
         mat4.invert(invMatrix, mvpMatrix);
 
-        drawable.uniforms.mvpMatrix.setValue(mvpMatrix);
-        drawable.uniforms.invMatrix.setValue(invMatrix);
-        drawable.uniforms.lightDirection.setValue(lightDirection);
-        drawable.uniforms.diffuseColor.setValue([1.00, 1.00, 1.00, 1.0]);
-        drawable.uniforms.ambientColor.setValue([0.01, 0.01, 0.01, 1.0]);
+        drawable.uniforms["mvpMatrix"].setValue(mvpMatrix);
+        drawable.uniforms["invMatrix"].setValue(invMatrix);
+        drawable.uniforms["lightDirection"].setValue(lightDirection);
+        drawable.uniforms["diffuseColor"].setValue([1.00, 1.00, 1.00, 1.0]);
+        drawable.uniforms["ambientColor"].setValue([0.01, 0.01, 0.01, 1.0]);
 
         gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 

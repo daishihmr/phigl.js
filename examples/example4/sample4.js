@@ -42,7 +42,7 @@ phina.namespace(function() {
     var drawable1 = phigl.Drawable(gl)
       .setProgram(phigl.Program(gl).attach("sample1.vs").attach("sample1.fs").link())
       .setIndexValues([0, 1, 2, 1, 3, 2])
-      .setAttributes("position", "uv")
+      .declareAttributes("position", "uv")
       .setAttributeDataArray([{
         unitSize: 3,
         data: [
@@ -68,11 +68,11 @@ phina.namespace(function() {
           1, 1,
         ],
       }, ])
-      .setUniforms("mMatrix", "vMatrix", "pMatrix", "texture");
+      .declareUniforms("mMatrix", "vMatrix", "pMatrix", "texture");
 
-    drawable1.uniforms.vMatrix.value = vMatrix;
-    drawable1.uniforms.pMatrix.value = pMatrix;
-    drawable1.uniforms.texture.setValue(0).setTexture(phigl.Texture(gl, "sample.png"));
+    drawable1.uniforms["vMatrix"].setValue(vMatrix);
+    drawable1.uniforms["pMatrix"].setValue(pMatrix);
+    drawable1.uniforms["texture"].setValue(0).setTexture(phigl.Texture(gl, "sample.png"));
 
     var mMat1 = mat4.create();
     mat4.translate(mMat1, mMat1, [0, 200, 0]);
@@ -97,8 +97,8 @@ phina.namespace(function() {
       }, ])
       .setUniforms("mMatrix", "vMatrix", "pMatrix");
 
-    drawable2.uniforms.vMatrix.value = vMatrix;
-    drawable2.uniforms.pMatrix.value = pMatrix;
+    drawable2.uniforms["vMatrix"].setValue(vMatrix);
+    drawable2.uniforms["pMatrix"].setValue(pMatrix);
 
     var mMat2 = mat4.create();
     mat4.translate(mMat2, mMat2, [0, -200, 0]);
@@ -111,10 +111,10 @@ phina.namespace(function() {
         
         gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
-        drawable2.uniforms.mMatrix.value = mMat2;
+        drawable2.uniforms["mMatrix"].setValue(mMat2);
         drawable2.draw();
 
-        drawable1.uniforms.mMatrix.value = mMat1;
+        drawable1.uniforms["mMatrix"].setValue(mMat1);
         drawable1.draw();
 
         gl.flush();

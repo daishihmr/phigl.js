@@ -78,11 +78,11 @@ phina.namespace(function() {
       .setDrawMode(gl.TRIANGLES)
       .setProgram(phigl.Program(gl).attach("sample.vs").attach("sample.fs").link())
       .setIndexValues(indices)
-      .setAttributes("position", "uv", "normal")
+      .declareAttributes("position", "uv", "normal")
       .setAttributeData(data)
-      .setInstanceAttributes("instancePosition", "instanceRotationY")
+      .declareInstanceAttributes("instancePosition", "instanceRotationY")
       .setInstanceAttributeData(instanceData)
-      .setUniforms(
+      .declareUniforms(
         "vpMatrix",
         "lightDirection",
         "diffuseColor",
@@ -90,7 +90,7 @@ phina.namespace(function() {
         "texture"
       );
 
-    drawable.uniforms.texture.setValue(0).setTexture(phigl.Texture(gl, "p64.png"));
+    drawable.uniforms["texture"].setValue(0).setTexture(phigl.Texture(gl, "p64.png"));
 
     var cameraPos = [Math.cos(1) * 200, 50, Math.sin(1) * 200];
     var cameraTarget = [0, 10, 0];
@@ -116,10 +116,10 @@ phina.namespace(function() {
         mat4.lookAt(vMatrix, cameraPos, cameraTarget, [0, 1, 0]);
         mat4.multiply(vpMatrix, pMatrix, vMatrix);
 
-        drawable.uniforms.vpMatrix.value = vpMatrix;
-        drawable.uniforms.lightDirection.value = lightDirection;
-        drawable.uniforms.diffuseColor.value = [0.7, 0.7, 0.7, 1.0];
-        drawable.uniforms.ambientColor.value = [0.7, 0.7, 0.7, 1.0];
+        drawable.uniforms["vpMatrix"].setValue(vpMatrix);
+        drawable.uniforms["lightDirection"].setValue(lightDirection);
+        drawable.uniforms["diffuseColor"].setValue([0.7, 0.7, 0.7, 1.0]);
+        drawable.uniforms["ambientColor"].setValue([0.7, 0.7, 0.7, 1.0]);
 
         for (var i = 0; i < instanceData.length; i += 4) {
           instanceData[i + 3] += -0.02;

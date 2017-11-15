@@ -46,7 +46,7 @@ phina.namespace(function() {
     var drawable = phigl.Drawable(gl)
       .setProgram(program)
       .setIndexValues([0, 1, 2, 1, 3, 2])
-      .setAttributes("position", "uv")
+      .declareAttributes("position", "uv")
       .setAttributeDataArray([{
         unitSize: 3,
         data: [
@@ -73,10 +73,10 @@ phina.namespace(function() {
         ],
       }, ])
       .createVao()
-      .setUniforms("mMatrix", "vMatrix", "pMatrix", "textureA", "textureB");
+      .declareUniforms("mMatrix", "vMatrix", "pMatrix", "textureA", "textureB");
 
-    drawable.uniforms.vMatrix.value = mat4.lookAt(mat4.create(), [0, 0, 500], [0, 0, 0], [0, 1, 0]);
-    drawable.uniforms.pMatrix.value = mat4.ortho(mat4.create(), -512, 512, -512, 512, 0.1, 1000);
+    drawable.uniforms["vMatrix"].setValue(mat4.lookAt(mat4.create(), [0, 0, 500], [0, 0, 0], [0, 1, 0]));
+    drawable.uniforms["pMatrix"].setValue(mat4.ortho(mat4.create(), -512, 512, -512, 512, 0.1, 1000));
 
     var matA = mat4.create();
     mat4.translate(matA, matA, [0, -100, 0]);
@@ -93,19 +93,19 @@ phina.namespace(function() {
 
         gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
-        drawable.uniforms.mMatrix.value = matA;
-        drawable.uniforms.textureA.setValue(0).setTexture(phigl.Texture(gl, "p64.png"));
-        drawable.uniforms.textureB.setValue(1).setTexture(phigl.Texture(gl, "sample1.png"));
+        drawable.uniforms["mMatrix"].setValue(matA);
+        drawable.uniforms["textureA"].setValue(0).setTexture(phigl.Texture(gl, "p64.png"));
+        drawable.uniforms["textureB"].setValue(1).setTexture(phigl.Texture(gl, "sample1.png"));
         drawable.draw();
 
-        drawable.uniforms.mMatrix.value = matB;
-        drawable.uniforms.textureA.setValue(0).setTexture(phigl.Texture(gl, "p64.png"));
-        drawable.uniforms.textureB.setValue(1).setTexture(phigl.Texture(gl, "sample2.png"));
+        drawable.uniforms["mMatrix"].setValue(matB);
+        drawable.uniforms["textureA"].setValue(0).setTexture(phigl.Texture(gl, "p64.png"));
+        drawable.uniforms["textureB"].setValue(1).setTexture(phigl.Texture(gl, "sample2.png"));
         drawable.draw();
 
         gl.flush();
       })
-      .start();;
+      .start();
   };
 
 });
