@@ -56,7 +56,7 @@ var sourceFiles = function(folder) {
   return srcs;
 };
 
-gulp.task("default", ["concat", "uglify", "jsdoc"]);
+gulp.task("default", ["concat", "uglify"]);
 
 gulp.task("concat", function() {
   gulp.src(sourceFiles("./src"))
