@@ -13,6 +13,7 @@ Super strongest awesome WebGL library depends on [phina.js](https://github.com/p
 
 ## TODO
 
-* support Skinned Mesh Animation (Three.js JSON data)
+* support Three.js JSON data (with Skinned Mesh Animation)
+* support Live2D
 * jsdoc
 * gl-matrix.js -> phina.geom

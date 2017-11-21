@@ -29,13 +29,11 @@ phina.namespace(function() {
     var gl = canvas.getContext("webgl");
 
     gl.enable(gl.DEPTH_TEST);
-    gl.enable(gl.CULL_FACE);
     gl.enable(gl.BLEND);
 
     gl.clearColor(0.0, 0.0, 0.0, 1.0);
     gl.clearDepth(1.0);
     gl.depthFunc(gl.LEQUAL);
-    gl.cullFace(gl.FRONT);
     gl.blendFunc(gl.ONE, gl.ONE_MINUS_SRC_ALPHA);
 
     var program = phigl.Program(gl)
@@ -79,12 +77,16 @@ phina.namespace(function() {
     drawable.uniforms["pMatrix"].setValue(mat4.ortho(mat4.create(), -512, 512, -512, 512, 0.1, 1000));
 
     var matA = mat4.create();
-    mat4.translate(matA, matA, [0, -100, 0]);
-    mat4.scale(matA, matA, [100, 100, 100]);
+    mat4.translate(matA, matA, [0, -120, 0]);
+    mat4.scale(matA, matA, [200, 200, 200]);
 
     var matB = mat4.create();
-    mat4.translate(matB, matB, [0, 100, 0]);
-    mat4.scale(matB, matB, [150, 150, 150]);
+    mat4.translate(matB, matB, [0, 120, 0]);
+    mat4.scale(matB, matB, [200, 200, 200]);
+
+    var tex0 = phigl.Texture(gl, "p64.png");
+    var tex1 = phigl.Texture(gl, "sample1.png");
+    var tex2 = phigl.Texture(gl, "sample2.png");
 
     phina.util.Ticker()
       .on("tick", function() {
@@ -94,13 +96,13 @@ phina.namespace(function() {
         gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
         drawable.uniforms["mMatrix"].setValue(matA);
-        drawable.uniforms["textureA"].setValue(0).setTexture(phigl.Texture(gl, "p64.png"));
-        drawable.uniforms["textureB"].setValue(1).setTexture(phigl.Texture(gl, "sample1.png"));
+        drawable.uniforms["textureA"].setValue(0).setTexture(tex0);
+        drawable.uniforms["textureB"].setValue(1).setTexture(tex1);
         drawable.draw();
 
         drawable.uniforms["mMatrix"].setValue(matB);
-        drawable.uniforms["textureA"].setValue(0).setTexture(phigl.Texture(gl, "p64.png"));
-        drawable.uniforms["textureB"].setValue(1).setTexture(phigl.Texture(gl, "sample2.png"));
+        drawable.uniforms["textureA"].setValue(0).setTexture(tex0);
+        drawable.uniforms["textureB"].setValue(1).setTexture(tex2);
         drawable.draw();
 
         gl.flush();

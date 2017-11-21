@@ -59,6 +59,7 @@ phina.namespace(function() {
     bind: function() {
       var gl = this.gl;
       gl.bindFramebuffer(gl.FRAMEBUFFER, this._framebuffer);
+      gl.viewport(0, 0, this.width, this.height);
       return this;
     },
 

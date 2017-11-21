@@ -603,6 +603,7 @@ phina.namespace(function() {
     bind: function() {
       var gl = this.gl;
       gl.bindFramebuffer(gl.FRAMEBUFFER, this._framebuffer);
+      gl.viewport(0, 0, this.width, this.height);
       return this;
     },
 
@@ -1593,6 +1594,9 @@ phina.namespace(function() {
      * @memberOf phigl.Uniform.prototype
      */
     setTexture: function(texture) {
+      if (typeof(texture) == "string") {
+        texture = phigl.Texture(this.gl, texture);
+      }
       this.texture = texture;
       return this;
     },

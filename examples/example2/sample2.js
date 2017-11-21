@@ -146,7 +146,7 @@ phina.namespace(function() {
         mat4.rotateZ(matM2, matM2, -0.1);
         mat4.rotateZ(matM3, matM3, -0.2);
 
-        framebuffer.bind(0, 0, 512, 512);
+        framebuffer.bind();
 
         gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
@@ -168,6 +168,8 @@ phina.namespace(function() {
         gl.flush();
 
         phigl.Framebuffer.unbind(gl);
+
+        gl.viewport(0, 0, canvas.width, canvas.height);
 
         gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
