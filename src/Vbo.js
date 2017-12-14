@@ -50,14 +50,16 @@ phina.namespace(function() {
      * @memberOf phigl.Vbo.prototype
      */
     setAsInterleavedArray: function(dataArray) {
-      var count = dataArray[0].data.length / dataArray[0].unitSize;
+      var dataCount = dataArray.length;
+      var vertexCount = dataArray[0].data.length / dataArray[0].unitSize;
       var interleavedArray = [];
-      for (var i = 0; i < count; i++) {
-        dataArray.forEach(function(d) {
-          for (var j = 0; j < d.unitSize; j++) {
-            interleavedArray.push(d.data[i * d.unitSize + j]);
+      for (var i = 0; i < vertexCount; i++) {
+        for (var j = 0; j < dataCount; j++) {
+          var d = dataArray[j];
+          for (var k = 0; k < d.unitSize; k++) {
+            interleavedArray.push(d.data[i * d.unitSize + k]);
           }
-        });
+        }
       }
       return this.set(interleavedArray);
     },
