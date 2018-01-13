@@ -284,6 +284,18 @@ phina.namespace(function() {
 
       // console.log("-- end");
     },
+
+    delete: function() {
+      var gl = this.gl;
+      var ext = this.ext;
+
+      if (this.vao) {
+        ext.deleteVertexArrayOES(this.vao);
+      } else {
+        this.indices.delete();
+        this.vbo.delete();
+      }
+    },
   });
 
 });

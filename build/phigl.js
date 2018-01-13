@@ -459,6 +459,18 @@ phina.namespace(function() {
 
       // console.log("-- end");
     },
+
+    delete: function() {
+      var gl = this.gl;
+      var ext = this.ext;
+
+      if (this.vao) {
+        ext.deleteVertexArrayOES(this.vao);
+      } else {
+        this.indices.delete();
+        this.vbo.delete();
+      }
+    },
   });
 
 });
@@ -488,22 +500,31 @@ phina.namespace(function() {
  * THE SOFTWARE.
  */
 phina.namespace(function() {
-  
+
   /**
    * @constructor phigl.Extensions
    */
   phina.define("phigl.Extensions", {
-    
+
     _static: {
-      
+
+      extVao: null,
+      extInstancedArray: null,
+
       getVertexArrayObject: function(gl) {
-        return this._get(gl, "OES_vertex_array_object");
+        if (this.extVao == null) {
+          this.extVao = this._get(gl, "OES_vertex_array_object");
+        }
+        return this.extVao;
       },
 
       getInstancedArrays: function(gl) {
-        return this._get(gl, "ANGLE_instanced_arrays");
+        if (this.extInstancedArray == null) {
+          this.extInstancedArray = this._get(gl, "ANGLE_instanced_arrays");
+        }
+        return this.extInstancedArray;
       },
-      
+
       _get: function(gl, name) {
         var ext = gl.getExtension(name);
         if (ext) {
@@ -513,11 +534,10 @@ phina.namespace(function() {
         }
       }
     },
-    
+
   });
 
 });
-
 /*
  * phigl.js 1.1.2-pre
  * https://github.com/daishihmr/phigl.js
@@ -1736,14 +1756,16 @@ phina.namespace(function() {
      * @memberOf phigl.Vbo.prototype
      */
     setAsInterleavedArray: function(dataArray) {
-      var count = dataArray[0].data.length / dataArray[0].unitSize;
+      var dataCount = dataArray.length;
+      var vertexCount = dataArray[0].data.length / dataArray[0].unitSize;
       var interleavedArray = [];
-      for (var i = 0; i < count; i++) {
-        dataArray.forEach(function(d) {
-          for (var j = 0; j < d.unitSize; j++) {
-            interleavedArray.push(d.data[i * d.unitSize + j]);
+      for (var i = 0; i < vertexCount; i++) {
+        for (var j = 0; j < dataCount; j++) {
+          var d = dataArray[j];
+          for (var k = 0; k < d.unitSize; k++) {
+            interleavedArray.push(d.data[i * d.unitSize + k]);
           }
-        });
+        }
       }
       return this.set(interleavedArray);
     },
@@ -1777,5 +1799,4 @@ phina.namespace(function() {
 
   });
 });
-
 //# sourceMappingURL=phigl.js.map
