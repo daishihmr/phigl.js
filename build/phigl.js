@@ -94,6 +94,15 @@ phina.namespace(function() {
       return this;
     },
 
+    enable: function() {
+      var gl = this.gl;
+      gl.enableVertexAttribArray(this._location);
+    },
+
+    disable: function() {
+      var gl = this.gl;
+      gl.disableVertexAttribArray(this._location);
+    },
   });
 
 });
@@ -389,7 +398,7 @@ phina.namespace(function() {
       if (this.vbo) this.vbo.bind();
       this.attributes.forEach(function(v, i) {
         v.specify(stride);
-        gl.enableVertexAttribArray(v._location);
+        v.enable();
       });
 
       this.extVao.bindVertexArrayOES(null);
@@ -433,13 +442,18 @@ phina.namespace(function() {
 
       this.program.use();
 
+      this.attributes.forEach(function(v, i) {
+        v.enable();
+      });
       if (this.vao) {
         ext.bindVertexArrayOES(this.vao);
       } else {
         if (this.indices) this.indices.bind();
         if (this.vbo) this.vbo.bind();
         var stride = this.stride;
-        this.attributes.forEach(function(v, i) { v.specify(stride) });
+        this.attributes.forEach(function(v, i) {
+          v.specify(stride);
+        });
       }
 
       this.uniforms.forIn(function(k, v) { v.assign() });
@@ -454,6 +468,9 @@ phina.namespace(function() {
         phigl.Ibo.unbind(gl);
         phigl.Vbo.unbind(gl);
       }
+      this.attributes.forEach(function(v, i) {
+        v.disable();
+      });
 
       this.uniforms.forIn(function(k, v) { v.reassign() });
 
@@ -474,7 +491,6 @@ phina.namespace(function() {
   });
 
 });
-
 /*
  * phigl.js 1.1.2-pre
  * https://github.com/daishihmr/phigl.js

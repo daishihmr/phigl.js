@@ -70,6 +70,15 @@ phina.namespace(function() {
       return this;
     },
 
+    enable: function() {
+      var gl = this.gl;
+      gl.enableVertexAttribArray(this._location);
+    },
+
+    disable: function() {
+      var gl = this.gl;
+      gl.disableVertexAttribArray(this._location);
+    },
   });
 
 });
