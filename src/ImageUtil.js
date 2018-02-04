@@ -17,7 +17,7 @@ phina.namespace(function() {
           image = phina.asset.AssetManager.get("image", image).domElement;
         }
 
-        if (Math.sqrt(image.width) % 1 == 0 && Math.sqrt(image.height) % 1 == 0) {
+        if (Math.sqrt(image.width) % 1 === 0 && Math.sqrt(image.height) % 1 === 0) {
           return image;
         }
 

@@ -27,6 +27,11 @@ phina.namespace(function() {
       this.compiled = false;
     },
 
+    setSource: function(text) {
+      this.data = text;
+      return this;
+    },
+
     /**
      * @memberOf phigl.Shader.prototype
      */
