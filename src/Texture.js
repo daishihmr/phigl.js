@@ -26,7 +26,7 @@ phina.namespace(function() {
      * @memberOf phigl.Texture.prototype
      * @param  {string|phina.asset.Texture|phina.graphics.Canvas} image context
      */
-    setImage: function(image) {
+    setImage: function(image, funcSetting) {
       var gl = this.gl;
 
       if (typeof image === "string") {
@@ -35,12 +35,17 @@ phina.namespace(function() {
       gl.bindTexture(gl.TEXTURE_2D, this._texture);
       gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, image.domElement);
 
-      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
-      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
-      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
-      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+      funcSetting = funcSetting || function(gl) {
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
 
-      gl.generateMipmap(gl.TEXTURE_2D);
+        gl.generateMipmap(gl.TEXTURE_2D);
+      };
+
+      funcSetting(gl);
+
       gl.bindTexture(gl.TEXTURE_2D, null);
 
       return this;

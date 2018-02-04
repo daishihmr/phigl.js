@@ -1,27 +1,3 @@
-/*
- * phigl.js 1.1.2-pre
- * https://github.com/daishihmr/phigl.js
- * 
- * The MIT License (MIT)
- * Copyright © 2016-2017 daishihmr <daishi.hmr@gmail.com> (http://github.dev7.jp/)
- * 
- * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
- * associated documentation files (the “Software”), to deal in the Software without restriction, including
- * without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
- * of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following
- * conditions:
- * 
- * The above copyright notice and this permission notice shall be included in all copies or substantial portions
- * of the Software.
- * 
- * THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- */
 phina.namespace(function() {
 
   /**
@@ -98,30 +74,6 @@ phina.namespace(function() {
 
 });
 
-/*
- * phigl.js 1.1.2-pre
- * https://github.com/daishihmr/phigl.js
- * 
- * The MIT License (MIT)
- * Copyright © 2016-2017 daishihmr <daishi.hmr@gmail.com> (http://github.dev7.jp/)
- * 
- * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
- * associated documentation files (the “Software”), to deal in the Software without restriction, including
- * without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
- * of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following
- * conditions:
- * 
- * The above copyright notice and this permission notice shall be included in all copies or substantial portions
- * of the Software.
- * 
- * THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- */
 phina.namespace(function() {
 
   /**
@@ -149,30 +101,6 @@ phina.namespace(function() {
 
 });
 
-/*
- * phigl.js 1.1.2-pre
- * https://github.com/daishihmr/phigl.js
- * 
- * The MIT License (MIT)
- * Copyright © 2016-2017 daishihmr <daishi.hmr@gmail.com> (http://github.dev7.jp/)
- * 
- * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
- * associated documentation files (the “Software”), to deal in the Software without restriction, including
- * without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
- * of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following
- * conditions:
- * 
- * The above copyright notice and this permission notice shall be included in all copies or substantial portions
- * of the Software.
- * 
- * THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- */
 phina.namespace(function() {
 
   /**
@@ -475,30 +403,6 @@ phina.namespace(function() {
 
 });
 
-/*
- * phigl.js 1.1.2-pre
- * https://github.com/daishihmr/phigl.js
- * 
- * The MIT License (MIT)
- * Copyright © 2016-2017 daishihmr <daishi.hmr@gmail.com> (http://github.dev7.jp/)
- * 
- * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
- * associated documentation files (the “Software”), to deal in the Software without restriction, including
- * without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
- * of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following
- * conditions:
- * 
- * The above copyright notice and this permission notice shall be included in all copies or substantial portions
- * of the Software.
- * 
- * THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- */
 phina.namespace(function() {
 
   /**
@@ -538,30 +442,6 @@ phina.namespace(function() {
   });
 
 });
-/*
- * phigl.js 1.1.2-pre
- * https://github.com/daishihmr/phigl.js
- * 
- * The MIT License (MIT)
- * Copyright © 2016-2017 daishihmr <daishi.hmr@gmail.com> (http://github.dev7.jp/)
- * 
- * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
- * associated documentation files (the “Software”), to deal in the Software without restriction, including
- * without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
- * of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following
- * conditions:
- * 
- * The above copyright notice and this permission notice shall be included in all copies or substantial portions
- * of the Software.
- * 
- * THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- */
 phina.namespace(function() {
 
   /**
@@ -640,30 +520,49 @@ phina.namespace(function() {
 
 });
 
-/*
- * phigl.js 1.1.2-pre
- * https://github.com/daishihmr/phigl.js
- * 
- * The MIT License (MIT)
- * Copyright © 2016-2017 daishihmr <daishi.hmr@gmail.com> (http://github.dev7.jp/)
- * 
- * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
- * associated documentation files (the “Software”), to deal in the Software without restriction, including
- * without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
- * of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following
- * conditions:
- * 
- * The above copyright notice and this permission notice shall be included in all copies or substantial portions
- * of the Software.
- * 
- * THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- */
+phina.namespace(function() {
+
+  phina.define("phigl.Geometry", {
+
+    positions: null,
+    normals: null,
+    uvs: null,
+    indices: null,
+
+    init: function(options) {},
+
+    setTo: function(drawable) {
+      var atributeNames = [];
+      var attributeDataArray = [];
+      if (this.positions) {
+        atributeNames.push("position");
+        attributeDataArray.push({ unitSize: 3, data: this.positions });
+      }
+      if (this.normals) {
+        atributeNames.push("normal");
+        attributeDataArray.push({ unitSize: 3, data: this.normals });
+      }
+      if (this.uvs) {
+        atributeNames.push("uv");
+        attributeDataArray.push({ unitSize: 2, data: this.uvs });
+      }
+
+      drawable
+        .declareAttributes(atributeNames)
+        .setAttributeDataArray(attributeDataArray)
+        .setIndexValues(this.indices);
+
+      return this;
+    },
+
+  });
+
+  phigl.Drawable.prototype.$method("setGeometry", function(geometry) {
+    geometry.setTo(this);
+    return this;
+  });
+
+});
 phina.namespace(function() {
 
   phina.define("phigl.GL", {
@@ -679,30 +578,6 @@ phina.namespace(function() {
 
 });
 
-/*
- * phigl.js 1.1.2-pre
- * https://github.com/daishihmr/phigl.js
- * 
- * The MIT License (MIT)
- * Copyright © 2016-2017 daishihmr <daishi.hmr@gmail.com> (http://github.dev7.jp/)
- * 
- * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
- * associated documentation files (the “Software”), to deal in the Software without restriction, including
- * without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
- * of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following
- * conditions:
- * 
- * The above copyright notice and this permission notice shall be included in all copies or substantial portions
- * of the Software.
- * 
- * THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- */
 phina.namespace(function() {
 
   /**
@@ -778,30 +653,6 @@ phina.namespace(function() {
 
 });
 
-/*
- * phigl.js 1.1.2-pre
- * https://github.com/daishihmr/phigl.js
- * 
- * The MIT License (MIT)
- * Copyright © 2016-2017 daishihmr <daishi.hmr@gmail.com> (http://github.dev7.jp/)
- * 
- * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
- * associated documentation files (the “Software”), to deal in the Software without restriction, including
- * without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
- * of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following
- * conditions:
- * 
- * The above copyright notice and this permission notice shall be included in all copies or substantial portions
- * of the Software.
- * 
- * THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- */
 phina.namespace(function() {
 
   /**
@@ -813,32 +664,79 @@ phina.namespace(function() {
 
     _static: {
 
+      calcSizePowOf2: function(origWidth, origHeight) {
+        var fitW = origWidth < origHeight;
+        var asp = origWidth / origHeight;
+
+        var width = Math.pow(2, Math.ceil(Math.log2(origWidth)));
+        var height = Math.pow(2, Math.ceil(Math.log2(origHeight)));
+
+        if (fitW) {
+          var h = width / asp;
+          return {
+            srcX: 0,
+            srcY: (height - h) * 0.5,
+            srcWidth: width,
+            srcHeight: h,
+            width: width,
+            height: height,
+          };
+        } else {
+          var w = height * asp;
+          return {
+            srcX: (width - w) * 0.5,
+            srcY: 0,
+            srcWidth: w,
+            srcHeight: height,
+            width: width,
+            height: height,
+          };
+        }
+      },
+
       /**
        * @memberOf phigl.ImageUtil
        */
-      resizePowOf2: function(image, fitH, fitV) {
-        if (typeof(image) == "string") {
-          image = phina.asset.AssetManager.get("image", image).domElement;
+      resizePowOf2: function(options) {
+        options = ({}).$safe(options, {
+          dst: null,
+        });
+
+        var src = options.src;
+        var dst = options.dst || phina.graphics.Canvas();
+        var fitW = src.width < src.height;
+        var asp = src.width / src.height;
+
+        if (typeof(src) == "string") {
+          src = phina.asset.AssetManager.get("image", src);
         }
 
-        if (Math.sqrt(image.width) % 1 == 0 && Math.sqrt(image.height) % 1 == 0) {
-          return image;
+        if (Math.sqrt(src.domElement.width) % 1 === 0 && Math.sqrt(src.domElement.height) % 1 === 0) {
+          return src;
         }
 
-        var width = Math.pow(2, Math.ceil(Math.log2(image.width)));
-        var height = Math.pow(2, Math.ceil(Math.log2(image.height)));
+        dst.clear();
 
-        var canvas = phina.graphics.Canvas().setSize(width, height);
+        var width = Math.pow(2, Math.ceil(Math.log2(src.domElement.width)));
+        var height = Math.pow(2, Math.ceil(Math.log2(src.domElement.height)));
+        dst.domElement.width = width;
+        dst.domElement.height = height;
 
-        var dw = fitH ? width : image.width;
-        var dh = fitV ? height : image.height;
+        if (fitW) {
+          var h = width / asp;
+          dst.context.drawImage(src.domElement,
+            0, 0, src.domElement.width, src.domElement.height,
+            0, (height - h) * 0.5, width, h
+          );
+        } else {
+          var w = height * asp;
+          dst.context.drawImage(src.domElement,
+            0, 0, src.domElement.width, src.domElement.height,
+            (width - w) * 0.5, 0, w, height
+          );
+        }
 
-        canvas.context.drawImage(image,
-          0, 0, image.width, image.height,
-          0, 0, dw, dh
-        );
-
-        return canvas;
+        return dst;
       },
 
     },
@@ -846,30 +744,6 @@ phina.namespace(function() {
   });
 });
 
-/*
- * phigl.js 1.1.2-pre
- * https://github.com/daishihmr/phigl.js
- * 
- * The MIT License (MIT)
- * Copyright © 2016-2017 daishihmr <daishi.hmr@gmail.com> (http://github.dev7.jp/)
- * 
- * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
- * associated documentation files (the “Software”), to deal in the Software without restriction, including
- * without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
- * of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following
- * conditions:
- * 
- * The above copyright notice and this permission notice shall be included in all copies or substantial portions
- * of the Software.
- * 
- * THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- */
 phina.namespace(function() {
 
   /**
@@ -994,30 +868,6 @@ phina.namespace(function() {
 
 });
 
-/*
- * phigl.js 1.1.2-pre
- * https://github.com/daishihmr/phigl.js
- * 
- * The MIT License (MIT)
- * Copyright © 2016-2017 daishihmr <daishi.hmr@gmail.com> (http://github.dev7.jp/)
- * 
- * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
- * associated documentation files (the “Software”), to deal in the Software without restriction, including
- * without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
- * of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following
- * conditions:
- * 
- * The above copyright notice and this permission notice shall be included in all copies or substantial portions
- * of the Software.
- * 
- * THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- */
 phina.namespace(function() {
 
   /**
@@ -1144,30 +994,6 @@ phina.namespace(function() {
 
 });
 
-/*
- * phigl.js 1.1.2-pre
- * https://github.com/daishihmr/phigl.js
- * 
- * The MIT License (MIT)
- * Copyright © 2016-2017 daishihmr <daishi.hmr@gmail.com> (http://github.dev7.jp/)
- * 
- * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
- * associated documentation files (the “Software”), to deal in the Software without restriction, including
- * without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
- * of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following
- * conditions:
- * 
- * The above copyright notice and this permission notice shall be included in all copies or substantial portions
- * of the Software.
- * 
- * THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- */
 phina.namespace(function() {
   var id = 0;
 
@@ -1326,30 +1152,6 @@ phina.namespace(function() {
 
 });
 
-/*
- * phigl.js 1.1.2-pre
- * https://github.com/daishihmr/phigl.js
- * 
- * The MIT License (MIT)
- * Copyright © 2016-2017 daishihmr <daishi.hmr@gmail.com> (http://github.dev7.jp/)
- * 
- * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
- * associated documentation files (the “Software”), to deal in the Software without restriction, including
- * without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
- * of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following
- * conditions:
- * 
- * The above copyright notice and this permission notice shall be included in all copies or substantial portions
- * of the Software.
- * 
- * THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- */
 phina.namespace(function() {
 
   /**
@@ -1377,6 +1179,11 @@ phina.namespace(function() {
     init: function() {
       this.superInit();
       this.compiled = false;
+    },
+
+    setSource: function(text) {
+      this.data = text;
+      return this;
     },
 
     /**
@@ -1451,30 +1258,65 @@ phina.namespace(function() {
 
 });
 
-/*
- * phigl.js 1.1.2-pre
- * https://github.com/daishihmr/phigl.js
- * 
- * The MIT License (MIT)
- * Copyright © 2016-2017 daishihmr <daishi.hmr@gmail.com> (http://github.dev7.jp/)
- * 
- * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
- * associated documentation files (the “Software”), to deal in the Software without restriction, including
- * without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
- * of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following
- * conditions:
- * 
- * The above copyright notice and this permission notice shall be included in all copies or substantial portions
- * of the Software.
- * 
- * THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- */
+phina.namespace(function() {
+
+  phina.define("phigl.PlaneXY", {
+    superClass: "phigl.Geometry",
+
+    init: function(options) {
+      this.superInit(options);
+      options = ({}).$safe(options, phigl.PlaneXY.defaults);
+
+      this.width = options.width;
+      this.height = options.height;
+      this.normalsEnabled = options.normalsEnabled;
+
+      this.positions = [
+        // 左上
+        options.width * -0.5, options.height * +0.5, 0,
+        // 左下
+        options.width * -0.5, options.height * -0.5, 0,
+        // 右上
+        options.width * +0.5, options.height * +0.5, 0,
+        // 右下
+        options.width * +0.5, options.height * -0.5, 0,
+      ];
+      if (this.normalsEnabled) {
+        this.normals = [
+          // 左上
+          0, 0, 1,
+          // 左下
+          0, 0, 1,
+          // 右上
+          0, 0, 1,
+          // 右下
+          0, 0, 1,
+        ];
+      }
+      this.uvs = [
+        // 左上
+        0, 1,
+        // 左下
+        0, 0,
+        // 右上
+        1, 1,
+        // 右下
+        1, 0,
+      ];
+      this.indices = [0, 1, 2, 2, 1, 3];
+    },
+
+    _static: {
+      defaults: {
+        width: 1,
+        height: 1,
+        normalsEnabled: true,
+      },
+    },
+
+  });
+
+});
 phina.namespace(function() {
 
   /**
@@ -1503,7 +1345,7 @@ phina.namespace(function() {
      * @memberOf phigl.Texture.prototype
      * @param  {string|phina.asset.Texture|phina.graphics.Canvas} image context
      */
-    setImage: function(image) {
+    setImage: function(image, funcSetting) {
       var gl = this.gl;
 
       if (typeof image === "string") {
@@ -1512,12 +1354,17 @@ phina.namespace(function() {
       gl.bindTexture(gl.TEXTURE_2D, this._texture);
       gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, image.domElement);
 
-      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
-      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
-      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
-      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+      funcSetting = funcSetting || function(gl) {
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
 
-      gl.generateMipmap(gl.TEXTURE_2D);
+        gl.generateMipmap(gl.TEXTURE_2D);
+      };
+
+      funcSetting(gl);
+
       gl.bindTexture(gl.TEXTURE_2D, null);
 
       return this;
@@ -1555,30 +1402,6 @@ phina.namespace(function() {
 
 });
 
-/*
- * phigl.js 1.1.2-pre
- * https://github.com/daishihmr/phigl.js
- * 
- * The MIT License (MIT)
- * Copyright © 2016-2017 daishihmr <daishi.hmr@gmail.com> (http://github.dev7.jp/)
- * 
- * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
- * associated documentation files (the “Software”), to deal in the Software without restriction, including
- * without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
- * of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following
- * conditions:
- * 
- * The above copyright notice and this permission notice shall be included in all copies or substantial portions
- * of the Software.
- * 
- * THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- */
 phina.namespace(function() {
 
   /**
@@ -1719,30 +1542,6 @@ phina.namespace(function() {
 
 });
 
-/*
- * phigl.js 1.1.2-pre
- * https://github.com/daishihmr/phigl.js
- * 
- * The MIT License (MIT)
- * Copyright © 2016-2017 daishihmr <daishi.hmr@gmail.com> (http://github.dev7.jp/)
- * 
- * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
- * associated documentation files (the “Software”), to deal in the Software without restriction, including
- * without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
- * of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following
- * conditions:
- * 
- * The above copyright notice and this permission notice shall be included in all copies or substantial portions
- * of the Software.
- * 
- * THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- */
 phina.namespace(function() {
   var i = 0;
 

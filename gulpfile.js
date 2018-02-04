@@ -60,7 +60,7 @@ gulp.task("default", ["concat", "uglify"]);
 
 gulp.task("concat", function() {
   gulp.src(sourceFiles("./src"))
-    .pipe(banner(BANNER, { pkg: pkg }))
+    // .pipe(banner(BANNER, { pkg: pkg }))
     .pipe(sourcemaps.init())
     .pipe(concat("phigl.js"))
     .pipe(sourcemaps.write("./"))
@@ -70,7 +70,7 @@ gulp.task("concat", function() {
 gulp.task("uglify", function() {
   gulp.src("./build/phigl.js")
     .pipe(uglify())
-    .pipe(banner(BANNER, { pkg: pkg }))
+    // .pipe(banner(BANNER, { pkg: pkg }))
     .pipe(rename({
       extname: ".min.js"
     }))

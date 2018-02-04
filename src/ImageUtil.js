@@ -9,32 +9,79 @@ phina.namespace(function() {
 
     _static: {
 
+      calcSizePowOf2: function(origWidth, origHeight) {
+        var fitW = origWidth < origHeight;
+        var asp = origWidth / origHeight;
+
+        var width = Math.pow(2, Math.ceil(Math.log2(origWidth)));
+        var height = Math.pow(2, Math.ceil(Math.log2(origHeight)));
+
+        if (fitW) {
+          var h = width / asp;
+          return {
+            srcX: 0,
+            srcY: (height - h) * 0.5,
+            srcWidth: width,
+            srcHeight: h,
+            width: width,
+            height: height,
+          };
+        } else {
+          var w = height * asp;
+          return {
+            srcX: (width - w) * 0.5,
+            srcY: 0,
+            srcWidth: w,
+            srcHeight: height,
+            width: width,
+            height: height,
+          };
+        }
+      },
+
       /**
        * @memberOf phigl.ImageUtil
        */
-      resizePowOf2: function(image, fitH, fitV) {
-        if (typeof(image) == "string") {
-          image = phina.asset.AssetManager.get("image", image).domElement;
+      resizePowOf2: function(options) {
+        options = ({}).$safe(options, {
+          dst: null,
+        });
+
+        var src = options.src;
+        var dst = options.dst || phina.graphics.Canvas();
+        var fitW = src.width < src.height;
+        var asp = src.width / src.height;
+
+        if (typeof(src) == "string") {
+          src = phina.asset.AssetManager.get("image", src);
         }
 
-        if (Math.sqrt(image.width) % 1 === 0 && Math.sqrt(image.height) % 1 === 0) {
-          return image;
+        if (Math.sqrt(src.domElement.width) % 1 === 0 && Math.sqrt(src.domElement.height) % 1 === 0) {
+          return src;
         }
 
-        var width = Math.pow(2, Math.ceil(Math.log2(image.width)));
-        var height = Math.pow(2, Math.ceil(Math.log2(image.height)));
+        dst.clear();
 
-        var canvas = phina.graphics.Canvas().setSize(width, height);
+        var width = Math.pow(2, Math.ceil(Math.log2(src.domElement.width)));
+        var height = Math.pow(2, Math.ceil(Math.log2(src.domElement.height)));
+        dst.domElement.width = width;
+        dst.domElement.height = height;
 
-        var dw = fitH ? width : image.width;
-        var dh = fitV ? height : image.height;
+        if (fitW) {
+          var h = width / asp;
+          dst.context.drawImage(src.domElement,
+            0, 0, src.domElement.width, src.domElement.height,
+            0, (height - h) * 0.5, width, h
+          );
+        } else {
+          var w = height * asp;
+          dst.context.drawImage(src.domElement,
+            0, 0, src.domElement.width, src.domElement.height,
+            (width - w) * 0.5, 0, w, height
+          );
+        }
 
-        canvas.context.drawImage(image,
-          0, 0, image.width, image.height,
-          0, 0, dw, dh
-        );
-
-        return canvas;
+        return dst;
       },
 
     },
