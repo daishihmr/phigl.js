@@ -1437,6 +1437,9 @@ phina.namespace(function() {
       this._type = type;
 
       switch (type) {
+        case gl.BOOL:
+          this._uniformMethod = "uniform1i";
+          break;
         case gl.FLOAT:
           this._uniformMethod = "uniform1f";
           break;
@@ -1490,6 +1493,7 @@ phina.namespace(function() {
       var gl = this.gl;
 
       switch (this._type) {
+        case gl.BOOL:
         case gl.FLOAT:
         case gl.FLOAT_VEC2:
         case gl.FLOAT_VEC3:
