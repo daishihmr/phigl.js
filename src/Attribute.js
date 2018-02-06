@@ -38,6 +38,10 @@ phina.namespace(function() {
 
       this._type = type;
       switch (type) {
+        case gl.BOOL:
+          this.size = 1;
+          this._ptype = gl.BOOL;
+          break;
         case gl.FLOAT:
           this.size = 1;
           this._ptype = gl.FLOAT;

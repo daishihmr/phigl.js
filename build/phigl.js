@@ -38,6 +38,10 @@ phina.namespace(function() {
 
       this._type = type;
       switch (type) {
+        case gl.BOOL:
+          this.size = 1;
+          this._ptype = gl.BOOL;
+          break;
         case gl.FLOAT:
           this.size = 1;
           this._ptype = gl.FLOAT;
@@ -665,7 +669,7 @@ phina.namespace(function() {
     _static: {
 
       calcSizePowOf2: function(origWidth, origHeight) {
-        var fitW = origWidth < origHeight;
+        var fitW = origWidth > origHeight;
         var asp = origWidth / origHeight;
 
         var width = Math.pow(2, Math.ceil(Math.log2(origWidth)));

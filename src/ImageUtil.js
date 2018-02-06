@@ -10,7 +10,7 @@ phina.namespace(function() {
     _static: {
 
       calcSizePowOf2: function(origWidth, origHeight) {
-        var fitW = origWidth < origHeight;
+        var fitW = origWidth > origHeight;
         var asp = origWidth / origHeight;
 
         var width = Math.pow(2, Math.ceil(Math.log2(origWidth)));
