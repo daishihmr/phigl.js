@@ -264,7 +264,10 @@ phina.namespace(function() {
         if (this.indices) this.indices.bind();
         if (this.vbo) this.vbo.bind();
         var stride = this.stride;
-        this.attributes.forEach(function(v, i) { v.specify(stride) });
+        this.attributes.forEach(function(v, i) {
+          v.enable();
+          v.specify(stride);
+        });
       }
 
       this.uniforms.forIn(function(k, v) { v.assign() });
@@ -280,6 +283,9 @@ phina.namespace(function() {
         phigl.Vbo.unbind(gl);
       }
 
+      this.attributes.forEach(function(v, i) {
+        v.disable();
+      });
       this.uniforms.forIn(function(k, v) { v.reassign() });
 
       // console.log("-- end");

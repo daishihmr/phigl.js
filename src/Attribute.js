@@ -34,7 +34,7 @@ phina.namespace(function() {
       if (this._location == -1) {
         throw "attribute " + name + " not found";
       }
-      gl.enableVertexAttribArray(this._location);
+      // this.enable();
 
       this._type = type;
       switch (type) {
@@ -71,6 +71,18 @@ phina.namespace(function() {
       // console.log("attribute", this.name, this._location);
       var gl = this.gl;
       gl.vertexAttribPointer(this._location, this.size, this._ptype, false, stride, this._offset);
+      return this;
+    },
+
+    enable: function() {
+      var gl = this.gl;
+      gl.enableVertexAttribArray(this._location);
+      return this;
+    },
+
+    disable: function() {
+      var gl = this.gl;
+      gl.disableVertexAttribArray(this._location);
       return this;
     },
 

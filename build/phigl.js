@@ -34,7 +34,7 @@ phina.namespace(function() {
       if (this._location == -1) {
         throw "attribute " + name + " not found";
       }
-      gl.enableVertexAttribArray(this._location);
+      // this.enable();
 
       this._type = type;
       switch (type) {
@@ -71,6 +71,18 @@ phina.namespace(function() {
       // console.log("attribute", this.name, this._location);
       var gl = this.gl;
       gl.vertexAttribPointer(this._location, this.size, this._ptype, false, stride, this._offset);
+      return this;
+    },
+
+    enable: function() {
+      var gl = this.gl;
+      gl.enableVertexAttribArray(this._location);
+      return this;
+    },
+
+    disable: function() {
+      var gl = this.gl;
+      gl.disableVertexAttribArray(this._location);
       return this;
     },
 
@@ -371,7 +383,10 @@ phina.namespace(function() {
         if (this.indices) this.indices.bind();
         if (this.vbo) this.vbo.bind();
         var stride = this.stride;
-        this.attributes.forEach(function(v, i) { v.specify(stride) });
+        this.attributes.forEach(function(v, i) {
+          v.enable();
+          v.specify(stride);
+        });
       }
 
       this.uniforms.forIn(function(k, v) { v.assign() });
@@ -387,6 +402,9 @@ phina.namespace(function() {
         phigl.Vbo.unbind(gl);
       }
 
+      this.attributes.forEach(function(v, i) {
+        v.disable();
+      });
       this.uniforms.forIn(function(k, v) { v.reassign() });
 
       // console.log("-- end");
@@ -416,21 +434,12 @@ phina.namespace(function() {
 
     _static: {
 
-      extVao: null,
-      extInstancedArray: null,
-
       getVertexArrayObject: function(gl) {
-        if (this.extVao == null) {
-          this.extVao = this._get(gl, "OES_vertex_array_object");
-        }
-        return this.extVao;
+        return this._get(gl, "OES_vertex_array_object");
       },
 
       getInstancedArrays: function(gl) {
-        if (this.extInstancedArray == null) {
-          this.extInstancedArray = this._get(gl, "ANGLE_instanced_arrays");
-        }
-        return this.extInstancedArray;
+        return this._get(gl, "ANGLE_instanced_arrays");
       },
 
       _get: function(gl, name) {
@@ -841,16 +850,17 @@ phina.namespace(function() {
       this.program.use();
 
       if (this.indices) this.indices.bind();
-
       if (this.vbo) this.vbo.bind();
       var stride = this.stride;
       this.attributes.forEach(function(v, i) {
+        v.enable();
         v.specify(stride);
       });
 
       if (this.instanceVbo) this.instanceVbo.bind();
       var iStride = this.instanceStride;
       this.instanceAttributes.forEach(function(v, i) {
+        v.enable();
         v.specify(iStride);
         ext.vertexAttribDivisorANGLE(v._location, 1);
       });
@@ -861,7 +871,11 @@ phina.namespace(function() {
       this.ext.drawElementsInstancedANGLE(this.drawMode, this.indices.length, gl.UNSIGNED_SHORT, 0, instanceCount);
       this.flare("postdraw");
 
+      this.attributes.forEach(function(v, i) {
+        v.disable();
+      });
       this.instanceAttributes.forEach(function(v, i) {
+        v.disable();
         ext.vertexAttribDivisorANGLE(v._location, 0);
       });
       phigl.Ibo.unbind(gl);
@@ -1076,6 +1090,7 @@ phina.namespace(function() {
       var gl = this.gl;
 
       gl.linkProgram(this._program);
+      gl.validateProgram(this._program);
 
       if (gl.getProgramParameter(this._program, gl.LINK_STATUS)) {
 

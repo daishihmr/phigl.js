@@ -7,21 +7,12 @@ phina.namespace(function() {
 
     _static: {
 
-      extVao: null,
-      extInstancedArray: null,
-
       getVertexArrayObject: function(gl) {
-        if (this.extVao == null) {
-          this.extVao = this._get(gl, "OES_vertex_array_object");
-        }
-        return this.extVao;
+        return this._get(gl, "OES_vertex_array_object");
       },
 
       getInstancedArrays: function(gl) {
-        if (this.extInstancedArray == null) {
-          this.extInstancedArray = this._get(gl, "ANGLE_instanced_arrays");
-        }
-        return this.extInstancedArray;
+        return this._get(gl, "ANGLE_instanced_arrays");
       },
 
       _get: function(gl, name) {

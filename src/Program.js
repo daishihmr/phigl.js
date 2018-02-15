@@ -76,6 +76,7 @@ phina.namespace(function() {
       var gl = this.gl;
 
       gl.linkProgram(this._program);
+      gl.validateProgram(this._program);
 
       if (gl.getProgramParameter(this._program, gl.LINK_STATUS)) {
 

@@ -91,16 +91,17 @@ phina.namespace(function() {
       this.program.use();
 
       if (this.indices) this.indices.bind();
-
       if (this.vbo) this.vbo.bind();
       var stride = this.stride;
       this.attributes.forEach(function(v, i) {
+        v.enable();
         v.specify(stride);
       });
 
       if (this.instanceVbo) this.instanceVbo.bind();
       var iStride = this.instanceStride;
       this.instanceAttributes.forEach(function(v, i) {
+        v.enable();
         v.specify(iStride);
         ext.vertexAttribDivisorANGLE(v._location, 1);
       });
@@ -111,7 +112,11 @@ phina.namespace(function() {
       this.ext.drawElementsInstancedANGLE(this.drawMode, this.indices.length, gl.UNSIGNED_SHORT, 0, instanceCount);
       this.flare("postdraw");
 
+      this.attributes.forEach(function(v, i) {
+        v.disable();
+      });
       this.instanceAttributes.forEach(function(v, i) {
+        v.disable();
         ext.vertexAttribDivisorANGLE(v._location, 0);
       });
       phigl.Ibo.unbind(gl);
