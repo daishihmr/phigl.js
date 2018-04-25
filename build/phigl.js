@@ -477,6 +477,8 @@ phina.namespace(function() {
     _texture: null,
 
     init: function(gl, width, height, options) {
+      options = options || {};
+
       this.gl = gl;
       this.width = width;
       this.height = height;
