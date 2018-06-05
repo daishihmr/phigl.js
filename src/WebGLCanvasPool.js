@@ -5,14 +5,18 @@ phina.namespace(function() {
     _pool: null,
     _actives: null,
 
+    webglParameters: null,
+
     init: function() {
       this._pool = [];
       this._actives = [];
+
+      this.webglParameters = {};
     },
 
     create: function() {
       const canvas = document.createElement("canvas");
-      const gl = canvas.getContext("webgl");
+      const gl = canvas.getContext("webgl", this.webglParameters);
       canvas.webglId = phigl.GL.getId(gl);
       return canvas;
     },
