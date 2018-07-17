@@ -1695,7 +1695,7 @@ phina.namespace(function() {
       if (this._pool.length === 0) {
         const canvas = this.create();
         const self = this;
-        cavnas.relase = function() {
+        canvas.relase = function() {
           self.dispose(this);
         };
         this._pool.push(canvas);
@@ -1707,7 +1707,7 @@ phina.namespace(function() {
     },
 
     dispose: function(canvas) {
-      if (this._actives.indexOf(canvas)) {
+      if (this._actives.contains(canvas)) {
         this._actives.erase(canvas);
         this._pool.push(canvas);
       }
