@@ -37,8 +37,7 @@ phina.namespace(function() {
     },
 
     dispose: function(canvas) {
-      const index = this._actives.indexOf(canvas);
-      if (index != -1) {
+      if (this._actives.contains(canvas)) {
         this._actives.erase(canvas);
         this._pool.push(canvas);
       }
