@@ -36,6 +36,7 @@ var uglify = require("gulp-uglify");
 var rename = require("gulp-rename");
 var fs = require("node-fs-extra");
 require("high");
+var removeLogging = require("gulp-remove-logging");
 var jsdoc = require("gulp-jsdoc3");
 
 var sourceFiles = function(folder) {
@@ -70,7 +71,8 @@ gulp.task("concat", function() {
 gulp.task("uglify", function() {
   gulp.src("./build/phigl.js")
     .pipe(uglify())
-    // .pipe(banner(BANNER, { pkg: pkg }))
+    .pipe(banner(BANNER, { pkg: pkg }))
+    .pipe(removeLogging())
     .pipe(rename({
       extname: ".min.js"
     }))
