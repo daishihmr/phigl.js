@@ -1695,7 +1695,7 @@ phina.namespace(function() {
       if (this._pool.length === 0) {
         const canvas = this.create();
         const self = this;
-        canvas.relase = function() {
+        canvas.release = function() {
           self.dispose(this);
         };
         this._pool.push(canvas);
