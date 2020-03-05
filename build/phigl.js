@@ -459,17 +459,17 @@ phina.namespace(function() {
 phina.namespace(function() {
 
   /**
-   * @constructor phigl.Framebuffer
+   * @constructor phigl.FloatTexFramebuffer
    * @param  {WebGLRenderingContext} gl context
    * @param {number} width
    * @param {number} height
    */
-  phina.define("phigl.Framebuffer", {
+  phina.define("phigl.FloatTexFramebuffer", {
     gl: null,
     
     /**
      * @type {phigl.Texture}
-     * @memberOf phigl.Framebuffer.prototype
+     * @memberOf phigl.FloatTexFramebuffer.prototype
      */
     texture: null,
 
@@ -512,7 +512,7 @@ phina.namespace(function() {
     },
 
     /**
-     * @memberOf phigl.Framebuffer.prototype
+     * @memberOf phigl.FloatTexFramebuffer.prototype
      * @return {this}
      */
     bind: function() {
@@ -524,7 +524,7 @@ phina.namespace(function() {
 
     _static: {
       /**
-       * @memberOf phigl.Framebuffer
+       * @memberOf phigl.FloatTexFramebuffer
        * @param  {WebGLRenderingContext} gl context
        */
       unbind: function(gl) {
