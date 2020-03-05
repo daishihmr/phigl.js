@@ -89,7 +89,14 @@ phina.namespace(function() {
         var uniCount = gl.getProgramParameter(this._program, gl.ACTIVE_UNIFORMS);
         for (var i = 0; i < uniCount; i++) {
           var uni = gl.getActiveUniform(this._program, i);
-          this.getUniform(uni.name, uni.type);
+          if (uni.size > 1) {
+            for (var j = 0; j < uni.size; j++) {
+              var name = uni.name.replace("[0]", "[" + j + "]");
+              this.getUniform(name, uni.type);
+            }
+          } else {
+            this.getUniform(uni.name, uni.type);
+          }
         }
 
         this.linked = true;

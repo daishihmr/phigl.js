@@ -63,7 +63,7 @@ phina.namespace(function() {
       });
 
     var range = 1000;
-    var iv = Array.range(0, 2000).map(function() {
+    var iv = Array.range(0, 10000).map(function() {
       return [
         // instancePosition.x
         Math.randfloat(-range, range),

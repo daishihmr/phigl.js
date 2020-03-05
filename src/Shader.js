@@ -19,12 +19,17 @@ phina.namespace(function() {
      * @memberOf phigl.Shader.prototype
      */
     compiled: false,
+    /**
+     * @memberOf phigl.Shader.prototype
+     */
+    assetType: null,
 
     _shader: null,
 
     init: function() {
       this.superInit();
       this.compiled = false;
+      this.assetType = null;
     },
 
     setSource: function(text) {
@@ -36,6 +41,8 @@ phina.namespace(function() {
      * @memberOf phigl.Shader.prototype
      */
     compile: function(gl) {
+      this._resolveInclude();
+
       this.gl = gl;
 
       this.type = this._type(gl);
@@ -53,6 +60,24 @@ phina.namespace(function() {
       }
     },
 
+    _resolveInclude: function() {
+      const lines = this.data.split(/(\n|\r\n)/);
+      const includes = lines.map((line, index) => {
+        if (line.startsWith("// <include>")) {
+          const name = line.replace("// <include>", "").trim();
+          const code = phina.asset.AssetManager.get(this.assetType, name);
+          if (code == null) {
+            throw `そんなシェーダーないです (${name})`;
+          } else {
+            return code.data;
+          }
+        } else {
+          return line;
+        }
+      });
+      this.data = includes.join("\n");
+    },
+
     _type: function(gl) {
       return 0;
     },
@@ -67,6 +92,7 @@ phina.namespace(function() {
 
     init: function() {
       this.superInit();
+      this.assetType = "vertexShader";
     },
 
     _type: function(gl) {
@@ -89,6 +115,7 @@ phina.namespace(function() {
 
     init: function() {
       this.superInit();
+      this.assetType = "fragmentShader";
     },
 
     _type: function(gl) {

@@ -210,6 +210,7 @@ phina.namespace(function() {
     setProgram: function(program) {
       this.program = program;
       program.use();
+      this.uniforms.$extend(program._uniforms);
       return this;
     },
 
@@ -455,6 +456,85 @@ phina.namespace(function() {
   });
 
 });
+phina.namespace(function() {
+
+  /**
+   * @constructor phigl.Framebuffer
+   * @param  {WebGLRenderingContext} gl context
+   * @param {number} width
+   * @param {number} height
+   */
+  phina.define("phigl.Framebuffer", {
+    gl: null,
+    
+    /**
+     * @type {phigl.Texture}
+     * @memberOf phigl.Framebuffer.prototype
+     */
+    texture: null,
+
+    _framebuffer: null,
+    _depthRenderbuffer: null,
+    _texture: null,
+
+    init: function(gl, width, height, options) {
+      options = options || {};
+
+      this.gl = gl;
+      this.width = width;
+      this.height = height;
+
+      this._framebuffer = gl.createFramebuffer();
+
+      gl.bindFramebuffer(gl.FRAMEBUFFER, this._framebuffer);
+
+      // // depth_stencil
+      // this._depthStencilRenderbuffer = gl.createRenderbuffer();
+      // gl.bindRenderbuffer(gl.RENDERBUFFER, this._depthStencilRenderbuffer);
+      // gl.renderbufferStorage(gl.RENDERBUFFER, gl.DEPTH_STENCIL, width, height);
+      // gl.framebufferRenderbuffer(gl.FRAMEBUFFER, gl.DEPTH_STENCIL_ATTACHMENT, gl.RENDERBUFFER, this._depthStencilRenderbuffer);
+
+      // color
+      this.texture = phigl.Texture(gl);
+      this._texture = this.texture._texture;
+      gl.bindTexture(gl.TEXTURE_2D, this._texture);
+      gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, width, height, 0, gl.RGBA, gl.FLOAT, null);
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, options.magFilter || gl.NEAREST);
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, options.minFilter || gl.NEAREST);
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+      gl.framebufferTexture2D(gl.FRAMEBUFFER, gl.COLOR_ATTACHMENT0, gl.TEXTURE_2D, this._texture, 0);
+
+      // reset
+      gl.bindTexture(gl.TEXTURE_2D, null);
+      gl.bindRenderbuffer(gl.RENDERBUFFER, null);
+      gl.bindFramebuffer(gl.FRAMEBUFFER, null);
+    },
+
+    /**
+     * @memberOf phigl.Framebuffer.prototype
+     * @return {this}
+     */
+    bind: function() {
+      var gl = this.gl;
+      gl.bindFramebuffer(gl.FRAMEBUFFER, this._framebuffer);
+      gl.viewport(0, 0, this.width, this.height);
+      return this;
+    },
+
+    _static: {
+      /**
+       * @memberOf phigl.Framebuffer
+       * @param  {WebGLRenderingContext} gl context
+       */
+      unbind: function(gl) {
+        gl.bindFramebuffer(gl.FRAMEBUFFER, null);
+      },
+    },
+  });
+
+});
+
 phina.namespace(function() {
 
   /**
@@ -1111,7 +1191,14 @@ phina.namespace(function() {
         var uniCount = gl.getProgramParameter(this._program, gl.ACTIVE_UNIFORMS);
         for (var i = 0; i < uniCount; i++) {
           var uni = gl.getActiveUniform(this._program, i);
-          this.getUniform(uni.name, uni.type);
+          if (uni.size > 1) {
+            for (var j = 0; j < uni.size; j++) {
+              var name = uni.name.replace("[0]", "[" + j + "]");
+              this.getUniform(name, uni.type);
+            }
+          } else {
+            this.getUniform(uni.name, uni.type);
+          }
         }
 
         this.linked = true;
@@ -1200,12 +1287,17 @@ phina.namespace(function() {
      * @memberOf phigl.Shader.prototype
      */
     compiled: false,
+    /**
+     * @memberOf phigl.Shader.prototype
+     */
+    assetType: null,
 
     _shader: null,
 
     init: function() {
       this.superInit();
       this.compiled = false;
+      this.assetType = null;
     },
 
     setSource: function(text) {
@@ -1217,6 +1309,8 @@ phina.namespace(function() {
      * @memberOf phigl.Shader.prototype
      */
     compile: function(gl) {
+      this._resolveInclude();
+
       this.gl = gl;
 
       this.type = this._type(gl);
@@ -1234,6 +1328,24 @@ phina.namespace(function() {
       }
     },
 
+    _resolveInclude: function() {
+      const lines = this.data.split(/(\n|\r\n)/);
+      const includes = lines.map((line, index) => {
+        if (line.startsWith("// <include>")) {
+          const name = line.replace("// <include>", "").trim();
+          const code = phina.asset.AssetManager.get(this.assetType, name);
+          if (code == null) {
+            throw `そんなシェーダーないです (${name})`;
+          } else {
+            return code.data;
+          }
+        } else {
+          return line;
+        }
+      });
+      this.data = includes.join("\n");
+    },
+
     _type: function(gl) {
       return 0;
     },
@@ -1248,6 +1360,7 @@ phina.namespace(function() {
 
     init: function() {
       this.superInit();
+      this.assetType = "vertexShader";
     },
 
     _type: function(gl) {
@@ -1270,6 +1383,7 @@ phina.namespace(function() {
 
     init: function() {
       this.superInit();
+      this.assetType = "fragmentShader";
     },
 
     _type: function(gl) {
@@ -1716,5 +1830,4 @@ phina.namespace(function() {
   });
 
 });
-
 //# sourceMappingURL=phigl.js.map

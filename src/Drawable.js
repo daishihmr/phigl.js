@@ -91,6 +91,7 @@ phina.namespace(function() {
     setProgram: function(program) {
       this.program = program;
       program.use();
+      this.uniforms.$extend(program._uniforms);
       return this;
     },
 
