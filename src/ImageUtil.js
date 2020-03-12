@@ -49,13 +49,13 @@ phina.namespace(function() {
         });
 
         var src = options.src;
-        var dst = options.dst || phina.graphics.Canvas();
-        var fitW = src.width < src.height;
-        var asp = src.width / src.height;
-
         if (typeof(src) == "string") {
           src = phina.asset.AssetManager.get("image", src);
         }
+
+        var dst = options.dst || phina.graphics.Canvas();
+        var fitW = src.domElement.width < src.domElement.height;
+        var asp = src.domElement.width / src.domElement.height;
 
         if (Math.sqrt(src.domElement.width) % 1 === 0 && Math.sqrt(src.domElement.height) % 1 === 0) {
           return src;

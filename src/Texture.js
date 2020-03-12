@@ -14,11 +14,11 @@ phina.namespace(function() {
 
     _texture: null,
 
-    init: function(gl, image) {
+    init: function(gl, image, funcSetting) {
       this.gl = gl;
       this._texture = gl.createTexture();
       if (image) {
-        this.setImage(image);
+        this.setImage(image, funcSetting);
       }
     },
 
@@ -32,9 +32,6 @@ phina.namespace(function() {
       if (typeof image === "string") {
         image = phina.asset.AssetManager.get("image", image);
       }
-      gl.bindTexture(gl.TEXTURE_2D, this._texture);
-      gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, image.domElement);
-
       funcSetting = funcSetting || function(gl) {
         gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
         gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
@@ -44,7 +41,9 @@ phina.namespace(function() {
         gl.generateMipmap(gl.TEXTURE_2D);
       };
 
+      gl.bindTexture(gl.TEXTURE_2D, this._texture);
       funcSetting(gl);
+      gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, image.domElement);
 
       gl.bindTexture(gl.TEXTURE_2D, null);
 
