@@ -64,6 +64,16 @@ phina.namespace(function() {
       return this.set(interleavedArray);
     },
 
+    updateInterleavedArray: function(sectionSize, offset, unitSize, data) {
+      for (var i = 0, len = data / unitSize; i < len; i++) {
+        for (var j = 0; j < unitSize; j++) {
+          this.array[i * sectionSize + offset + j] = data[i * unitSize + j];
+        }
+      }
+      this.set(this.array);
+      return this;
+    },
+
     /**
      * @memberOf phigl.Vbo.prototype
      */

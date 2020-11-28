@@ -296,6 +296,7 @@ phina.namespace(function() {
       var gl = this.gl;
       var ext = this.ext;
 
+      this.program.delete();
       if (this.vao) {
         ext.deleteVertexArrayOES(this.vao);
       } else {

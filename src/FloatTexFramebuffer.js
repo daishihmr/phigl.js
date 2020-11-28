@@ -16,7 +16,6 @@ phina.namespace(function() {
     texture: null,
 
     _framebuffer: null,
-    _depthRenderbuffer: null,
     _texture: null,
 
     init: function(gl, width, height, options) {
@@ -62,6 +61,12 @@ phina.namespace(function() {
       gl.bindFramebuffer(gl.FRAMEBUFFER, this._framebuffer);
       gl.viewport(0, 0, this.width, this.height);
       return this;
+    },
+
+    delete: function() {
+      var gl = this.gl;
+      gl.deleteFramebuffer(this._framebuffer);
+      this.texture.delete();
     },
 
     _static: {

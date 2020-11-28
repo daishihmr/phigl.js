@@ -70,6 +70,13 @@ phina.namespace(function() {
       return this;
     },
 
+    delete: function() {
+      var gl = this.gl;
+      gl.deleteFramebuffer(this._framebuffer);
+      gl.deleteRenderbuffer(this._depthStencilRenderbuffer);
+      this.texture.delete();
+    },
+
     _static: {
       /**
        * @memberOf phigl.Framebuffer

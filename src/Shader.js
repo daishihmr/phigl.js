@@ -81,6 +81,10 @@ phina.namespace(function() {
     _type: function(gl) {
       return 0;
     },
+
+    delete: function() {
+      this.gl.deleteShader(this._shader);
+    },
   });
 
   /**
